@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+
 namespace Capstone.Web
 {
     public class MvcApplication : NinjectHttpApplication
@@ -23,7 +24,6 @@ namespace Capstone.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             //BundleConfig.RegisterBundles(BundleTable.Bundles);
-
         }
 
         // Configure the dependency injection container.
