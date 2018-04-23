@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Capstone.Web.DAL.Interfaces
 {
-    interface IBreweryDBS
+    public interface IBreweryDBS
     {
         bool AddNewBrewery(string breweryName);
         bool AddBrewer(string username, string password, bool isBrewer, int breweryID, string email);

@@ -27,7 +27,7 @@ namespace Capstone.Web.DAL
 
         public bool AddNewBrewery(string breweryName)
         {
-            string sql = "INSERT INTO Brewery_Info VALUES (@brewname)";
+            string sql = "INSERT INTO breweries (name) VALUES (@brewname)";
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 conn.Open();

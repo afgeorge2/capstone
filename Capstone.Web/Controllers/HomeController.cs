@@ -11,7 +11,14 @@ namespace Capstone.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IBreweryDBS brew;
+        private IBreweryDBS _brew;
+
+        public HomeController(IBreweryDBS brew)
+        {
+            _brew = brew;
+        }
+
+
 
         // GET: Home
         public ActionResult Index()
@@ -37,7 +44,7 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddBrewery(string breweryName)
         {
-            brew.AddNewBrewery(breweryName);
+            _brew.AddNewBrewery(breweryName);
 
             return View();
         }
