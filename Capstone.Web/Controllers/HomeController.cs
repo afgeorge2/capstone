@@ -19,9 +19,11 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult UserLogin(string userName, string password)
         {
-            User thisGuy = new User();
 
-            return View("Index", thisGuy); 
+            UserDAL DAL = new UserDAL();
+            User thisGuy = DAL.GetUser(userName, password);
+
+            return View("Index", thisGuy);
         }
     }
 }

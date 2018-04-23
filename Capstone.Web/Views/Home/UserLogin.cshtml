@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+@model Capstone.Web.Models.User
 
 <!DOCTYPE html>
 
@@ -12,13 +13,20 @@
 <body>
     <div>
         <h1>User Login</h1>
-        <div id="login">
-            <form method="post" action="">
-                <input type="text" name="username" required/>
-                <input type="text" name="password" required />
-            </form>
+        @using (Html.BeginForm("LoginUser", "Home", FormMethod.Post))
+    {
+        <div>
+            @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "email" })
+            @Html.ValidationMessageFor(m => m.EmailAddress)
         </div>
-    
+        <div>
+            @Html.PasswordFor(m => m.Password, new { placeholder = "password" })
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        <button>Login</button>
+}
+
+
     </div>
 </body>
 </html>
