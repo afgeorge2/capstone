@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,14 @@ namespace Capstone.Web.Controllers
         public ActionResult Index()
         {
             return View("Index");
+        }
+
+        [HttpPost]
+        public ActionResult UserLogin(string userName, string password)
+        {
+            User thisGuy = new User();
+
+            return View("Index", thisGuy); 
         }
     }
 }
