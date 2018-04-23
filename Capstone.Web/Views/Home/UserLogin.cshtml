@@ -13,7 +13,7 @@
 <body>
     <div>
         <h1>User Login</h1>
-        @using (Html.BeginForm("LoginUser", "Home", FormMethod.Post))
+        @using (Html.BeginForm("LoginUser", "User", FormMethod.Post))
     {
         <div>
             @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "email" })

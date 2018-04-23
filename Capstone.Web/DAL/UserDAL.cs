@@ -12,7 +12,7 @@ namespace Capstone.Web
     {//88888888888888888888888888888 BE SURE TO ADD THE NAMES OF THESE METHODS TO THE INTERFACE IUSERDAL***********************************************************************
         private string connectionString;
 
-        public SurveyDAL(string connectionString)
+        public UserDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
