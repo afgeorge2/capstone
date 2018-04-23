@@ -12,7 +12,7 @@ namespace Capstone.Web
     {
         private string connectionString;
 
-        public SurveyDAL(string connectionString)
+        public UserDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
@@ -34,7 +34,27 @@ namespace Capstone.Web
             return thisUser;
         }
 
-        private User MapUserFromReader(SqlDataReader reader)
+        
+            public bool Registration(User user)
+            {
+                bool IsSuccessful = false;
+                const string registration = @"Insert into user_info(username, password, email_address) Values('@username', ' @password', '@email_address')";
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(registration, conn);
+                    cmd.Parameters.AddWithValue("@username", user.UserName);
+                    cmd.Parameters.AddWithValue("@password", user.Password);
+                    cmd.Parameters.AddWithValue("@email_address", user.EmailAddress);
+
+
+                    IsSuccessful = (cmd.ExecuteNonQuery() > 0);
+                }
+
+                return IsSuccessful;
+            }
+
+            private User MapUserFromReader(SqlDataReader reader)
         {//Be certain to check that the names read by the reader correlate with the column names in SQL!!**************************************************************************************
             User thisUser = new User()
             {

@@ -9,12 +9,15 @@ namespace Capstone.Web.Controllers
 {
     public class HomeController : Controller
     {
+        
 
         // GET: Home
         public ActionResult Index()
         {
             return View("Index");
         }
+       
+        
 
         [HttpPost]
         public ActionResult UserLogin(string userName, string password)
@@ -22,6 +25,13 @@ namespace Capstone.Web.Controllers
             User thisGuy = new User();
 
             return View("Index", thisGuy); 
+        }
+
+        public ActionResult UserRegistration(User reg)
+        {
+          
+
+            return RedirectToAction("Index");
         }
     }
 }
