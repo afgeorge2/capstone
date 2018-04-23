@@ -9,11 +9,8 @@ using Capstone.Web.Models;
 namespace Capstone.Web
 {
     public class UserDAL : IUserDAL
-    {
+    {//88888888888888888888888888888 BE SURE TO ADD THE NAMES OF THESE METHODS TO THE INTERFACE IUSERDAL***********************************************************************
         private string connectionString;
-
-       
-
 
         public UserDAL(string connectionString)
         {
@@ -30,9 +27,15 @@ namespace Capstone.Web
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sqlGetOne, conn);
+                cmd.Parameters.AddWithValue("@userName", username);
+                cmd.Parameters.AddWithValue("@passWord", password);
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    thisUser = MapUserFromReader(reader);
+                }            
             }
-
-
 
             return thisUser;
         }

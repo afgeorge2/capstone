@@ -8,7 +8,8 @@ namespace Capstone.Web.DAL.Interfaces
 {
     public interface IBreweryDBS
     {
-        bool AddNewBrewery(string breweryName);
-        bool AddBrewer(string username, string password, bool isBrewer, int breweryID, string email);
+        int AddNewBrewery(string breweryName);
+        bool AddNewBrewer(string username, string password, bool isBrewer, int breweryID, string email);
+        bool LinkBrewerToBrewery(int userID, int breweryID);
     }
 }

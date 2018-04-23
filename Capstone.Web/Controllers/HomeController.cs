@@ -41,10 +41,22 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
+
+
+
         [HttpPost]
         public ActionResult AddBrewery(string breweryName)
         {
             _brew.AddNewBrewery(breweryName);
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult LinkUserBrewery(int userID, int brewID)
+        {
+            _brew.LinkBrewerToBrewery(userID, brewID);
 
             return View();
         }
