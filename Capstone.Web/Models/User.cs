@@ -10,7 +10,7 @@ namespace Capstone.Web.Models
         //These are the properties of each user
 
         public string UserName { get; set; }
-        protected string Password { get; set; }
+        public string Password { get; set; }
         public bool IsBrewer { get; set; }
         public int BreweryId { get; set; }
         public bool IsAdmin { get; set; }
