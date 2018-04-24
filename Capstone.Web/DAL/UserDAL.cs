@@ -26,7 +26,12 @@ namespace Capstone.Web
             User thisUser = new User();
 
             string sqlGetOne = "Select * from users WHERE users.username = @userName AND users.password = @passWord;";
+
+             
+            //using (SqlConnection conn = new SqlConnection(connectionString))
+
             try
+
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -53,7 +58,7 @@ namespace Capstone.Web
             public bool UserRegistration(User user)
             {
                 bool IsSuccessful = false;
-                const string sqlregistration = @"Insert into user_info(username, password, email_address) Values('@username', ' @passWord', '@email_address')";
+                const string sqlregistration = @"Insert into user_info(username, password, email_address) Values(@username, @passWord, @email_address)";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();

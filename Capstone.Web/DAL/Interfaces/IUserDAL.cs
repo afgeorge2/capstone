@@ -9,7 +9,10 @@ namespace Capstone.Web.DAL.Interfaces
 {
     interface IUserDAL
     {
+
+        bool UserRegistration(User user);
+
         User GetUser(string username, string password);
-        bool UserRegistration(string username, string password,string email);
+
     }
 }
