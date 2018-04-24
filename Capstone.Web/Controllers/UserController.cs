@@ -1,20 +1,22 @@
 ﻿using Capstone.Web.DAL.Interfaces;
 using Capstone.Web.Models;
+using Capstone.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Capstone.Web.Controllers
 {
-    public class UserDAL : Controller
+    public class UserController : Controller
     {
-        private readonly string connectionString;
+        private readonly IUserDAL _userDAL;
 
-        public UserDAL(string connectionString)
+        public UserController(IUserDAL userDAL)
         {
-            this.connectionString = connectionString;
+            _userDAL = userDAL;
         }
 
         // GET: User
@@ -32,17 +34,28 @@ namespace Capstone.Web.Controllers
         // GET: User/Login
         public ActionResult Login()
         {
-            return View("UserLogin");
+            return View("Login");
         }
 
         [HttpPost]
-        public ActionResult UserLogin(string email)
+        public ActionResult Login(LoginViewModel model)
         {
-            Web.UserDAL dal = new Web.UserDAL();
 
-            User thisGuy = dal.GetUser(email);
+            User thisGuy = _userDAL.GetUser(model.EmailAddress);
+            Session["BreweryId"] = thisGuy.BreweryId;
 
-            return View("Index", thisGuy);
+            if(model.Password == thisGuy.Password)
+            {
+                FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
+                Session[SessionKey.Email] = thisGuy.EmailAddress;
+                Session[SessionKey.UserID] = thisGuy.UserName;
+                return View("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Login", "User");
+            }
+            
         }
     }
 }
