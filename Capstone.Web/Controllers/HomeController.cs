@@ -34,15 +34,6 @@ namespace Capstone.Web.Controllers
             return View("Index", thisGuy); 
         }
 
-      
-        [HttpPost]
-        public ActionResult AddUser (string email, string username, string password)
-        {
-           
-        }
-
-
-
         public ActionResult AddBrewery()
         {
             return View();
