@@ -100,5 +100,30 @@ namespace Capstone.Web.DAL
             return thisUser;
         }
 
+
+
+        public bool AddNewBeer(Beer newBeer)
+        {
+            //add image later
+            string SQL_AddSurvey = "Insert into beers (name, description, abv, beer_type, brewery_id) Values(@name, @description, @abv, @beertype, @breweryid);";
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(SQL_AddSurvey, conn);
+                cmd.Parameters.Add(new SqlParameter("@name", newBeer.Name));
+                cmd.Parameters.Add(new SqlParameter("@description", newBeer.Description));
+                //cmd.Parameters.Add(new SqlParameter("@image", newBeer.Image));
+                cmd.Parameters.Add(new SqlParameter("@abv", newBeer.AlcoholbyVolume));
+                cmd.Parameters.Add(new SqlParameter("@beertype", newBeer.BeerType));
+                cmd.Parameters.Add(new SqlParameter("@breweryid", newBeer.BreweryId));
+                cmd.ExecuteNonQuery();
+
+            }
+
+            return true;
+        }
+
     }
 }
