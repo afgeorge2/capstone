@@ -10,7 +10,7 @@ using Dapper;
 namespace Capstone.Web
 {
     public class UserDAL : IUserDAL
-    {//88888888888888888888888888888 BE SURE TO ADD THE NAMES OF THESE METHODS TO THE INTERFACE IUSERDAL***********************************************************************
+    {
         private string connectionString;
 
         public UserDAL()

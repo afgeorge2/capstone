@@ -175,7 +175,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\AddBrewery.cshtml" />
-    <Content Include="Views\User\UserLogin.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\AddBeer.cshtml" />
     <Content Include="Views\Home\BreweryInformation.cshtml" />
