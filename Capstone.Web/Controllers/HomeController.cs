@@ -27,7 +27,16 @@ namespace Capstone.Web.Controllers
 
         #endregion
 
+        #region --- Home Page (INDEX) ---
 
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+
+        #endregion
 
 
         #region --- Brewery Actions ---

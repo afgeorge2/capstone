@@ -14,14 +14,56 @@
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-
     <script src="~/Scripts/bootstrap.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/Content/Materialize/css/materialize.css" rel="stylesheet" />
+
+
+
+    <style>
+        .beerback {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .beerback {
+            background-image: url('../../Photos/beerback3.jpg');
+            min-height: 100%;
+        }
+        #layoutnav {
+            background-color: #a7a7a7ad;
+        }
+        .mroonbtn {
+            background-color: #b35858;
+        }
+        .mroonbtn:hover, .mroonbtn:active, .mroonbtn:focus, .btn-outline-success.active {
+            background-color: #ff9e3d !important;
+            border-color: #ff9e3d;
+        }
+    </style>
+
 </head>
-<body>
+
+
+<body class="beerback">
+    <nav id="layoutnav">
+        <div class="nav-wrapper">
+            <a class="waves-effect waves-light ml-3 btn mroonbtn">home</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a class="waves-effect waves-light btn mroonbtn">Button</a></li>
+                <li><a class="waves-effect waves-light btn mroonbtn">Button </a></li>
+                <li><a class="waves-effect waves-light btn mroonbtn">Other Button</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
     <div>
         <div>
             @RenderBody()
         </div>
     </div>
+    <script src="~/Content/Materialize/js/materialize.js"></script>
 </body>
 </html>
