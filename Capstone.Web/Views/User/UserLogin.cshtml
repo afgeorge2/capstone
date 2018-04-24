@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = null;
+    Layout ="~/Views/_ViewStart.cshtml";
 }
 @model Capstone.Web.Models.User
 
@@ -11,7 +11,7 @@
     <title></title>
 </head>
 <body>
-    <div>
+    <div class="flex-column">
         <h1>User Login</h1>
         @using (Html.BeginForm("LoginUser", "User", FormMethod.Post))
     {
