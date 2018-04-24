@@ -110,7 +110,7 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddBeer(Beer b)
         {
-
+            
             _brew.AddNewBeer(b);
 
             return Redirect("BreweryInformation");
@@ -118,7 +118,22 @@ namespace Capstone.Web.Controllers
 
         #endregion
 
+        public ActionResult UserRegistration()
+        {
+            return View("UserRegistration");
+        }
 
+        [HttpPost]
+        public ActionResult UserRegistration(string username, string password, string email)
+        {
+            User newUser = new User();
+            newUser.UserName = username;
+            newUser.Password = password;
+            newUser.EmailAddress = email;
+            _brew.UserRegistration(newUser);
+            SessionKey.Email = newUser.EmailAddress;
+            return View("Index", newUser);
+        }
 
 
 
