@@ -74,12 +74,13 @@ namespace Capstone.Web
         {//Be certain to check that the names read by the reader correlate with the column names in SQL!!**************************************************************************************
             User thisUser = new User()
             {
+                EmailAddress = Convert.ToString(reader["email"]),
                 UserName = Convert.ToString(reader["username"]),
                 Password = Convert.ToString(reader["password"]),
                 IsBrewer = Convert.ToBoolean(reader["is_brewer"]),
-                IsAdmin = Convert.ToBoolean(reader["is_admin"]),
-                EmailAddress = Convert.ToString(reader["email_address"]),
-                BreweryId = Convert.ToInt32(reader["brewery_id"])
+                BreweryId = Convert.ToInt32(reader["brewery_id"]),
+                IsAdmin = Convert.ToBoolean(reader["is_admin"])
+                
             };
             return thisUser;
         }
