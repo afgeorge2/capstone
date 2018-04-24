@@ -44,13 +44,13 @@ namespace Capstone.Web
             public bool Registration(User user)
             {
                 bool IsSuccessful = false;
-                const string registration = @"Insert into user_info(username, password, email_address) Values('@username', ' @password', '@email_address')";
+                const string sqlregistration = @"Insert into user_info(username, password, email_address) Values('@username', ' @passWord', '@email_address')";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand(registration, conn);
-                    cmd.Parameters.AddWithValue("@username", user.UserName);
-                    cmd.Parameters.AddWithValue("@password", user.Password);
+                    SqlCommand cmd = new SqlCommand(sqlregistration, conn);
+                    cmd.Parameters.AddWithValue("@userName", user.UserName);
+                    cmd.Parameters.AddWithValue("@passWord", user.Password);
                     cmd.Parameters.AddWithValue("@email_address", user.EmailAddress);
 
 
