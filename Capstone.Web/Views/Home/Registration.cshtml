@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+}
+@model Capstone.Web.Models.User
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/bootstrap.css" />
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<style>
+
+
+
+</style>
+<body>
+    <h1>Registration</h1>
+             <div class="container-fluid">
+                 <div class="col-lg-6">
+                     <div>
+                         @Html.TextBoxFor(m => m.UserName, new { placeholder = "username" })
+                         @Html.ValidationMessageFor(m => m.UserName)
+                     </div>
+                     <div class="padding">
+                         @Html.PasswordFor(m => m.Password, new { placeholder = "password" })
+                         @Html.ValidationMessageFor(m => m.Password)
+                     </div>
+                     <div class="padding">
+                         @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "email" })
+                         @Html.ValidationMessageFor(m => m.Password)
+                     </div>
+                     <button class="btn btn-primary" type="submit">Submit</button>
+                 </div>
+        </div>
+
+
+</body>
+</html>
+ 
