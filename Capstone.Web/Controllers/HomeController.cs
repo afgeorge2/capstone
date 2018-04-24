@@ -82,7 +82,21 @@ namespace Capstone.Web.Controllers
             return Json(breweries, JsonRequestBehavior.AllowGet);
         }
 
-        
+        //add beer
+        public ActionResult AddBeer()
+        {
+            return View();
+        }
+
+        //add beer post
+        [HttpPost]
+        public ActionResult AddBeer(Beer b)
+        {
+
+            _brew.AddNewBeer(b);
+
+            return Redirect("BreweryInformation");
+        }
 
     }
 }
