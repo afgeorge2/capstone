@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Capstone.Web.Controllers
 {
-    public class UserController : Controller
+    public class UserDAL : Controller
     {
         private IUserDAL dal;
 
@@ -18,7 +18,7 @@ namespace Capstone.Web.Controllers
         // GET: User
         public ActionResult Index()
         {
-            if (Session[SessionKeys.] == null)
+            if (Session[SessionKey.Email] == null)
             {
                 return RedirectToAction("Login");
             }
@@ -34,11 +34,11 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserLogin(string userName, string password)
+        public ActionResult UserLogin(string email)
         {
-            //UserDAL dal = new UserDAL();
+            Web.UserDAL dal = new Web.UserDAL();
 
-            User thisGuy = dal.GetUser(userName, password);
+            User thisGuy = dal.GetUser(email);
 
             return View("Index", thisGuy);
         }

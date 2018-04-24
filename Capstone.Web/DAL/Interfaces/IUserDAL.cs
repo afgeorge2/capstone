@@ -14,5 +14,6 @@ namespace Capstone.Web.DAL.Interfaces
 
         User GetUser(string username, string password);
 
+        User GetUser(string email);
     }
 }

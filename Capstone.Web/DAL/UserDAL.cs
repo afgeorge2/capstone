@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Capstone.Web.DAL.Interfaces;
 using Capstone.Web.Models;
+using Dapper;
 
 namespace Capstone.Web
 {
@@ -21,31 +22,45 @@ namespace Capstone.Web
             this.connectionString = connectionString;
         }
 
-        public User GetUser(string username, string password)
+        //public User GetUser(string username)
+        //{
+        //    User thisUser = new User();
+
+        //    string sqlGetOne = "Select * from users WHERE users.username = @userName;";
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            conn.Open();
+        //            SqlCommand cmd = new SqlCommand(sqlGetOne, conn);
+        //            cmd.Parameters.AddWithValue("@userName", username);
+
+        //            var reader = cmd.ExecuteReader();
+
+        //            while (reader.Read())
+        //            {
+        //                thisUser = MapUserFromReader(reader);
+        //            }
+        //            return thisUser;
+        //        }
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw;
+        //    }
+        //}
+
+
+        public User GetUser(string email)
         {
-            User thisUser = new User();
-
-            string sqlGetOne = "Select * from users WHERE users.username = @userName AND users.password = @passWord;";
-
-             
-            //using (SqlConnection conn = new SqlConnection(connectionString))
-
             try
 
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand(sqlGetOne, conn);
-                    cmd.Parameters.AddWithValue("@userName", username);
-                    cmd.Parameters.AddWithValue("@passWord", password);
-                    var reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        thisUser = MapUserFromReader(reader);
-                    }
-                    return thisUser;
+                    User result = conn.QueryFirstOrDefault<User>("SELECT * FROM users WHERE email = @emailValue", new { emailValue = email });
+                    return result;
                 }
             }
             catch (SqlException ex)
