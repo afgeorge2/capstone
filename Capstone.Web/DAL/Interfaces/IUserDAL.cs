@@ -8,6 +8,6 @@ namespace Capstone.Web.DAL.Interfaces
 {
     interface IUserDAL
     {
-
+        bool UserRegistration(string username, string password,string email);
     }
 }
