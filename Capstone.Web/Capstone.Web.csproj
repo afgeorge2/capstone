@@ -179,6 +179,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\AddBeer.cshtml" />
     <Content Include="Views\Home\BreweryInformation.cshtml" />
+    <Content Include="Views\User\UserRegistration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

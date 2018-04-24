@@ -39,8 +39,6 @@ namespace Capstone.Web.Controllers
             return View("Index", thisGuy); 
         }
 
-
-
         public ActionResult AddBrewery()
         {
             //BrewerBrewery model = new BrewerBrewery();

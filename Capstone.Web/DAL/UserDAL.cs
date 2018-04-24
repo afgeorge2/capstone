@@ -54,6 +54,7 @@ namespace Capstone.Web
         public User GetUser(string email)
         {
             try
+
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -68,9 +69,27 @@ namespace Capstone.Web
             }
         }
 
+        
+            public bool UserRegistration(User user)
+            {
+                bool IsSuccessful = false;
+                const string sqlregistration = @"Insert into user_info(username, password, email_address) Values(@username, @passWord, @email_address)";
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sqlregistration, conn);
+                    cmd.Parameters.AddWithValue("@userName", user.UserName);
+                    cmd.Parameters.AddWithValue("@passWord", user.Password);
+                    cmd.Parameters.AddWithValue("@email_address", user.EmailAddress);
 
 
-        private User MapUserFromReader(SqlDataReader reader)
+                    IsSuccessful = (cmd.ExecuteNonQuery() > 0);
+                }
+
+                return IsSuccessful;
+            }
+
+            private User MapUserFromReader(SqlDataReader reader)
         {//Be certain to check that the names read by the reader correlate with the column names in SQL!!**************************************************************************************
             User thisUser = new User()
             {
