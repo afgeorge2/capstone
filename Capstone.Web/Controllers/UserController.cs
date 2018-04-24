@@ -8,12 +8,14 @@ using System.Web.Mvc;
 
 namespace Capstone.Web.Controllers
 {
-    public class UserDAL : Controller
+    public class UserController : Controller
     {
-        private IUserDAL dal;
+        private readonly IUserDAL _userDAL;
 
-
-        public object SessionKeys { get; private set; }
+        public UserController(IUserDAL userDAL)
+        {
+            _userDAL = userDAL;
+        }
 
         // GET: User
         public ActionResult Index()
@@ -40,20 +42,9 @@ namespace Capstone.Web.Controllers
 
             User thisGuy = dal.GetUser(email);
 
-            return View("Index", thisGuy);
-        }
-        [HttpPost]
-        public ActionResult AddUser(string username, string password, string email)
-        {
-            //UserDAL dal = new UserDAL();
-            User user = new User();
-            user.EmailAddress = email;
-            user.UserName = username;
-            user.Password = password;
-            dal.UserRegistration(user);
-            return View("Index");
+            SessionKey.Email = thisGuy.EmailAddress;
 
-            
+            return View("Index", thisGuy);
         }
     }
 }
