@@ -1,6 +1,7 @@
 ﻿using Capstone.Web.DAL;
 using Capstone.Web.DAL.Interfaces;
 using Capstone.Web.Models;
+using Capstone.Web.Models.Viewmodel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,26 +43,38 @@ namespace Capstone.Web.Controllers
 
         public ActionResult AddBrewery()
         {
-            return View();
+            //BrewerBrewery model = new BrewerBrewery();
+            return View("AddBrewery");
         }
 
         [HttpPost]
-        public ActionResult AddBreweryNewUser(string breweryName, string username, string Email, string Password)
+        public ActionResult AddBreweryNewUser(BrewerBrewery m, int? brewID)
         {
-            int breweryID = _brew.AddNewBrewery(breweryName);
+            if (m.BreweryName!=null)
+            {
+                m.BreweryID = _brew.AddNewBrewery(m.BreweryName);
+            }
 
-            _brew.AddNewBrewer(username, Password, true, breweryID, Email);
+
+            if (!ModelState.IsValid)
+            {
+                return View("AddBrewery", m);
+            }
+
+            _brew.AddNewBrewer(m.UserName, m.Password, true, m.BreweryID, m.EmailAddress);
 
             return Redirect(Request.UrlReferrer.ToString());
         }
 
         [HttpPost]
-        public ActionResult AddUserExistingBrewery(string username, int brewID, string Email, string Password)
+        public ActionResult AddUserExistingBrewery(BrewerBrewery m)
         {
-            _brew.AddNewBrewer(username, Password, true, brewID, Email);
+
+            _brew.AddNewBrewer(m.UserName, m.Password, true, m.BreweryID, m.EmailAddress);
 
             return Redirect(Request.UrlReferrer.ToString());
         }
+
 
         [HttpGet]
         public ActionResult GetAllBreweries()
