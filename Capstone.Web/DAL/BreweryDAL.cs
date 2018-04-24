@@ -12,6 +12,7 @@ namespace Capstone.Web.DAL
     {
 
         private const string _getLastIdSQL = " SELECT CAST(SCOPE_IDENTITY() as int);";
+
         string _connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=Brewery;Integrated Security=True";
 
         public BreweryDAL()
@@ -60,7 +61,10 @@ namespace Capstone.Web.DAL
 
         public bool AddNewBrewer(string username, string password, bool isBrewer, int breweryID, string email)
         {
-            string sql = "INSERT INTO user_info (@username, @password, @isBrewer, @breweryID, @email)";
+
+            
+
+            string sql = "INSERT INTO users values (@email, @username, @password, @isBrewer, @breweryID, @admin)";
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 conn.Open();
@@ -70,6 +74,7 @@ namespace Capstone.Web.DAL
                 cmd.Parameters.AddWithValue("@isBrewer", isBrewer);
                 cmd.Parameters.AddWithValue("@breweryID", breweryID);
                 cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@admin", false);
                 int brewID = (int)cmd.ExecuteScalar();
 
             }
@@ -80,22 +85,36 @@ namespace Capstone.Web.DAL
 
 
 
+        public List<Brewery> GetAllBrewerys()
+        {
+            string sql = "Select * from breweries";
+            List<Brewery> brews = new List<Brewery>();
 
-
-
-
-
-
-        private User MapUserFromReader(SqlDataReader reader)
-        {//Be certain to check that the names read by the reader correlate with the column names in SQL!!**************************************************************************************
-            User thisUser = new User()
+            using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                UserName = Convert.ToString(reader["username"]),
-                Password = Convert.ToString(reader["password"]),
-                IsBrewer = Convert.ToBoolean(reader["is_brewer"]),
-                IsAdmin = Convert.ToBoolean(reader["is_admin"]),
-                EmailAddress = Convert.ToString(reader["email_address"]),
-                BreweryId = Convert.ToInt32(reader["brewery_id"])
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    brews.Add(GetBrewery(reader));
+                }
+
+            }
+            return brews;
+
+        }
+
+
+
+
+
+        private Brewery GetBrewery(SqlDataReader reader)
+        {//Be certain to check that the names read by the reader correlate with the column names in SQL!!**************************************************************************************
+            Brewery thisUser = new Brewery()
+            {
+                BreweryName = Convert.ToString(reader["name"]),
+                BreweryID = Convert.ToInt32(reader["id"])
             };
             return thisUser;
         }

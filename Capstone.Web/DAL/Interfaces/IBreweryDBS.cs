@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace Capstone.Web.DAL.Interfaces
         int AddNewBrewery(string breweryName);
         bool AddNewBrewer(string username, string password, bool isBrewer, int breweryID, string email);
         bool LinkBrewerToBrewery(int userID, int breweryID);
+        List<Brewery> GetAllBrewerys();
     }
 }

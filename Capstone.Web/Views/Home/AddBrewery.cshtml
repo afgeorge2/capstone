@@ -1,36 +1,182 @@
 ﻿
 
-
-
-
-
-<form>
-    <div class="jumbotron w-50 mx-auto mt-5">
-        <h1>Add New Brewery</h1>
-        <div class="form-group">
-            <label for="breweryname">Brewery Name:</label>
-            <input type="text" class="form-control col-6" id="breweryname">
+<div class="container">
+    <div class="container mx-auto mt-5" style="text-align:center;">
+        <div class="btn-group " data-toggle="buttons">
+            <label id="one" class="btn btn-outline-primary">
+                <input type="radio" name="options" id="newbrew" checked="checked" autocomplete="off"> Add New Brewery
+            </label>
+            <label id="two" class="btn btn-outline-primary">
+                <input type="radio" name="options" id="brew" autocomplete="off"> Add Brewer to Brewery
+            </label>
         </div>
-        <div class="form-group">
-            <label for="breweryname">Brewery Name:</label>
-            <input type="text" class="form-control col-6" id="breweryname">
-        </div>
-        <div class="form-group">
-            <label for="breweryname">Brewery Name:</label>
-            <input type="text" class="form-control col-6" id="breweryname">
-        </div>
-
-
-
-
-
     </div>
+
+
+    <form id="newBrewery" method="post" action="@Url.Action("AddBreweryNewUser","Home")">
+        <div class="jumbotron w-75 pt-3 mx-auto mt-5">
+            <h1 style="text-align:center;" class="mb-5">Add New Brewery</h1>
+
+            <div class="form-group row">
+                <label for="breweryname" class="col-3 col-form-label">Brewery Name:</label>
+                <div class="col-8">
+                    <input class="form-control" type="text" name="breweryName" id="breweryname">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Username" class="col-3 col-form-label">Username:</label>
+                <div class="col-8">
+                    <input class="form-control" type="text" name="Username" id="Username">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Email" class="col-3 col-form-label">Email:</label>
+                <div class="col-8">
+                    <input class="form-control" type="email" name="Email" id="Email">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Password" class="col-3 col-form-label">Password:</label>
+                <div class="col-8">
+                    <input class="form-control" type="text" name="Password" id="Password">
+                </div>
+            </div>
+
+
+
+        </div>
+            <button id="newbrewsubmit" type="submit" class="btn btn-block btn-success btn-lg">Large button</button>
     </form>
 
 
 
-    @*   int AddNewBrewery(string breweryName);
 
-        bool AddNewBrewer(string username, string password, bool isBrewer, int breweryID, string email);
 
-        bool LinkBrewerToBrewery(int userID, int breweryID);  *@
+    <form id="exisitingBrewery" method="post" action="@Url.Action("AddUserExistingBrewery","Home")">
+
+        <div class="jumbotron w-75 pt-3 mx-auto mt-5">
+
+            <h1 style="text-align:center;" class="mb-5">Add Brewer to Brewery</h1>
+
+            <div id="brewdropdown" class="form-group row">
+                <label for="Password" class="col-3 col-form-label">Breweries:</label>
+                <div class="col-8">
+                    <select name="brewID" class="form-control" id="breweryDD"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Username" class="col-3 col-form-label">Username:</label>
+                <div class="col-8">
+                    <input class="form-control" type="text" name="Username" id="Username">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Email" class="col-3 col-form-label">Email:</label>
+                <div class="col-8">
+                    <input class="form-control" type="email" name="Email" id="Email">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Password" class="col-3 col-form-label">Password:</label>
+                <div class="col-8">
+                    <input class="form-control" type="text" name="Password" id="Password">
+                </div>
+            </div>
+
+        </div>
+
+        <button id="existbrewsubmit" type="submit" class="btn btn-block btn-success btn-lg">Large button</button>
+
+    </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    $("#radio_1").prop("checked", true);
+    $("#newBrewery").show();
+    $("#exisitingBrewery").hide();
+
+    $("#one").on("click", function () {
+        $("#newBrewery").show();
+        $("#exisitingBrewery").hide();
+    })
+
+    $("#two").on("click", function () {
+        $("#exisitingBrewery").show();
+        $("#newBrewery").hide();
+    })
+
+
+
+
+
+    $(function () {
+        $.ajax({
+            url: "/Home/GetAllBreweries",
+            method: "GET",
+            dataType: "json"
+        }).done(function (result) {
+            console.log(result)
+
+            $("#breweryDD").empty();
+
+            var select = `<option disabled selected>Select a Brewery</option>`
+            $("#breweryDD").append(select);
+
+            for (var i = 0; i < result.length; i++) {
+                var r = result[i];
+
+                var html = `<option value=${r.BreweryID}>${r.BreweryName}</option>`;
+                $("#breweryDD").append(html);
+            }
+        })
+    })
+
+
+    
+    $("#newbrewsubmit").click(function () {
+        $.ajax({
+            url: `/Home/AddBreweryNewUser?breweryName=${breweryName}&username=${username}&Email=${Email}&Passowrd=${Passowrd}`,
+            method: "POST",
+            dataType: "json"
+        })
+
+    })
+
+   
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+@*   int AddNewBrewery(string breweryName);
+
+    bool AddNewBrewer(string username, string password, bool isBrewer, int breweryID, string email);
+
+    bool LinkBrewerToBrewery(int userID, int breweryID);  *@
