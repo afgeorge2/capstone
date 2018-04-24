@@ -78,15 +78,14 @@ namespace Capstone.Web.Controllers
         }
 
         //add beer post
-        //[HttpPost]
-        //public ActionResult AddBeer(string Name, string BeerType, string AlcoholByVolume, string Description)
-        //{
-        //    int breweryID = _brew.AddNewBrewery(breweryName);
+        [HttpPost]
+        public ActionResult AddBeer(Beer b)
+        {
 
-        //    _brew.AddNewBeer(username, Password, true, breweryID, Email);
+            _brew.AddNewBeer(b);
 
-        //    return Redirect("BreweryInformation");
-        //}
+            return Redirect("BreweryInformation");
+        }
 
     }
 }
