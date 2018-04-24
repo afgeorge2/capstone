@@ -1,4 +1,5 @@
-﻿using Capstone.Web.Models;
+﻿using Capstone.Web.DAL.Interfaces;
+using Capstone.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,19 @@ using System.Web.Mvc;
 
 namespace Capstone.Web.Controllers
 {
-    public class UserController : Controller
+    public class UserDAL : Controller
     {
-        public object SessionKeys { get; private set; }
+        private readonly string connectionString;
+
+        public UserDAL(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
 
         // GET: User
         public ActionResult Index()
         {
-            if (Session[SessionKeys.] == null)
+            if (Session[SessionKey.Email] == null)
             {
                 return RedirectToAction("Login");
             }
@@ -30,11 +36,11 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserLogin(string userName, string password)
+        public ActionResult UserLogin(string email)
         {
-            UserDAL dal = new UserDAL();
+            Web.UserDAL dal = new Web.UserDAL();
 
-            User thisGuy = dal.GetUser(userName, password);
+            User thisGuy = dal.GetUser(email);
 
             return View("Index", thisGuy);
         }

@@ -9,6 +9,6 @@ namespace Capstone.Web.DAL.Interfaces
 {
     interface IUserDAL
     {
-        User GetUser(string username, string password);
+        User GetUser(string email);
     }
 }
