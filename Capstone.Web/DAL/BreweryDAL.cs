@@ -1,4 +1,5 @@
 ﻿using Capstone.Web.DAL.Interfaces;
+using Capstone.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -11,11 +12,11 @@ namespace Capstone.Web.DAL
     {
 
         private const string _getLastIdSQL = " SELECT CAST(SCOPE_IDENTITY() as int);";
+
         string _connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=Brewery;Integrated Security=True";
 
         public BreweryDAL()
         {
-
         }
 
         public BreweryDAL(string connectionString)
@@ -25,7 +26,7 @@ namespace Capstone.Web.DAL
 
 
 
-        public bool AddNewBrewery(string breweryName)
+        public int AddNewBrewery(string breweryName)
         {
             string sql = "INSERT INTO breweries (name) VALUES (@brewname)";
             using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -35,14 +36,35 @@ namespace Capstone.Web.DAL
                 cmd.Parameters.AddWithValue("@brewname", breweryName);
                 int brewID = (int)cmd.ExecuteScalar();
 
+                return brewID;
+            }
+
+        }
+
+
+        public bool LinkBrewerToBrewery(int userID, int breweryID)
+        {
+            string sql = "UPDATE users SET is_brewer = 1, brewery_id = @breweryID WHERE id = @userID";
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                cmd.Parameters.AddWithValue("@userID", userID);
+                cmd.Parameters.AddWithValue("@breweryID", breweryID);
+                cmd.ExecuteNonQuery();
+
             }
             return true;
 
         }
 
-        public bool AddBrewer(string username, string password, bool isBrewer, int breweryID, string email)
+
+        public bool AddNewBrewer(string username, string password, bool isBrewer, int breweryID, string email)
         {
-            string sql = "INSERT INTO user_info (@username, @password, @isBrewer, @breweryID, @email)";
+
+            
+
+            string sql = "INSERT INTO users values (@email, @username, @password, @isBrewer, @breweryID, @admin)";
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 conn.Open();
@@ -52,11 +74,49 @@ namespace Capstone.Web.DAL
                 cmd.Parameters.AddWithValue("@isBrewer", isBrewer);
                 cmd.Parameters.AddWithValue("@breweryID", breweryID);
                 cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@admin", false);
                 int brewID = (int)cmd.ExecuteScalar();
 
             }
             return true;
 
+        }
+
+
+
+
+        public List<Brewery> GetAllBrewerys()
+        {
+            string sql = "Select * from breweries";
+            List<Brewery> brews = new List<Brewery>();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    brews.Add(GetBrewery(reader));
+                }
+
+            }
+            return brews;
+
+        }
+
+
+
+
+
+        private Brewery GetBrewery(SqlDataReader reader)
+        {//Be certain to check that the names read by the reader correlate with the column names in SQL!!**************************************************************************************
+            Brewery thisUser = new Brewery()
+            {
+                BreweryName = Convert.ToString(reader["name"]),
+                BreweryID = Convert.ToInt32(reader["id"])
+            };
+            return thisUser;
         }
 
     }
