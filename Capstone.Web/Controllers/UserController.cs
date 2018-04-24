@@ -1,10 +1,12 @@
 ﻿using Capstone.Web.DAL.Interfaces;
 using Capstone.Web.Models;
+using Capstone.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Capstone.Web.Controllers
 {
@@ -36,16 +38,26 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserLogin(string email)
+        public ActionResult UserLogin(LoginViewModel model)
         {
             Web.UserDAL dal = new Web.UserDAL();
 
             User thisGuy = dal.GetUser(email);
             Session["BreweryId"] = thisGuy.BreweryId;
+            User thisGuy = dal.GetUser(model.EmailAddress);
 
-            SessionKey.Email = thisGuy.EmailAddress;
-
-            return View("Index", thisGuy);
+            if(model.Password == thisGuy.Password)
+            {
+                FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
+                Session[SessionKey.Email] = thisGuy.EmailAddress;
+                Session[SessionKey.UserID] = thisGuy.UserName;
+                return View("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+            
         }
     }
 }
