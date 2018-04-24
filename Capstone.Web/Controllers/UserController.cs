@@ -53,7 +53,7 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", "User");
             }
             
         }

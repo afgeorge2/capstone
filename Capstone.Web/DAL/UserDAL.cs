@@ -10,7 +10,7 @@ using Dapper;
 namespace Capstone.Web
 {
     public class UserDAL : IUserDAL
-    {//88888888888888888888888888888 BE SURE TO ADD THE NAMES OF THESE METHODS TO THE INTERFACE IUSERDAL***********************************************************************
+    {
         private string connectionString;
 
         public UserDAL()
@@ -69,8 +69,12 @@ namespace Capstone.Web
             }
         }
 
-        
-            public bool UserRegistration(User user)
+        public User GetUser(string username, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UserRegistration(User user)
             {
                 bool IsSuccessful = false;
                 const string sqlregistration = @"Insert into user_info(username, password, email_address) Values(@username, @passWord, @email_address)";
