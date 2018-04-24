@@ -1,5 +1,6 @@
 ﻿using Capstone.Web.DAL.Interfaces;
 using Capstone.Web.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -124,6 +125,26 @@ namespace Capstone.Web.DAL
 
 
 
+        public void UpdateBreweryInfo(Brewery b)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    int rows = conn.Execute(@"UPDATE breweries SET history=@history, address=@address, contact_name=@cname, contact_email=@email ,contact_phone=@phone WHERE breweries.id=@brewid;",
+                       new { history = b.History, address = b.Address, cname = b.ContactName, email = b.ContactEmail, phone = b.ContactPhone, brewid = b.BreweryID, });
+                }
+            }
+            catch
+            {
+                int a = 0;
+            }
+
+        }
+
+
+
 
 
 
@@ -138,4 +159,8 @@ namespace Capstone.Web.DAL
         }
 
     }
+
+
+
+    //INSERT INTO breweries (name, history, address, contact_name, contact_email,contact_phone) VALUES(@name, @history, @address, @contact_name, @contact_email, @contact_phone);
 }

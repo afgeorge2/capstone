@@ -14,5 +14,6 @@ namespace Capstone.Web.DAL.Interfaces
         bool LinkBrewerToBrewery(int userID, int breweryID);
         List<Brewery> GetAllBrewerys();
         Brewery GetBreweryByID(int brewID);
+        void UpdateBreweryInfo(Brewery b);
     }
 }

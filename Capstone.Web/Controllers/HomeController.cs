@@ -84,6 +84,33 @@ namespace Capstone.Web.Controllers
             return Json(breweries, JsonRequestBehavior.AllowGet);
         }
 
+
+
+
+
+        public ActionResult UpdateBreweryInfo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateBreweryInfo(string history, string address, string cname, string email, string phone)
+        {
+            Brewery b = new Brewery
+            {
+                History = history,
+                Address = address,
+                ContactName = cname,
+                ContactEmail = email,
+                ContactPhone = phone
+            };
+            b.BreweryID = 1;
+            _brew.UpdateBreweryInfo(b);
+
+            return View();
+        }
+
+
         
 
     }
