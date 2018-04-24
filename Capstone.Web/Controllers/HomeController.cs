@@ -18,6 +18,10 @@ namespace Capstone.Web.Controllers
             _brew = brew;
         }
 
+        public HomeController()
+        {
+        }
+
 
 
         // GET: Home

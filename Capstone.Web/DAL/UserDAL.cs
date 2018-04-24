@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Capstone.Web.DAL.Interfaces;
 using Capstone.Web.Models;
+using Dapper;
 
 namespace Capstone.Web
 {
@@ -12,33 +13,62 @@ namespace Capstone.Web
     {//88888888888888888888888888888 BE SURE TO ADD THE NAMES OF THESE METHODS TO THE INTERFACE IUSERDAL***********************************************************************
         private string connectionString;
 
+        public UserDAL()
+        {
+        }
+
         public UserDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
-        public User GetUser(string username, string password)
+        //public User GetUser(string username)
+        //{
+        //    User thisUser = new User();
+
+        //    string sqlGetOne = "Select * from users WHERE users.username = @userName;";
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            conn.Open();
+        //            SqlCommand cmd = new SqlCommand(sqlGetOne, conn);
+        //            cmd.Parameters.AddWithValue("@userName", username);
+
+        //            var reader = cmd.ExecuteReader();
+
+        //            while (reader.Read())
+        //            {
+        //                thisUser = MapUserFromReader(reader);
+        //            }
+        //            return thisUser;
+        //        }
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw;
+        //    }
+        //}
+
+
+        public User GetUser(string email)
         {
-            User thisUser = new User();
-
-            string sqlGetOne = "Select * from users WHERE users.username = @userName AND users.password = @passWord;";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(sqlGetOne, conn);
-                cmd.Parameters.AddWithValue("@userName", username);
-                cmd.Parameters.AddWithValue("@passWord", password);
-                var reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    thisUser = MapUserFromReader(reader);
-                }            
+                    conn.Open();
+                    User result = conn.QueryFirstOrDefault<User>("SELECT * FROM users WHERE email = @emailValue", new { emailValue = email });
+                    return result;
+                }
             }
-
-            return thisUser;
+            catch (SqlException ex)
+            {
+                throw;
+            }
         }
+
+
 
         private User MapUserFromReader(SqlDataReader reader)
         {//Be certain to check that the names read by the reader correlate with the column names in SQL!!**************************************************************************************
