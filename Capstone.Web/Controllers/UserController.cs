@@ -34,17 +34,15 @@ namespace Capstone.Web.Controllers
         // GET: User/Login
         public ActionResult Login()
         {
-            return View("UserLogin");
+            return View("Login");
         }
 
         [HttpPost]
-        public ActionResult UserLogin(LoginViewModel model)
+        public ActionResult Login(LoginViewModel model)
         {
-            Web.UserDAL dal = new Web.UserDAL();
 
-            User thisGuy = dal.GetUser(email);
+            User thisGuy = _userDAL.GetUser(model.EmailAddress);
             Session["BreweryId"] = thisGuy.BreweryId;
-            User thisGuy = dal.GetUser(model.EmailAddress);
 
             if(model.Password == thisGuy.Password)
             {
