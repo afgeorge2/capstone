@@ -69,8 +69,12 @@ namespace Capstone.Web
             }
         }
 
-        
-            public bool UserRegistration(User user)
+        public User GetUser(string username, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UserRegistration(User user)
             {
                 bool IsSuccessful = false;
                 const string sqlregistration = @"Insert into user_info(username, password, email_address) Values(@username, @passWord, @email_address)";

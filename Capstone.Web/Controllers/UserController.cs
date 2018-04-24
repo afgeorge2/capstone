@@ -42,9 +42,9 @@ namespace Capstone.Web.Controllers
         {
             Web.UserDAL dal = new Web.UserDAL();
 
-            User thisGuy = dal.GetUser(email);
-            Session["BreweryId"] = thisGuy.BreweryId;
             User thisGuy = dal.GetUser(model.EmailAddress);
+            Session["BreweryId"] = thisGuy.BreweryId;
+           
 
             if(model.Password == thisGuy.Password)
             {

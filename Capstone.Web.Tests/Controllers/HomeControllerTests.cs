@@ -24,5 +24,5 @@ namespace Capstone.Web.Controllers.Tests
     //        Assert
     //        Assert.AreEqual("Index", result.ViewName);
     //    }
-    //}
+    }
 }
