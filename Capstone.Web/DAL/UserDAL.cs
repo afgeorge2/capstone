@@ -12,6 +12,10 @@ namespace Capstone.Web
     {//88888888888888888888888888888 BE SURE TO ADD THE NAMES OF THESE METHODS TO THE INTERFACE IUSERDAL***********************************************************************
         private string connectionString;
 
+        public UserDAL()
+        {
+        }
+
         public UserDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -22,22 +26,27 @@ namespace Capstone.Web
             User thisUser = new User();
 
             string sqlGetOne = "Select * from users WHERE users.username = @userName AND users.password = @passWord;";
-             
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(sqlGetOne, conn);
-                cmd.Parameters.AddWithValue("@userName", username);
-                cmd.Parameters.AddWithValue("@passWord", password);
-                var reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    thisUser = MapUserFromReader(reader);
-                }            
-            }
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sqlGetOne, conn);
+                    cmd.Parameters.AddWithValue("@userName", username);
+                    cmd.Parameters.AddWithValue("@passWord", password);
+                    var reader = cmd.ExecuteReader();
 
-            return thisUser;
+                    while (reader.Read())
+                    {
+                        thisUser = MapUserFromReader(reader);
+                    }
+                    return thisUser;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
         }
 
         
