@@ -1,5 +1,4 @@
 ﻿using Capstone.Web.DAL;
-using Capstone.Web.DAL.Interfaces;
 using Capstone.Web.Models;
 using Capstone.Web.Models.Viewmodel;
 using System;
@@ -12,37 +11,39 @@ namespace Capstone.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IBreweryDBS _brew;
+        #region --- Contructors ---
 
-        public HomeController(IBreweryDBS brew)
+        private IBreweryServiceDAL _brew;
+
+        public HomeController(IBreweryServiceDAL brew)
         {
             _brew = brew;
         }
 
         public HomeController()
         {
+
         }
 
+        #endregion
 
 
-        // GET: Home
-        public ActionResult Index()
-        {
-            return View("Index");
-        }
 
-        [HttpPost]
-        public ActionResult UserLogin(string userName, string password)
-        {
-            User thisGuy = new User();
 
-            return View("Index", thisGuy); 
-        }
+        #region --- Brewery Actions ---
+
 
         public ActionResult AddBrewery()
         {
-            //BrewerBrewery model = new BrewerBrewery();
             return View("AddBrewery");
+        }
+
+        [HttpGet]
+        public ActionResult GetAllBreweries()
+        {
+            var breweries = _brew.GetAllBrewerys();
+
+            return Json(breweries, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -52,8 +53,6 @@ namespace Capstone.Web.Controllers
             {
                 m.BreweryID = _brew.AddNewBrewery(m.BreweryName);
             }
-
-
             if (!ModelState.IsValid)
             {
                 return View("AddBrewery", m);
@@ -72,33 +71,6 @@ namespace Capstone.Web.Controllers
 
             return Redirect(Request.UrlReferrer.ToString());
         }
-
-
-        [HttpGet]
-        public ActionResult GetAllBreweries()
-        {
-            var breweries = _brew.GetAllBrewerys();
-
-            return Json(breweries, JsonRequestBehavior.AllowGet);
-        }
-
-        //add beer
-        public ActionResult AddBeer()
-        {
-            return View();
-        }
-
-        //add beer post
-        [HttpPost]
-        public ActionResult AddBeer(Beer b)
-        {
-
-            _brew.AddNewBeer(b);
-
-            return Redirect("BreweryInformation");
-        }
-
-
 
         public ActionResult UpdateBreweryInfo()
         {
@@ -122,8 +94,34 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
+        #endregion
 
-        
+
+
+        #region --- Add Beer Actions ---
+
+        //add beer view
+        public ActionResult AddBeer()
+        {
+            return View();
+        }
+
+        //add beer post
+        [HttpPost]
+        public ActionResult AddBeer(Beer b)
+        {
+
+            _brew.AddNewBeer(b);
+
+            return Redirect("BreweryInformation");
+        }
+
+        #endregion
+
+
+
+
+
 
     }
 }

@@ -6,10 +6,6 @@ using System.Web;
 
 namespace Capstone.Web.Models
 {
-
-
-
-
     public class Brewery
     {
         public string BreweryName { get; set; }
@@ -21,6 +17,12 @@ namespace Capstone.Web.Models
         public string ContactName { get; set; }
         public string ContactEmail { get; set; }
         public string ContactPhone { get; set; }
+
+
+
+
+
+
 
     }
 

@@ -155,16 +155,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DAL\BreweryDAL.cs" />
-    <Compile Include="DAL\Interfaces\IBreweryDBS.cs" />
-    <Compile Include="DAL\Interfaces\IUserDAL.cs" />
+    <Compile Include="DAL\BreweryServiceDAL.cs" />
+    <Compile Include="DAL\IBreweryServiceDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Beer.cs" />
     <Compile Include="Models\Brewery.cs" />
+    <Compile Include="Models\DaysHoursOperation.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="Models\ViewModels\BrewerBrewery.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -180,7 +180,8 @@
     <Content Include="Views\Home\UpdateBreweryInfo.cshtml" />
     <Content Include="Views\Home\AddBeer.cshtml" />
     <Content Include="Views\Home\BreweryInformation.cshtml" />
-    <Content Include="Views\User\UserRegistration.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\UserRegistration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

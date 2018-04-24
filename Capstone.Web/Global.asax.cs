@@ -1,5 +1,4 @@
 ﻿using Capstone.Web.DAL;
-using Capstone.Web.DAL.Interfaces;
 using Ninject;
 using Ninject.Web.Common.WebHost;
 using System;
@@ -33,8 +32,7 @@ namespace Capstone.Web
 
             string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-            kernel.Bind<IBreweryDBS>().To<BreweryDAL>().WithConstructorArgument("connectionString", connectionString);
-            kernel.Bind<IUserDAL>().To<UserDAL>().WithConstructorArgument("connectionString", connectionString);
+            kernel.Bind<IBreweryServiceDAL>().To<BreweryServiceDAL>().WithConstructorArgument("connectionString", connectionString);
 
             return kernel;
         }

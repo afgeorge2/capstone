@@ -1,0 +1,37 @@
+﻿
+@model Capstone.Web.Models.User
+
+
+
+<style>
+    .row {
+        width: 700px;
+        margin: 0 auto;
+    }
+</style>
+
+<div>
+    <div class="container">
+        <h1>Registration</h1>
+
+        @using (Html.BeginForm("AddUser", "User", FormMethod.Post))
+        {
+            <div class="jumbotron w-75 pt-3 mx-auto mt-5">
+                <div class="row col-lg-12">
+                    @Html.TextBoxFor(m => m.UserName, new { placeholder = "username" })
+                    @Html.ValidationMessageFor(m => m.EmailAddress)
+                </div>
+                <div>
+                    @Html.PasswordFor(m => m.Password, new { placeholder = "password" })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+                <div>
+                    @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "email" })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+
+                <button type="button" class="btn btn-primary btn-lg btn-block">Register</button>
+            </div>
+        }
+    </div>
+</div>

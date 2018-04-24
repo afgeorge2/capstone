@@ -1,5 +1,4 @@
-﻿using Capstone.Web.DAL.Interfaces;
-using Capstone.Web.Models;
+﻿using Capstone.Web.Models;
 using Capstone.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,50 +11,51 @@ namespace Capstone.Web.Controllers
 {
     public class UserController : Controller
     {
-        private readonly IUserDAL _userDAL;
+        //private readonly IUserDAL _userDAL;
 
-        public UserController(IUserDAL userDAL)
-        {
-            _userDAL = userDAL;
-        }
+        //public UserController(IUserDAL userDAL)
+        //{
+        //    _userDAL = userDAL;
+        //}
 
-        // GET: User
-        public ActionResult Index()
-        {
-            if (Session[SessionKey.Email] == null)
-            {
-                return RedirectToAction("Login");
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
-        // GET: User/Login
-        public ActionResult Login()
-        {
-            return View("Login");
-        }
+       
+        //public ActionResult Index()
+        //{
+        //    if (Session[SessionKey.Email] == null)
+        //    {
+        //        return RedirectToAction("Login");
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //}
+        
 
-        [HttpPost]
-        public ActionResult Login(LoginViewModel model)
-        {
+        //public ActionResult Login()
+        //{
+        //    return View("Login");
+        //}
 
-            User thisGuy = _userDAL.GetUser(model.EmailAddress);
-            Session["BreweryId"] = thisGuy.BreweryId;
+        //[HttpPost]
+        //public ActionResult Login(LoginViewModel model)
+        //{
 
-            if(model.Password == thisGuy.Password)
-            {
-                FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
-                Session[SessionKey.Email] = thisGuy.EmailAddress;
-                Session[SessionKey.UserID] = thisGuy.UserName;
-                return View("Index", "Home");
-            }
-            else
-            {
-                return RedirectToAction("Login", "User");
-            }
+        //    User thisGuy = _userDAL.GetUser(model.EmailAddress);
+        //    Session["BreweryId"] = thisGuy.BreweryId;
+
+        //    if(model.Password == thisGuy.Password)
+        //    {
+        //        FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
+        //        Session[SessionKey.Email] = thisGuy.EmailAddress;
+        //        Session[SessionKey.UserID] = thisGuy.UserName;
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Login", "User");
+        //    }
             
-        }
+        //}
     }
 }
