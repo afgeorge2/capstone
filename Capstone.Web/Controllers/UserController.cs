@@ -8,13 +8,13 @@ using System.Web.Mvc;
 
 namespace Capstone.Web.Controllers
 {
-    public class UserDAL : Controller
+    public class UserController : Controller
     {
-        private readonly string connectionString;
+        private readonly IUserDAL _userDAL;
 
-        public UserDAL(string connectionString)
+        public UserController(IUserDAL userDAL)
         {
-            this.connectionString = connectionString;
+            _userDAL = userDAL;
         }
 
         // GET: User
@@ -42,6 +42,8 @@ namespace Capstone.Web.Controllers
 
             User thisGuy = dal.GetUser(email);
             Session["BreweryId"] = thisGuy.BreweryId;
+
+            SessionKey.Email = thisGuy.EmailAddress;
 
             return View("Index", thisGuy);
         }

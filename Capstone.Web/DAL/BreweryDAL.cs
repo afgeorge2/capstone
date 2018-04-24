@@ -105,6 +105,24 @@ namespace Capstone.Web.DAL
 
         }
 
+        public Brewery GetBreweryByID(int brewID)
+        {
+            string sql = "SELECT * FROM breweries WHERE id=@id";
+            Brewery brews = new Brewery();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                cmd.Parameters.AddWithValue("@id", brewID);
+                var reader = cmd.ExecuteReader();
+                brews = GetBrewery(reader);
+
+            }
+            return brews;
+        }
+
+
 
 
 

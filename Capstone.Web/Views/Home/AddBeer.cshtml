@@ -1,6 +1,6 @@
 ﻿@model Capstone.Web.Models.Beer
 
-@{int brewId = (int)Session["BreweryId"]}
+@{int brewId = (int)Session["BreweryId"];}
 
 <form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
     <div style="width:1000px; height: 700px; margin: 15px auto; background-color:#fff; padding-left: 25px" ;>
