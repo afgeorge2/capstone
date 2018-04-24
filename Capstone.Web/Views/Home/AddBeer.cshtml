@@ -1,0 +1,31 @@
+﻿@model Capstone.Web.Models.Beer
+
+
+@*
+    <input type="text" class="form-control" name="Name" required>
+    name of beer*@
+
+<form method="post" action="@Url.Action("BreweryInformation", "Home")" name="addbeer">
+    <div style="width:1000px; height: 700px; margin: 15px auto; background-color:#fff; padding-left: 25px" ;>
+
+        <h1 style="text-align: center">Add a New Beer</h1>
+        <p></p>
+        Name: <span style="margin-left: 50px"> @Html.TextBoxFor(b => b.Name) </span><br />
+        Choose beer type: <select name="BeerType" style="margin-left: 100px">
+
+            <option>Other</option>
+            <option>Ale</option>
+            <option>Lager</option>
+            <option>Malt</option>
+            <option>Porter</option>
+            <option>Stout</option>
+
+
+        </select>
+        <p></p>
+        Alcohol by Volume: <span style="margin-left: 50px"> @Html.TextBoxFor(b => b.AlcoholByVolume) </span><br />
+        <p></p>
+        Description: <span style="margin-left: 50px"> @Html.TextBoxFor(b => b.Description) </span><br />
+        <input type="submit" value="Submit new beer!" name="submitnewbeer" style="margin-left: 225px" />
+    </div>
+</form>

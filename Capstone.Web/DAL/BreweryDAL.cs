@@ -134,7 +134,7 @@ namespace Capstone.Web.DAL
                 cmd.Parameters.Add(new SqlParameter("@name", newBeer.Name));
                 cmd.Parameters.Add(new SqlParameter("@description", newBeer.Description));
                 //cmd.Parameters.Add(new SqlParameter("@image", newBeer.Image));
-                cmd.Parameters.Add(new SqlParameter("@abv", newBeer.AlcoholbyVolume));
+                cmd.Parameters.Add(new SqlParameter("@abv", newBeer.AlcoholByVolume));
                 cmd.Parameters.Add(new SqlParameter("@beertype", newBeer.BeerType));
                 cmd.Parameters.Add(new SqlParameter("@breweryid", newBeer.BreweryId));
                 cmd.ExecuteNonQuery();

@@ -67,7 +67,22 @@ namespace Capstone.Web.Controllers
             return Json(breweries, JsonRequestBehavior.AllowGet);
         }
 
-        
+        //add beer
+        public ActionResult AddBeer()
+        {
+            return View();
+        }
+
+        //add beer post
+        //[HttpPost]
+        //public ActionResult AddBeer(string Name, string BeerType, string AlcoholByVolume, string Description)
+        //{
+        //    int breweryID = _brew.AddNewBrewery(breweryName);
+
+        //    _brew.AddNewBeer(username, Password, true, breweryID, Email);
+
+        //    return Redirect("BreweryInformation");
+        //}
 
     }
 }

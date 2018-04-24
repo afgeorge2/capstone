@@ -13,5 +13,6 @@ namespace Capstone.Web.DAL.Interfaces
         bool AddNewBrewer(string username, string password, bool isBrewer, int breweryID, string email);
         bool LinkBrewerToBrewery(int userID, int breweryID);
         List<Brewery> GetAllBrewerys();
+        bool AddNewBeer(Beer newBeer);
     }
 }
