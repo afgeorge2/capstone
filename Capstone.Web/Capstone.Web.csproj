@@ -160,6 +160,7 @@
     <Compile Include="Models\Brewery.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="DAL\UserDAL.cs" />
+    <Compile Include="Models\Viewmodel\BrewerBrewery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
