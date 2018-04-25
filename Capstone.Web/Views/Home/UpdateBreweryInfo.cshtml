@@ -1,52 +1,148 @@
-﻿
+﻿@using Capstone.Web.Models.ViewModels
+@model HoursViewModel
+@{ 
+    int brewID = (int)Session["BreweryId"];
+
+}
+
+
+<h1>update brewery! brewID = @brewID</h1>
 
 
 
-<h1>update brewery!</h1>
 
+<div class="jumbotron w-75 mx-auto">
 
-
-
-<div class="jumbotron">
 
     <form method="post" action="@Url.Action("UpdateBreweryInfo","Home")">
-        <div class="form-group row">
-            <label for="exampleTextarea" class="col-2 col-form-label">Brewery History</label>
-            <textarea class="form-control col-8" name="history" id="exampleTextarea" rows="3"></textarea>
+        <div class="row">
+            <div class="row col s12">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">mode_edit</i>
+                    <textarea id="icon_prefix2" name="history" class="materialize-textarea"></textarea>
+                    <label for="icon_prefix2">Brewery History</label>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group row">
-            <label for="example-text-input" class="col-2 col-form-label">Address</label>
-            <div class="col-8">
-                <input class="form-control" name="address" type="text" id="example-text-input">
+        <div class="row">
+            <div class="row col s12">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">add_location</i>
+                    <textarea id="address" name="address" class="materialize-textarea"></textarea>
+                    <label for="address">Brewery Adress</label>
+                </div>
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="example-text-input" class="col-2 col-form-label">Contact</label>
-            <div class="col-8">
-                <input class="form-control" type="text" name="cname" id="example-text-input">
+        <div class="row mb-0">
+            <div class="row col s12">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="icon_prefix" type="text" name="cname" class="validate">
+                    <label for="icon_prefix">First Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">phone</i>
+                    <input id="icon_telephone" type="tel" name="phone" class="validate">
+                    <label for="icon_telephone">Telephone</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">email</i>
+                    <input id="icon_email" type="email" name="email" class="validate">
+                    <input hidden name="brewID" value="@brewID"/>
+                    <label for="icon_email">Email</label>
+                </div>
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="example-email-input" class="col-2 col-form-label">Contact Email</label>
-            <div class="col-8">
-                <input class="form-control" type="email" name="email" id="example-email-input">
+        <h6 class="mb-0 center-align">Hours Of Operation</h6>
+        <div id="houroperation" class="row mb-0">
+            <div class="col s12">
+                <div class="row mb-0">
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[0].Opens, new { id = "mon-open", @class="validate" } )
+                        @*<input id="mon-open" name="monO" type="text" class="validate">*@
+                        <label for="mon-open">Mon Open</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[1].Opens, new { id = "tue-open", @class = "validate" })
+                        @*<input id="tue-open" name="tueO" type="text" class="validate">*@
+                        <label for="tue-open">Tues Open</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[2].Opens, new { id = "wed-open", @class = "validate" })
+                        @*<input id="wed-open" name="wedO" type="text" class="validate">*@
+                        <label for="wed-open">Wed Open</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[3].Opens, new { id = "thr-open", @class = "validate" })
+                        @*<input id="thr-open" name="thuO" type="text" class="validate">*@
+                        <label for="thr-open">Thur Open</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[4].Opens, new { id = "fri-open", @class = "validate" })
+                        @*<input id="fri-open" name="friO" type="text" class="validate">*@
+                        <label for="fri-open">Fri Open</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[5].Opens, new { id = "sat-open", @class = "validate" })
+                        @*<input id="sat-open" name="satO" type="text" class="validate">*@
+                        <label for="sat-open">Sat Open</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[6].Opens, new { id = "sun-open", @class = "validate" })
+                        @*<input id="sun-open" name="sunO" type="text" class="validate">*@
+                        <label for="sun-open">Sun Open</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-0">
+            <div class="col s12">
+                <div class="row mb-0">
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[0].Closes, new { id = "mon-close", @class = "validate" })
+                        @*<input id="mon-close" name="monC" type="text" class="validate">*@
+                        <label for="mon-close">Mon Close</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[1].Closes, new { id = "tue-close", @class = "validate" })
+                        @*<input id="tue-close" name="tueC" type="text" class="validate">*@
+                        <label for="tue-close">Tues Close</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[2].Closes, new { id = "wed-close", @class = "validate" })
+                        @*<input id="Wed-close" name="wedC" type="text" class="validate">*@
+                        <label for="Wed-close">Wed Close</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[3].Closes, new { id = "Thur-close", @class = "validate" })
+                        @*<input id="Thur-close" name="thuC" type="text" class="validate">*@
+                        <label for="Thur-close">Thur Close</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[4].Closes, new { id = "Fri-close", @class = "validate" })
+                        @*<input id="Fri-close" name="friC" type="text" class="validate">*@
+                        <label for="Fri-close">Fri Close</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[5].Closes, new { id = "Sat-close", @class = "validate" })
+                        @*<input id="Sat-close" name="satC" type="text" class="validate">*@
+                        <label for="Sat-close">Sat Close</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.TextBoxFor(m => m.DaysHours[6].Closes, new { id = "Sun-close", @class = "validate" })
+                        @*<input id="Sun-close" name="sunC" type="text" class="validate">*@
+                        <label for="Sun-close">Sun Close</label>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="example-tel-input" class="col-2 col-form-label">Contact Phone</label>
-            <div class="col-8">
-                <input class="form-control" type="tel" name="phone" id="example-tel-input">
-            </div>
-            <button id="newbrewsubmit" type="submit" class="btn btn-block btn-success btn-lg">Large button</button>
-
-        </div>
+        <button id="newbrewsubmit" type="submit" class="btn btn-block btn-success btn-lg">Large button</button>
 
     </form>
 
-
-
 </div>
+
+
