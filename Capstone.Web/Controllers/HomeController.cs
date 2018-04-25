@@ -137,10 +137,6 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult UserRegistration(User user)
         {
-            //User newUser = new User();
-            //newUser.UserName = user.UserName;
-            //newUser.Password = user.Password;
-            //newUser.EmailAddress = user.EmailAddress;
             _brew.UserRegistration(user);
             SessionKey.Email = user.EmailAddress;
             return View("Index", user);
@@ -171,7 +167,7 @@ namespace Capstone.Web.Controllers
                 FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
                 Session[SessionKey.Email] = thisGuy.EmailAddress;
                 Session[SessionKey.UserID] = thisGuy.UserName;
-                if(thisGuy.BreweryId.HasValue)
+                if(thisGuy.BreweryId.Value != 0)
                 {
                     Session["BreweryId"] = thisGuy.BreweryId;
                 }
