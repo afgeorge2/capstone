@@ -17,6 +17,7 @@
     .button{
         background-color:black;
     }
+ 
 
 </style>
 
@@ -26,22 +27,24 @@
         {
         <div class="jumbotron w-75 pt-3 mx-auto mt-5 jumbo">
             <h1 class="text-center text ">Registration</h1>
-            
-            <div class="col-lg-8 form-group row ">
-                @Html.TextBoxFor(m => m.UserName, new { placeholder = "username" }) 
+
+            <div id="username" class="col-lg-8 form-group row">
+                @Html.TextBoxFor(m => m.UserName, new { placeholder = "username" })
                 <small>@Html.ValidationMessageFor(m => m.UserName)</small>
             </div>
-            <div class="mt-3 col-lg-8 form-group row">
+           
+            <div id="password" class="mt-3 col-lg-8 form-group row">
                 @Html.PasswordFor(m => m.Password, new { placeholder = "password" })
 
                 <small>@Html.ValidationMessageFor(m => m.Password)</small>
             </div>
-            <div class="mt-3 col-lg-8 form-group row text">
+
+            <div id="email" class="mt-3 col-lg-8 form-group row text">
                 @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "email" })
                 <small>@Html.ValidationMessageFor(m => m.EmailAddress)</small>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg btn-block mt-5 button">Register</button> 
+            <button type="submit" class="btn btn-primary btn-lg btn-block mt-5 button">Register</button>
         </div>
         }
     </div>
