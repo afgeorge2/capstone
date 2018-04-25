@@ -256,15 +256,17 @@ namespace Capstone.Web.DAL
                 EmailAddress = Convert.ToString(reader["email"]),
                 UserName = Convert.ToString(reader["username"]),
                 Password = Convert.ToString(reader["password"]),
-                IsBrewer = Convert.ToBoolean(reader["is_brewer"]);
-                if(reader["brewery_id"] != null)
-            {
-                BreweryId = Convert.ToInt32(reader["brewery_id"]);
-            };
-                
+                IsBrewer = Convert.ToBoolean(reader["is_brewer"]),
                 IsAdmin = Convert.ToBoolean(reader["is_admin"])
-
             };
+            if (reader["brewery_id"] != null)
+            {
+                thisUser.BreweryId = Convert.ToInt32(reader["brewery_id"]);
+            }
+            else
+            {
+                thisUser.BreweryId = 0;
+            }
 
             return thisUser;
         }
@@ -272,7 +274,7 @@ namespace Capstone.Web.DAL
 
 
 
-        private Brewery GetBrewery(SqlDataReader reader)
+    private Brewery GetBrewery(SqlDataReader reader)
         {
             Brewery brewery = new Brewery()
             {
