@@ -119,9 +119,9 @@ namespace Capstone.Web.Controllers
 
         //add beer post
         [HttpPost]
-        public ActionResult AddBeer(Beer b)
+        public ActionResult AddBeer(Beer b, int brewId)
         {
-            
+            b.BreweryId = brewId;
             _brew.AddNewBeer(b);
 
             return Redirect("BreweryInformation");

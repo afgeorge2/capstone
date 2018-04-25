@@ -5,7 +5,7 @@
 
 <form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
     <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
-        <h1 style="text-align: center">Add a New Beer</h1>
+        <h1 style="text-align: center">Add a New Beer @brewId</h1>
         Name: <span id="bname" style="margin-left: 50px"> @Html.TextBoxFor(b => b.Name) </span>
         Choose beer type:
         <span> @Html.DropDownListFor(b => b.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) </span>
@@ -14,7 +14,7 @@
         <p></p>
         Alcohol by Volume: <span style="margin-left: 50px"> @Html.TextBoxFor(b => b.AlcoholByVolume) </span>
         Description: <span style="margin-left: 50px"> @Html.TextBoxFor(b => b.Description) </span>
-        <input hidden value="@brewId" />
+        <input hidden name="brewId" value="@brewId" />
         <input type="submit" value="Submit new beer!" name="submitnewbeer" style="margin-left: 225px" />
 
     </div>
