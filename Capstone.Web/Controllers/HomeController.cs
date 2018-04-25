@@ -89,7 +89,7 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateBreweryInfo(string history, string address, string cname, string email, string phone)
+        public ActionResult UpdateBreweryInfo(string history, string address, string cname, string email, string phone, int brewID, HoursViewModel m)
         {
             Brewery b = new Brewery
             {
@@ -97,10 +97,16 @@ namespace Capstone.Web.Controllers
                 Address = address,
                 ContactName = cname,
                 ContactEmail = email,
-                ContactPhone = phone
+                ContactPhone = phone,
+                BreweryID = brewID
             };
-            b.BreweryID = 1;
+
             _brew.UpdateBreweryInfo(b);
+            m.BrewID = brewID;
+            _brew.UpdateBreweryHours(m);
+
+
+
 
             return View();
         }
@@ -128,6 +134,13 @@ namespace Capstone.Web.Controllers
         }
 
         #endregion
+
+
+        #region --- User Login/Register ---
+
+
+
+
 
         public ActionResult UserRegistration()
         {
@@ -159,15 +172,21 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
-            string emailAddress = model.EmailAddress;
-            User thisGuy = _brew.GetUser(emailAddress);
+            string testemail = "mabucar88@gmail.com";
+            string passw = "password";
 
-            if (model.Password == thisGuy.Password)
+
+            string emailAddress = model.EmailAddress;
+            User thisGuy = _brew.GetUser(testemail);
+            //User thisGuy = _brew.GetUser(emailAddress);
+
+            //if (model.Password == thisGuy.Password)
+            if (passw == thisGuy.Password)
             {
                 FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
                 Session[SessionKey.Email] = thisGuy.EmailAddress;
                 Session[SessionKey.UserID] = thisGuy.UserName;
-                if(thisGuy.BreweryId.Value != 0)
+                if (thisGuy.IsBrewer==true)
                 {
                     Session["BreweryId"] = thisGuy.BreweryId;
                 }
@@ -181,6 +200,7 @@ namespace Capstone.Web.Controllers
 
         }
 
+        #endregion
 
 
     }
