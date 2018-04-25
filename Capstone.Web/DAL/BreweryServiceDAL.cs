@@ -235,7 +235,7 @@ namespace Capstone.Web.DAL
         #region --- Beer Methods ---
 
 
-        public bool AddNewBeer(Beer newBeer)
+        public bool AddNewBeer(AddBeerModel newBeer)
         {
             //add image later
             string SQL_AddBeer = "Insert into beers (name, description, abv, beer_type, brewery_id) Values(@Name, @Description, @AlcoholByVolume, @BeerType, @brewId);";

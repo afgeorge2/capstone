@@ -1,20 +1,20 @@
-﻿@using Capstone.Web.Models
-@model Beer
+﻿@using Capstone.Web.Models.ViewModels
+@model AddBeerModel 
 
 @{int brewId = (int)Session["BreweryId"];}
 
 <form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
     <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
         <h1 style="text-align: center">Add a New Beer</h1>
-        Name: <div style="background-color: white"><span name="Name"> @Html.TextBoxFor(b => b.Name) </span></div>
+        Name: <div style="background-color: white"><span name="Name"> @Html.TextBoxFor(m => m.Name) @Html.ValidationMessageFor(m => m.Name)</span></div>
         Choose beer type:
               <div>
-                  <span name="BeerType"> @Html.DropDownListFor(b => b.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) </span>
+                  <span name="BeerType"> @Html.DropDownListFor(m => m.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.BeerType) </span>
               </div>
   
         <p></p>
-        Alcohol by Volume: <div><span name="AlcoholByVolume"> @Html.TextBoxFor(b => b.AlcoholByVolume) </span></div>
-        Description: <div><span name="Description"> @Html.TextBoxFor(b => b.Description) </span></div>
+        Alcohol by Volume: <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
+        Description: <div><span name="Description"> @Html.TextBoxFor(m => m.Description) @Html.ValidationMessageFor(m => m.Description) </span></div>
         <input hidden name="brewId" value="@brewId" />
         <input type="submit" value="Submit new beer!" name="submitnewbeer" class="btn btn-outline-light" />
 

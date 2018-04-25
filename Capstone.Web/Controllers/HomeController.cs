@@ -125,7 +125,7 @@ namespace Capstone.Web.Controllers
 
         //add beer post
         [HttpPost]
-        public ActionResult AddBeer(Beer b, int brewId)
+        public ActionResult AddBeer(AddBeerModel b, int brewId)
         {
             b.BreweryId = brewId;
             _brew.AddNewBeer(b);
