@@ -125,9 +125,9 @@ namespace Capstone.Web.Controllers
 
         //add beer post
         [HttpPost]
-        public ActionResult AddBeer(Beer b)
+        public ActionResult AddBeer(Beer b, int brewId)
         {
-            
+            b.BreweryId = brewId;
             _brew.AddNewBeer(b);
 
             return Redirect("BreweryInformation");
@@ -172,16 +172,11 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
-            string testemail = "mabucar88@gmail.com";
-            string passw = "password";
-
 
             string emailAddress = model.EmailAddress;
-            User thisGuy = _brew.GetUser(testemail);
-            //User thisGuy = _brew.GetUser(emailAddress);
+            User thisGuy = _brew.GetUser(emailAddress);
 
-            //if (model.Password == thisGuy.Password)
-            if (passw == thisGuy.Password)
+            if (model.Password == thisGuy.Password)
             {
                 FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
                 Session[SessionKey.Email] = thisGuy.EmailAddress;
@@ -190,7 +185,15 @@ namespace Capstone.Web.Controllers
                 {
                     Session["BreweryId"] = thisGuy.BreweryId;
                 }
-                
+                if (thisGuy.IsAdmin)
+                {
+                    Session["Admin"] = true;
+                }
+                else
+                {
+                    Session["Admin"] = null;
+                }
+
                 return RedirectToAction("Index", "Home");
             }
             else
