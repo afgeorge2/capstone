@@ -229,6 +229,12 @@ namespace Capstone.Web.DAL
 
 
 
+        #endregion
+
+
+        #region --- Beer Methods ---
+
+
         public bool AddNewBeer(Beer newBeer)
         {
             //add image later
@@ -254,11 +260,6 @@ namespace Capstone.Web.DAL
 
 
 
-
-        #endregion
-
-
-        #region --- Beer Methods ---
 
 
         public bool AddBeerReview()
