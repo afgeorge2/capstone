@@ -191,9 +191,49 @@ namespace Capstone.Web.DAL
                 cmd.Parameters.AddWithValue("@email", b.ContactEmail);
                 cmd.Parameters.AddWithValue("@phone", b.ContactPhone);
                 cmd.Parameters.AddWithValue("@brewid", b.BreweryID);
+                cmd.ExecuteNonQuery();
 
             }
         }
+
+
+        public void UpdateBreweryHours(HoursViewModel m)
+        {
+            m.DaysHours[0].DayOfWeek = "Monday";
+            m.DaysHours[1].DayOfWeek = "Tuesday";
+            m.DaysHours[2].DayOfWeek = "Wednesday";
+            m.DaysHours[3].DayOfWeek = "Thursday";
+            m.DaysHours[4].DayOfWeek = "Friday";
+            m.DaysHours[5].DayOfWeek = "Saturday";
+            m.DaysHours[6].DayOfWeek = "Sunday";
+
+            foreach (var day in m.DaysHours)
+            {
+                string sql = @"INSERT INTO OPERATION VALUES (@brewID, @day, @open, @close);";
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                    cmd.Parameters.AddWithValue("@brewID", m.BrewID);
+                    cmd.Parameters.AddWithValue("@day", day.DayOfWeek);
+                    cmd.Parameters.AddWithValue("@open", day.Opens);
+                    cmd.Parameters.AddWithValue("@close", day.Closes);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
+
+
+
+
+        #endregion
+
+
+        #region --- Beer Methods ---
+
 
         public bool AddNewBeer(Beer newBeer)
         {
@@ -220,11 +260,6 @@ namespace Capstone.Web.DAL
 
 
 
-
-        #endregion
-
-
-        #region --- Beer Methods ---
 
 
         public bool AddBeerReview()
