@@ -28,7 +28,7 @@
             <h1 class="text-center text ">Registration</h1>
             
             <div class="col-lg-8 form-group row ">
-                @Html.TextBoxFor(m => m.UserName, new { placeholder = "username" })
+                @Html.TextBoxFor(m => m.UserName, new { placeholder = "username" }) 
                 <small>@Html.ValidationMessageFor(m => m.UserName)</small>
             </div>
             <div class="mt-3 col-lg-8 form-group row">
@@ -41,7 +41,7 @@
                 <small>@Html.ValidationMessageFor(m => m.EmailAddress)</small>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg btn-block mt-5 button">Register</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block mt-5 button">Register</button> 
         </div>
         }
     </div>
