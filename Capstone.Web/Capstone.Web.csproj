@@ -162,7 +162,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\BreweryServiceDAL.cs" />
     <Compile Include="DAL\IBreweryServiceDAL.cs" />
     <Compile Include="Global.asax.cs">
@@ -183,7 +182,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\AddBrewery.cshtml" />
-    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\UpdateBreweryInfo.cshtml" />
     <Content Include="Views\Home\AddBeer.cshtml" />
@@ -199,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

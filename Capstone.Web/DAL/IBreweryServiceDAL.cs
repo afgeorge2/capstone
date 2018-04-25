@@ -1,4 +1,5 @@
 ﻿using Capstone.Web.Models;
+using Capstone.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Capstone.Web.DAL
 
         //-----------------------------------------------------------User Methods
         bool UserRegistration(User user);
-        User GetUser(string username, string password);
+      //  User GetUser(LoginViewModel model);
         User GetUser(string email);
 
 
