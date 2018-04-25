@@ -9,19 +9,19 @@
     <title></title>
 </head>
 <body>
-    <div class="flex-column">
-        <h1>User Login</h1>
+    <div class="jumbotron  w-75 pt-3 mx-auto mt-5 jumbo" style="opacity:0.85">
+        <h1 class="text-center" style="opacity:0.99">User Login</h1>
         @using (Html.BeginForm("Login", "Home", FormMethod.Post))
     {
-        <div>
+        <div id="login-email">
             @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "email" })
             @Html.ValidationMessageFor(m => m.EmailAddress)
         </div>
-        <div>
+        <div id="login-pw">
             @Html.PasswordFor(m => m.Password, new { placeholder = "password" })
             @Html.ValidationMessageFor(m => m.Password)
         </div>
-        <button>Login</button>
+        <button class="btn btn-primary btn-lg btn-block mt-5 button">Login</button>
 }
 
 

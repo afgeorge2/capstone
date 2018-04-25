@@ -162,6 +162,8 @@ namespace Capstone.Web.Controllers
             string emailAddress = model.EmailAddress;
             User thisGuy = _brew.GetUser(emailAddress);
 
+
+
             if (model.Password == thisGuy.Password)
             {
                 FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
@@ -171,7 +173,15 @@ namespace Capstone.Web.Controllers
                 {
                     Session["BreweryId"] = thisGuy.BreweryId;
                 }
-                
+                if (thisGuy.IsAdmin)
+                {
+                    Session["Admin"] = true;
+                }
+                else
+                {
+                    Session["Admin"] = null;
+                }
+
                 return RedirectToAction("Index", "Home");
             }
             else
