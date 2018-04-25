@@ -41,6 +41,20 @@
             background-color: #ff9e3d !important;
             border-color: #ff9e3d;
         }
+        #login-email {
+            align-content:center;
+            background-color:aliceblue;
+            opacity:0.9;
+            border-color:cornsilk;
+            border-width:2px;
+        }
+        #login-pw {
+            align-content: center;
+            background-color: aliceblue;
+            opacity: 0.9;
+            border-color: cornsilk;
+            border-width: 2px;
+        }
     </style>
 
 </head>
@@ -49,14 +63,24 @@
 <body class="beerback">
     <nav id="layoutnav">
         <div class="nav-wrapper">
-            <a class="waves-effect waves-light ml-3 btn mroonbtn">home</a>
+            @Html.ActionLink("Home", "Index", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })
             <ul class="right hide-on-med-and-down">
-                <li><a href="http://localhost:55601/Home/UserRegistration" class="waves-effect waves-light btn mroonbtn">Register</a></li>
-                <li><a class="waves-effect waves-light btn mroonbtn">Button </a></li>
-                <li><a class="waves-effect waves-light btn mroonbtn">Other Button</a></li>
+                <li>@Html.ActionLink("Register", "UserRegistration", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                <li>@Html.ActionLink("Login", "Login", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                @if (Session["BreweryId"] != null)
+                 {
+                    <li>@Html.ActionLink("Add A Beer", "AddBeer", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                    <li>@Html.ActionLink("Edit Brewery Info", "UpdateBreweryInfo", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                 }
+                @if (Session["Admin"] != null)
+                {
+                    <li>@Html.ActionLink("Add A Brewery", "AddBrewery", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                }
             </ul>
         </div>
     </nav>
+
+
     <div>
         <div>
             @RenderBody()

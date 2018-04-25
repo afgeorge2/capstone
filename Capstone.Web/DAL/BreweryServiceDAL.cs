@@ -198,13 +198,13 @@ namespace Capstone.Web.DAL
         public bool AddNewBeer(Beer newBeer)
         {
             //add image later
-            string SQL_AddSurvey = "Insert into beers (name, description, abv, beer_type, brewery_id) Values(@name, @description, @abv, @beertype, @breweryid);";
+            string SQL_AddBeer = "Insert into beers (name, description, abv, beer_type, brewery_id) Values(@name, @description, @abv, @beertype, @breweryid);";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(SQL_AddSurvey, conn);
+                SqlCommand cmd = new SqlCommand(SQL_AddBeer, conn);
                 cmd.Parameters.Add(new SqlParameter("@name", newBeer.Name));
                 cmd.Parameters.Add(new SqlParameter("@description", newBeer.Description));
                 //cmd.Parameters.Add(new SqlParameter("@image", newBeer.Image));

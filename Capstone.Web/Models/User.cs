@@ -13,7 +13,7 @@ namespace Capstone.Web.Models
         public string Password { get; set; }
         public bool? IsBrewer { get; set; }
         public int? BreweryId { get; set; }
-        public bool? IsAdmin { get; set; }
+        public bool IsAdmin { get; set; }
 
 
 

@@ -13,8 +13,19 @@ namespace Capstone.Web.Models
         public string Description { get; set; }
         public string Image { get; set; }
         public double AlcoholByVolume { get; set; }
-        public string BeerType { get; set; }
+        public Types BeerType { get; set; }
         public string BreweryName { get; set; }
         public int BreweryId { get; set; }
+    }
+
+    public enum Types
+    {
+         Other,
+         Ale,
+         Lager,
+         Malt,
+         Porter,
+         Stout,
+         IPA
     }
 }
