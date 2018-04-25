@@ -61,7 +61,7 @@ namespace Capstone.Web.DAL
         public bool UserRegistration(User user)
         {
             bool IsSuccessful = false;
-            const string sqlregistration = @"Insert into user_info(username, password, email) Values(@username, @passWord, @email_address)";
+            string sqlregistration = @"Insert into users(username, password, email) Values(@userName, @passWord, @email)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -256,15 +256,19 @@ namespace Capstone.Web.DAL
                 EmailAddress = Convert.ToString(reader["email"]),
                 UserName = Convert.ToString(reader["username"]),
                 Password = Convert.ToString(reader["password"]),
-                IsBrewer = Convert.ToBoolean(reader["is_brewer"]);
-                if(reader["brewery_id"] != null)
-            {
-                BreweryId = Convert.ToInt32(reader["brewery_id"]);
-            };
-                
+                IsBrewer = Convert.ToBoolean(reader["is_brewer"]),
                 IsAdmin = Convert.ToBoolean(reader["is_admin"])
-
             };
+            var nullCheck = (reader["brewery_id"]);
+
+            if (nullCheck != DBNull.Value)
+            {
+                thisUser.BreweryId = Convert.ToInt32(reader["brewery_id"]);
+            }
+            else
+            {
+                thisUser.BreweryId = 0;
+            }
 
             return thisUser;
         }
@@ -272,7 +276,7 @@ namespace Capstone.Web.DAL
 
 
 
-        private Brewery GetBrewery(SqlDataReader reader)
+    private Brewery GetBrewery(SqlDataReader reader)
         {
             Brewery brewery = new Brewery()
             {
