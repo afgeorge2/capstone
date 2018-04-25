@@ -5,17 +5,18 @@
 
 <form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
     <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
-        <h1 style="text-align: center">Add a New Beer @brewId</h1>
-        Name: <span id="bname" style="margin-left: 50px"> @Html.TextBoxFor(b => b.Name) </span>
+        <h1 style="text-align: center">Add a New Beer</h1>
+        Name: <div style="background-color: white"><span name="Name"> @Html.TextBoxFor(b => b.Name) </span></div>
         Choose beer type:
-        <span> @Html.DropDownListFor(b => b.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) </span>
-   
+              <div>
+                  <span name="BeerType"> @Html.DropDownListFor(b => b.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) </span>
+              </div>
   
         <p></p>
-        Alcohol by Volume: <span style="margin-left: 50px"> @Html.TextBoxFor(b => b.AlcoholByVolume) </span>
-        Description: <span style="margin-left: 50px"> @Html.TextBoxFor(b => b.Description) </span>
+        Alcohol by Volume: <div><span name="AlcoholByVolume"> @Html.TextBoxFor(b => b.AlcoholByVolume) </span></div>
+        Description: <div><span name="Description"> @Html.TextBoxFor(b => b.Description) </span></div>
         <input hidden name="brewId" value="@brewId" />
-        <input type="submit" value="Submit new beer!" name="submitnewbeer" style="margin-left: 225px" />
+        <input type="submit" value="Submit new beer!" name="submitnewbeer" class="btn btn-outline-light" />
 
     </div>
 </form>
