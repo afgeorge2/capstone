@@ -1,11 +1,13 @@
 ﻿using Capstone.Web.DAL;
 using Capstone.Web.Models;
 using Capstone.Web.Models.Viewmodel;
+using Capstone.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Capstone.Web.Controllers
 {
@@ -135,6 +137,40 @@ namespace Capstone.Web.Controllers
             return View("Index", newUser);
         }
 
+        //The following ActionResults are for checking if a user is in session, and then enabling them to 
+        //log in, then return to the index view
+        public ActionResult Login()
+        {
+            if (Session[SessionKey.Email] == null)
+            {
+                return View("Login");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginViewModel model)
+        {
+            string emailAddress = model.EmailAddress;
+            User thisGuy = _brew.GetUser(emailAddress);
+            Session["BreweryId"] = thisGuy.BreweryId;
+
+            if (model.Password == thisGuy.Password)
+            {
+                FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
+                Session[SessionKey.Email] = thisGuy.EmailAddress;
+                Session[SessionKey.UserID] = thisGuy.UserName;
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View("Login");//***For future, have js let user know this is incorrect
+            }
+
+        }
 
 
 

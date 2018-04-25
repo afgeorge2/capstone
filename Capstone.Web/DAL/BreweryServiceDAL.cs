@@ -1,4 +1,5 @@
 ﻿using Capstone.Web.Models;
+using Capstone.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -31,30 +32,19 @@ namespace Capstone.Web.DAL
 
         #region --- User Methods ---
 
-
-
-
-        public User GetUser(string username, string password)
-        {
-            throw new NotImplementedException();//?--------------------------------------------------------------------------do we need this???
-        }
-
-
-
-
-        public User GetUser(string username)
+        public User GetUser(string email)
         {
             User thisUser = new User();
 
-            string sqlGetOne = "Select * from users WHERE users.username = @userName;";
+            string sqlGetOne = "Select * from users WHERE users.email = @email;";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sqlGetOne, conn);
-                cmd.Parameters.AddWithValue("@userName", username);
+                cmd.Parameters.AddWithValue("@email", email);
 
-                var reader = cmd.ExecuteReader();
+                SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -65,6 +55,8 @@ namespace Capstone.Web.DAL
             
 
         }
+
+        //This varia
 
         public bool UserRegistration(User user)
         {
