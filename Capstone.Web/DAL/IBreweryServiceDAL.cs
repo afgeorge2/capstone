@@ -24,10 +24,11 @@ namespace Capstone.Web.DAL
         Brewery GetBreweryByID(int brewID);
         void UpdateBreweryInfo(Brewery b);
         bool LinkBrewerToBrewery(int userID, int breweryID);
+        void UpdateBreweryHours(HoursViewModel m);
 
         //------------------------------------------------------Beer Methods
 
-        bool AddNewBeer(Beer beer);
+        bool AddNewBeer(AddBeerModel beer);
 
 
         //-------------------------------------------------------Review Methods

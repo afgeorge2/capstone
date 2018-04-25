@@ -14,11 +14,11 @@
         @using (Html.BeginForm("Login", "Home", FormMethod.Post))
     {
         <div id="login-email">
-            @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "email" })
+            @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "email", @class="validate" })
             @Html.ValidationMessageFor(m => m.EmailAddress)
         </div>
         <div id="login-pw">
-            @Html.PasswordFor(m => m.Password, new { placeholder = "password" })
+            @Html.PasswordFor(m => m.Password, new { placeholder = "password", @class = "validate" })
             @Html.ValidationMessageFor(m => m.Password)
         </div>
         <button class="btn btn-primary btn-lg btn-block mt-5 button">Login</button>

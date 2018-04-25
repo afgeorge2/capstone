@@ -191,26 +191,66 @@ namespace Capstone.Web.DAL
                 cmd.Parameters.AddWithValue("@email", b.ContactEmail);
                 cmd.Parameters.AddWithValue("@phone", b.ContactPhone);
                 cmd.Parameters.AddWithValue("@brewid", b.BreweryID);
+                cmd.ExecuteNonQuery();
 
             }
         }
 
-        public bool AddNewBeer(Beer newBeer)
+
+        public void UpdateBreweryHours(HoursViewModel m)
+        {
+            m.DaysHours[0].DayOfWeek = "Monday";
+            m.DaysHours[1].DayOfWeek = "Tuesday";
+            m.DaysHours[2].DayOfWeek = "Wednesday";
+            m.DaysHours[3].DayOfWeek = "Thursday";
+            m.DaysHours[4].DayOfWeek = "Friday";
+            m.DaysHours[5].DayOfWeek = "Saturday";
+            m.DaysHours[6].DayOfWeek = "Sunday";
+
+            foreach (var day in m.DaysHours)
+            {
+                string sql = @"INSERT INTO OPERATION VALUES (@brewID, @day, @open, @close);";
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                    cmd.Parameters.AddWithValue("@brewID", m.BrewID);
+                    cmd.Parameters.AddWithValue("@day", day.DayOfWeek);
+                    cmd.Parameters.AddWithValue("@open", day.Opens);
+                    cmd.Parameters.AddWithValue("@close", day.Closes);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
+
+
+
+
+        #endregion
+
+
+        #region --- Beer Methods ---
+
+
+        public bool AddNewBeer(AddBeerModel newBeer)
         {
             //add image later
-            string SQL_AddBeer = "Insert into beers (name, description, abv, beer_type, brewery_id) Values(@name, @description, @abv, @beertype, @breweryid);";
+            string SQL_AddBeer = "Insert into beers (name, description, abv, beer_type, brewery_id) Values(@Name, @Description, @AlcoholByVolume, @BeerType, @brewId);";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(SQL_AddBeer, conn);
-                cmd.Parameters.Add(new SqlParameter("@name", newBeer.Name));
-                cmd.Parameters.Add(new SqlParameter("@description", newBeer.Description));
+                cmd.Parameters.Add(new SqlParameter("@Name", newBeer.Name));
+                cmd.Parameters.Add(new SqlParameter("@Description", newBeer.Description));
                 //cmd.Parameters.Add(new SqlParameter("@image", newBeer.Image));
-                cmd.Parameters.Add(new SqlParameter("@abv", newBeer.AlcoholByVolume));
-                cmd.Parameters.Add(new SqlParameter("@beertype", newBeer.BeerType));
-                cmd.Parameters.Add(new SqlParameter("@breweryid", newBeer.BreweryId));
+                cmd.Parameters.Add(new SqlParameter("@AlcoholByVolume", newBeer.AlcoholByVolume));
+                cmd.Parameters.Add(new SqlParameter("@BeerType", newBeer.BeerType));
+                cmd.Parameters.Add(new SqlParameter("@brewId", newBeer.BreweryId));
                 cmd.ExecuteNonQuery();
 
             }
@@ -220,11 +260,6 @@ namespace Capstone.Web.DAL
 
 
 
-
-        #endregion
-
-
-        #region --- Beer Methods ---
 
 
         public bool AddBeerReview()
