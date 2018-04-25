@@ -256,8 +256,12 @@ namespace Capstone.Web.DAL
                 EmailAddress = Convert.ToString(reader["email"]),
                 UserName = Convert.ToString(reader["username"]),
                 Password = Convert.ToString(reader["password"]),
-                IsBrewer = Convert.ToBoolean(reader["is_brewer"]),
-                BreweryId = Convert.ToInt32(reader["brewery_id"]),
+                IsBrewer = Convert.ToBoolean(reader["is_brewer"]);
+                if(reader["brewery_id"] != null)
+            {
+                BreweryId = Convert.ToInt32(reader["brewery_id"]);
+            };
+                
                 IsAdmin = Convert.ToBoolean(reader["is_admin"])
 
             };
