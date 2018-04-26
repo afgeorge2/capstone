@@ -1,6 +1,6 @@
 ﻿@using Capstone.Web.Models.ViewModels
 @model HoursViewModel
-@{ 
+@{
     int brewID = (int)Session["BreweryId"];
 
 }
@@ -13,6 +13,7 @@
         border-bottom: 1px solid #ff9e3d;
         box-shadow: 0 1px 0 0 #ff9e3d;
     }
+
     textarea.materialize-textarea:focus:not([readonly]) {
         border-bottom: 1px solid #ff9e3d;
         box-shadow: 0 1px 0 0 #ff9e3d;
@@ -21,6 +22,7 @@
     .input-field .prefix.active {
         color: #ff9e3d;
     }
+
     textarea.materialize-textarea:focus:not([readonly]) + label {
         color: #ff9e3d;
     }
@@ -45,31 +47,21 @@
         box-shadow: 0 1px 0 0 #ff9e3d;
     }
 
-    input:not([type]):focus:not([readonly]) + label,
-    input[type=text]:not(.browser-default):focus:not([readonly]) + label,
-    input[type=password]:not(.browser-default):focus:not([readonly]) + label,
-    input[type=email]:not(.browser-default):focus:not([readonly]) + label,
-    input[type=url]:not(.browser-default):focus:not([readonly]) + label,
-    input[type=time]:not(.browser-default):focus:not([readonly]) + label,
-    input[type=date]:not(.browser-default):focus:not([readonly]) + label,
-    input[type=datetime]:not(.browser-default):focus:not([readonly]) + label,
-    input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label,
-    input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
-    input[type=number]:not(.browser-default):focus:not([readonly]) + label,
-    input[type=search]:not(.browser-default):focus:not([readonly]) + label,
-    textarea.materialize-textarea:focus:not([readonly]) + label {
-        color: #ff9e3d;
-    }
-
-
-
-
-
-
-
-
-
-
+        input:not([type]):focus:not([readonly]) + label,
+        input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+        input[type=password]:not(.browser-default):focus:not([readonly]) + label,
+        input[type=email]:not(.browser-default):focus:not([readonly]) + label,
+        input[type=url]:not(.browser-default):focus:not([readonly]) + label,
+        input[type=time]:not(.browser-default):focus:not([readonly]) + label,
+        input[type=date]:not(.browser-default):focus:not([readonly]) + label,
+        input[type=datetime]:not(.browser-default):focus:not([readonly]) + label,
+        input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label,
+        input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
+        input[type=number]:not(.browser-default):focus:not([readonly]) + label,
+        input[type=search]:not(.browser-default):focus:not([readonly]) + label,
+        textarea.materialize-textarea:focus:not([readonly]) + label {
+            color: #ff9e3d;
+        }
 </style>
 
 
@@ -112,7 +104,7 @@
                 <div class="input-field col s6">
                     <i class="material-icons prefix">email</i>
                     <input id="icon_email" type="email" name="email" class="validate">
-                    <input hidden name="brewID" value="@brewID"/>
+                    <input hidden name="brewID" value="@brewID" />
                     <label for="icon_email">Email</label>
                 </div>
             </div>
@@ -196,7 +188,7 @@
 
 
 <script>
-    $(function () {
+    @*$(function () {
         $('#mcCheck').click(function () {
             if ($('#mcCheck').is(':checked')) {
                 $("#mon-open").attr("disabled", false);
@@ -208,5 +200,10 @@
                                    <label for="mon-close" id="labMC">Closed</label>`);
             }
         })
-    })
+    })*@
 </script>
+
+@*<div class="input-field col s6">
+    <input type="text" class="validate"/>
+    <label for="mon-open">Mon Open</label>
+</div>*@

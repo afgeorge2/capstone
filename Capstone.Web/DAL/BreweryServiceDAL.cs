@@ -171,7 +171,10 @@ namespace Capstone.Web.DAL
                 SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
                 cmd.Parameters.AddWithValue("@id", brewID);
                 var reader = cmd.ExecuteReader();
-                brews = GetBrewery(reader);
+                while (reader.Read())
+                {
+                    brews = GetBrewery(reader);
+                }
 
             }
             return brews;
@@ -223,7 +226,26 @@ namespace Capstone.Web.DAL
             }
         }
 
+        public string AddBreweryPhoto(string filepath, int? brewID)
+        {
 
+            string sql = "UPDATE breweries SET imagery = @filepath WHERE id = @brewID";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                cmd.Parameters.AddWithValue("@filepath", filepath);
+                cmd.Parameters.AddWithValue("@brewID", brewID);
+                cmd.ExecuteReader();
+
+            }
+
+
+
+            return filepath;
+            
+        }
 
 
 
@@ -311,11 +333,17 @@ namespace Capstone.Web.DAL
 
 
 
-    private Brewery GetBrewery(SqlDataReader reader)
+        private Brewery GetBrewery(SqlDataReader reader)
         {
             Brewery brewery = new Brewery()
             {
                 BreweryName = Convert.ToString(reader["name"]),
+                Address = Convert.ToString(reader["address"]),
+                ContactEmail = Convert.ToString(reader["contact_email"]),
+                ContactName = Convert.ToString(reader["contact_name"]),
+                ContactPhone = Convert.ToString(reader["contact_phone"]),
+                History = Convert.ToString(reader["history"]),
+                Imagery = Convert.ToString(reader["imagery"]),
                 BreweryID = Convert.ToInt32(reader["id"])
             };
             return brewery;
