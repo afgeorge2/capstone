@@ -1,13 +1,25 @@
 ﻿@using Capstone.Web.Models
 @model List<Beer>
 
+<div class="jumbotron w-75 p-3 mx-auto mt-5 jumbo" style="background-color: black; opacity: 0.9">
+    <h2 style="color: white; font-size: 30px; text-align: center">Which beers are actively available?</h2>
+    <table style="width: 70%; margin-left: 20%; margin-right: 20%">
+        @foreach (Beer b in Model)
+        {
+            <tr>
+                <td style="color: white; font-size: 40px">
+                    <h5>@b.Name</h5> 
+                </td>
+                <td style="color: white; font-size: 40px">
+                    <button type="button" class="btn btn-success bg-success">Active</button>
+                </td>
+                <td style="color: white; font-size: 40px">
+                    <button type="button" class="btn b tn-danger bg-danger">Inactive</button>
+                </td>
+            </tr>
 
-<div>
-    @foreach (Beer b in Model)
-    {
-    <span>@b.Name</span>
-
-    }
+        }
 
 
+    </table>
 </div>

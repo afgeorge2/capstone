@@ -190,7 +190,8 @@ namespace Capstone.Web.Controllers
      
         public ActionResult ShowHideBeer()
         {
-            List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
+            //List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
+            List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
 
             return View(beerlist);
         }
