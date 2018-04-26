@@ -178,6 +178,14 @@ namespace Capstone.Web.Controllers
             return Redirect("Index");
         }
 
+        //get all beer
+        [HttpGet]
+        public ActionResult GetAllBeers()
+        {
+            var beers = _brew.GetAllBeer();
+
+            return View("Index", beers);
+        }
         #endregion
 
 

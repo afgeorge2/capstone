@@ -182,7 +182,7 @@ namespace Capstone.Web.DAL
             string sql = @"UPDATE breweries SET history=@history, address=@address, contact_name=@cname, contact_email=@email ,contact_phone=@phone WHERE breweries.id=@brewid";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
-            {
+            { 
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
                 cmd.Parameters.AddWithValue("@history", b.History);
@@ -195,7 +195,7 @@ namespace Capstone.Web.DAL
 
             }
         }
-
+        
 
         public void UpdateBreweryHours(HoursViewModel m)
         {
@@ -267,6 +267,25 @@ namespace Capstone.Web.DAL
             throw new NotImplementedException();
         }
 
+        public List<Beer> GetAllBeers()
+        {
+            string sqlBeers = "Select * from beers";
+            List<Beer> beer = new List<Beer>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sqlBeers, conn);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    beer.Add(GetBeer(reader));
+                }
+
+            }
+            return beer;
+        }
+
 
         #endregion
 
@@ -321,11 +340,25 @@ namespace Capstone.Web.DAL
             return brewery;
         }
 
+        private Beer GetBeer(SqlDataReader reader)
+        {
+            Beer beer = new Beer()
+            {
+                Name = Convert.ToString(reader["name"])
+            };
+            return beer;
+        }
 
-
-
-
-        #endregion
-
+        public List<Beer> GetAllBeer()
+    {
+        throw new NotImplementedException();
     }
+
+
+
+
+
+    #endregion
+
+}
 }
