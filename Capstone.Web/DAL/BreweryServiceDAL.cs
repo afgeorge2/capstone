@@ -259,23 +259,24 @@ namespace Capstone.Web.DAL
         }
 
         //get beers from DB for dropdown in showhide
-        public List<ShowHideBeer> BeersForDropdown(int breweryId)
+        public List<Beer> GetAllBeersFromBrewery(int breweryId)
         {
-            string SQL_BeersDropdown = "Select name, show_hide from beers where brewery_Id = @breweryId;";
-            List<ShowHideBeer> shb = new List<ShowHideBeer>();
+            string SQL_BeersDropdown = "Select name, show_hide from beers where brewery_id = @breweryId;";
+            List<Beer> shb = new List<Beer>();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(SQL_BeersDropdown, conn);
                 var reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while (reader.Read()) 
                 {
                     shb.Add(GetBeersShowHideFromReader(reader));
                 }
 
                 return shb;
             }
+        }
 
 
             //beer is active/inactive
@@ -361,9 +362,9 @@ namespace Capstone.Web.DAL
 
 
 
-            ShowHideBeer GetBeersShowHideFromReader(SqlDataReader reader)
+            private Beer GetBeersShowHideFromReader(SqlDataReader reader)
             {
-                ShowHideBeer beers = new ShowHideBeer()
+                Beer beers = new Beer()
                 {
                     Name = Convert.ToString(reader["name"]),
                     ShowHide = Convert.ToInt32(reader["show_hide"])
@@ -375,6 +376,5 @@ namespace Capstone.Web.DAL
 
             #endregion
 
-        }
     }
 }

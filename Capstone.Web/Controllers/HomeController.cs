@@ -186,10 +186,12 @@ namespace Capstone.Web.Controllers
         }
 
         //update beer availability (show/hide)
-        [HttpPost]
+     
         public ActionResult ShowHideBeer()
         {
-            return Redirect("Index");
+            List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
+
+            return View(beerlist);
         }
 
 
