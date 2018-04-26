@@ -170,12 +170,12 @@ namespace Capstone.Web.Controllers
 
         //add beer post
         [HttpPost]
-        public ActionResult AddBeer(Beer b, int brewId)
+        public ActionResult AddBeer(AddBeerModel b, int brewId)
         {
             b.BreweryId = brewId;
             _brew.AddNewBeer(b);
 
-            return Redirect("BreweryInformation");
+            return Redirect("Index");
         }
 
         #endregion
@@ -195,9 +195,15 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult UserRegistration(User user)
         {
+            if (user.UserName == null || user.Password == null || user.EmailAddress == null)
+            {
+                return View("UserRegistration");
+            }
             _brew.UserRegistration(user);
             SessionKey.Email = user.EmailAddress;
+
             return View("Index", user);
+           
         }
 
         //The following ActionResults are for checking if a user is in session, and then enabling them to 
@@ -243,7 +249,7 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                return View("Login");//***For future, have js let user know this is incorrect
+                return View("Login");//***For future, have js let user know this is incorrect 
             }
 
         }

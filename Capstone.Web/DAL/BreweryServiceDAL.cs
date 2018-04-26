@@ -229,22 +229,28 @@ namespace Capstone.Web.DAL
 
 
 
-        public bool AddNewBeer(Beer newBeer)
+        #endregion
+
+
+        #region --- Beer Methods ---
+
+
+        public bool AddNewBeer(AddBeerModel newBeer)
         {
             //add image later
-            string SQL_AddBeer = "Insert into beers (name, description, abv, beer_type, brewery_id) Values(@name, @description, @abv, @beertype, @breweryid);";
+            string SQL_AddBeer = "Insert into beers (name, description, abv, beer_type, brewery_id) Values(@Name, @Description, @AlcoholByVolume, @BeerType, @brewId);";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(SQL_AddBeer, conn);
-                cmd.Parameters.Add(new SqlParameter("@name", newBeer.Name));
-                cmd.Parameters.Add(new SqlParameter("@description", newBeer.Description));
+                cmd.Parameters.Add(new SqlParameter("@Name", newBeer.Name));
+                cmd.Parameters.Add(new SqlParameter("@Description", newBeer.Description));
                 //cmd.Parameters.Add(new SqlParameter("@image", newBeer.Image));
-                cmd.Parameters.Add(new SqlParameter("@abv", newBeer.AlcoholByVolume));
-                cmd.Parameters.Add(new SqlParameter("@beertype", newBeer.BeerType));
-                cmd.Parameters.Add(new SqlParameter("@breweryid", newBeer.BreweryId));
+                cmd.Parameters.Add(new SqlParameter("@AlcoholByVolume", newBeer.AlcoholByVolume));
+                cmd.Parameters.Add(new SqlParameter("@BeerType", newBeer.BeerType));
+                cmd.Parameters.Add(new SqlParameter("@brewId", newBeer.BreweryId));
                 cmd.ExecuteNonQuery();
 
             }
@@ -254,11 +260,6 @@ namespace Capstone.Web.DAL
 
 
 
-
-        #endregion
-
-
-        #region --- Beer Methods ---
 
 
         public bool AddBeerReview()
