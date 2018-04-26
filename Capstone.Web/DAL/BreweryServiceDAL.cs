@@ -280,6 +280,28 @@ namespace Capstone.Web.DAL
             }
         }
 
+        public List<Beer> GetAllBeers()
+        {
+            string SQL_Beers = "Select * from beers;";
+            List<Beer> shb = new List<Beer>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(SQL_Beers, conn);
+
+             
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    shb.Add(GetBeersShowHideFromReader(reader));
+                }
+
+                return shb;
+            }
+        }
+
         public bool AddBeerReview()
         {
             throw new NotImplementedException();
@@ -312,7 +334,7 @@ namespace Capstone.Web.DAL
             #endregion
 
 
-
+             
 
 
 

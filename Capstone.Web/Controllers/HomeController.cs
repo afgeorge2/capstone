@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace Capstone.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController  : Controller
     {
         #region --- Contructors ---
 
@@ -36,8 +36,12 @@ namespace Capstone.Web.Controllers
 
         public ActionResult Index()
         {
-            List<Brewery> brews = _brew.GetAllBrewerys();
-            return View("Index", model: brews);
+          var allData = new IndexPageData();
+            allData.GetAllTheBreweries = _brew.GetAllBrewerys();
+            allData.GetAllTheBeers = _brew.GetAllBeers();
+
+
+            return View("Index", allData);
         }
 
 
@@ -112,6 +116,13 @@ namespace Capstone.Web.Controllers
 
 
             return View();
+        }
+
+        public ActionResult BreweryDetail(int brewID)
+        {
+            Brewery brewDetail = _brew.GetBreweryByID(brewID);
+
+            return View("Detail", "Home", brewDetail);
         }
 
         #endregion
