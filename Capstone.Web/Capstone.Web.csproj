@@ -175,7 +175,6 @@
     <Compile Include="Models\Brewery.cs" />
     <Compile Include="Models\DaysHoursOperation.cs" />
     <Compile Include="Models\Review.cs" />
-    <Compile Include="Models\ShowHideBeer.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\AddBeerModel.cs" />
     <Compile Include="Models\ViewModels\BrewerBrewery.cs" />

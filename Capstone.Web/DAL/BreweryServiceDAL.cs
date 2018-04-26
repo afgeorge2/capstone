@@ -259,25 +259,33 @@ namespace Capstone.Web.DAL
         }
 
         //get beers from DB for dropdown in showhide
-        public List<ShowHideBeer> BeersForDropdown(int breweryId)
+        public List<Beer> GetAllBeersFromBrewery(int breweryId)
         {
-            string SQL_BeersDropdown = "Select name, show_hide from beers where brewery_Id = @breweryId;";
-            List<ShowHideBeer> shb = new List<ShowHideBeer>();
+            string SQL_Beers = "Select name from beers where brewery_id = @breweryId";
+            List<Beer> shb = new List<Beer>();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(SQL_BeersDropdown, conn);
+                SqlCommand cmd = new SqlCommand(SQL_Beers, conn);
+
+                cmd.Parameters.AddWithValue("@breweryId", breweryId);
                 var reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while (reader.Read()) 
                 {
                     shb.Add(GetBeersShowHideFromReader(reader));
                 }
 
                 return shb;
             }
+        }
 
-
+        public bool AddBeerReview()
+        {
+            throw new NotImplementedException();
+        }
+    
             //beer is active/inactive
             //public bool ShowHideBeer(Beer b)
             //{
@@ -300,10 +308,6 @@ namespace Capstone.Web.DAL
 
 
 
-            public bool AddBeerReview()
-            {
-                throw new NotImplementedException();
-            }
 
 
             #endregion
@@ -322,7 +326,7 @@ namespace Capstone.Web.DAL
 
             #region --- SQL Readers ---
 
-            private User MapUserFromReader(SqlDataReader reader)
+             public User MapUserFromReader(SqlDataReader reader)
             {
                 User thisUser = new User()
                 {
@@ -349,7 +353,7 @@ namespace Capstone.Web.DAL
 
 
 
-            private Brewery GetBrewery(SqlDataReader reader)
+            public Brewery GetBrewery(SqlDataReader reader)
             {
                 Brewery brewery = new Brewery()
                 {
@@ -361,9 +365,9 @@ namespace Capstone.Web.DAL
 
 
 
-            ShowHideBeer GetBeersShowHideFromReader(SqlDataReader reader)
+            private Beer GetBeersShowHideFromReader(SqlDataReader reader)
             {
-                ShowHideBeer beers = new ShowHideBeer()
+                Beer beers = new Beer()
                 {
                     Name = Convert.ToString(reader["name"]),
                     ShowHide = Convert.ToInt32(reader["show_hide"])
@@ -371,10 +375,17 @@ namespace Capstone.Web.DAL
                 return beers;
             }
 
-
-
-            #endregion
-
+        bool IBreweryServiceDAL.AddBeerReview()
+        {
+            throw new NotImplementedException();
         }
+
+
+
+        #endregion
+
+
+
+
     }
 }
