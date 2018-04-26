@@ -1,4 +1,13 @@
-﻿@using Capstone.Web.Models.ViewModels
-@model ShowHideModel
+﻿@using Capstone.Web.Models
+@model List<Beer>
 
 
+<div>
+    @foreach (Beer b in Model)
+    {
+    <span>b.Name</span>
+
+    }
+
+
+</div>
