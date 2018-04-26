@@ -281,7 +281,11 @@ namespace Capstone.Web.DAL
             }
         }
 
-
+        public bool AddBeerReview()
+        {
+            throw new NotImplementedException();
+        }
+    
             //beer is active/inactive
             //public bool ShowHideBeer(Beer b)
             //{
@@ -304,10 +308,6 @@ namespace Capstone.Web.DAL
 
 
 
-            public bool AddBeerReview()
-            {
-                throw new NotImplementedException();
-            }
 
 
             #endregion
@@ -326,7 +326,7 @@ namespace Capstone.Web.DAL
 
             #region --- SQL Readers ---
 
-            private User MapUserFromReader(SqlDataReader reader)
+             public User MapUserFromReader(SqlDataReader reader)
             {
                 User thisUser = new User()
                 {
@@ -353,7 +353,7 @@ namespace Capstone.Web.DAL
 
 
 
-            private Brewery GetBrewery(SqlDataReader reader)
+            public Brewery GetBrewery(SqlDataReader reader)
             {
                 Brewery brewery = new Brewery()
                 {
@@ -375,9 +375,17 @@ namespace Capstone.Web.DAL
                 return beers;
             }
 
+        bool IBreweryServiceDAL.AddBeerReview()
+        {
+            throw new NotImplementedException();
+        }
 
 
-            #endregion
+
+        #endregion
+
+
+
 
     }
 }
