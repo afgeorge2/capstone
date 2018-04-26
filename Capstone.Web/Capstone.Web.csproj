@@ -135,12 +135,14 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Photos\8a658fbe99870dc34473986bd5981f22.jpg" />
     <Content Include="Photos\beerback1.jpg" />
     <Content Include="Photos\beerback2.jpg" />
     <Content Include="Photos\beerback3.jpg" />
     <Content Include="Photos\beerback4.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Photos\pic1" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -163,6 +165,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UploadFileController.cs" />
     <Compile Include="DAL\BreweryServiceDAL.cs" />
     <Compile Include="DAL\IBreweryServiceDAL.cs" />
     <Compile Include="Global.asax.cs">
@@ -192,6 +195,7 @@
     <Content Include="Views\Home\AddBeer.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\UserRegistration.cshtml" />
+    <Content Include="Views\Home\FileUpload.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -201,6 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\UploadFile\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <PropertyGroup>

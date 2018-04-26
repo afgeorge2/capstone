@@ -6,16 +6,79 @@
 }
 
 
-<h1>update brewery! brewID = @brewID</h1>
+
+<style>
+
+    textarea.materialize-textarea:focus:not([readonly]) {
+        border-bottom: 1px solid #ff9e3d;
+        box-shadow: 0 1px 0 0 #ff9e3d;
+    }
+    textarea.materialize-textarea:focus:not([readonly]) {
+        border-bottom: 1px solid #ff9e3d;
+        box-shadow: 0 1px 0 0 #ff9e3d;
+    }
+
+    .input-field .prefix.active {
+        color: #ff9e3d;
+    }
+    textarea.materialize-textarea:focus:not([readonly]) + label {
+        color: #ff9e3d;
+    }
+
+
+
+    input:not([type]):focus:not([readonly]),
+    input[type=text]:not(.browser-default):focus:not([readonly]),
+    input[type=password]:not(.browser-default):focus:not([readonly]),
+    input[type=email]:not(.browser-default):focus:not([readonly]),
+    input[type=url]:not(.browser-default):focus:not([readonly]),
+    input[type=time]:not(.browser-default):focus:not([readonly]),
+    input[type=date]:not(.browser-default):focus:not([readonly]),
+    input[type=datetime]:not(.browser-default):focus:not([readonly]),
+    input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+    input[type=tel]:not(.browser-default):focus:not([readonly]),
+    input[type=number]:not(.browser-default):focus:not([readonly]),
+    input[type=search]:not(.browser-default):focus:not([readonly]),
+    textarea.materialize-textarea:focus:not([readonly]) {
+        border-bottom: 1px solid #ff9e3d;
+        -webkit-box-shadow: 0 1px 0 0 #ff9e3d;
+        box-shadow: 0 1px 0 0 #ff9e3d;
+    }
+
+    input:not([type]):focus:not([readonly]) + label,
+    input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+    input[type=password]:not(.browser-default):focus:not([readonly]) + label,
+    input[type=email]:not(.browser-default):focus:not([readonly]) + label,
+    input[type=url]:not(.browser-default):focus:not([readonly]) + label,
+    input[type=time]:not(.browser-default):focus:not([readonly]) + label,
+    input[type=date]:not(.browser-default):focus:not([readonly]) + label,
+    input[type=datetime]:not(.browser-default):focus:not([readonly]) + label,
+    input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label,
+    input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
+    input[type=number]:not(.browser-default):focus:not([readonly]) + label,
+    input[type=search]:not(.browser-default):focus:not([readonly]) + label,
+    textarea.materialize-textarea:focus:not([readonly]) + label {
+        color: #ff9e3d;
+    }
 
 
 
 
-<div class="jumbotron w-75 mx-auto">
 
+
+
+
+
+
+</style>
+
+
+<div class="jumbotron w-75 pt-4 mx-auto mt-5">
+
+    <h4 class="center-align mb-1 mt-0 text-uppercase">Update Brewery Info</h4>
 
     <form method="post" action="@Url.Action("UpdateBreweryInfo","Home")">
-        <div class="row">
+        <div class="row my-0">
             <div class="row col s12">
                 <div class="input-field col s6">
                     <i class="material-icons prefix">mode_edit</i>
@@ -24,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row my-0">
             <div class="row col s12">
                 <div class="input-field col s6">
                     <i class="material-icons prefix">add_location</i>
@@ -55,43 +118,36 @@
             </div>
         </div>
 
-        <h6 class="mb-0 center-align">Hours Of Operation</h6>
+        <h5 class="mb-0 center-align">Hours Of Operation</h5>
         <div id="houroperation" class="row mb-0">
             <div class="col s12">
                 <div class="row mb-0">
                     <div class="input-field col s6">
-                        @Html.TextBoxFor(m => m.DaysHours[0].Opens, new { id = "mon-open", @class="validate" } )
-                        @*<input id="mon-open" name="monO" type="text" class="validate">*@
+                        @Html.TextBoxFor(m => m.DaysHours[0].Opens, new { id = "mon-open", @class = "validate" })
                         <label for="mon-open">Mon Open</label>
                     </div>
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[1].Opens, new { id = "tue-open", @class = "validate" })
-                        @*<input id="tue-open" name="tueO" type="text" class="validate">*@
                         <label for="tue-open">Tues Open</label>
                     </div>
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[2].Opens, new { id = "wed-open", @class = "validate" })
-                        @*<input id="wed-open" name="wedO" type="text" class="validate">*@
                         <label for="wed-open">Wed Open</label>
                     </div>
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[3].Opens, new { id = "thr-open", @class = "validate" })
-                        @*<input id="thr-open" name="thuO" type="text" class="validate">*@
                         <label for="thr-open">Thur Open</label>
                     </div>
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[4].Opens, new { id = "fri-open", @class = "validate" })
-                        @*<input id="fri-open" name="friO" type="text" class="validate">*@
                         <label for="fri-open">Fri Open</label>
                     </div>
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[5].Opens, new { id = "sat-open", @class = "validate" })
-                        @*<input id="sat-open" name="satO" type="text" class="validate">*@
                         <label for="sat-open">Sat Open</label>
                     </div>
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[6].Opens, new { id = "sun-open", @class = "validate" })
-                        @*<input id="sun-open" name="sunO" type="text" class="validate">*@
                         <label for="sun-open">Sun Open</label>
                     </div>
                 </div>
@@ -102,47 +158,55 @@
                 <div class="row mb-0">
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[0].Closes, new { id = "mon-close", @class = "validate" })
-                        @*<input id="mon-close" name="monC" type="text" class="validate">*@
                         <label for="mon-close">Mon Close</label>
                     </div>
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[1].Closes, new { id = "tue-close", @class = "validate" })
-                        @*<input id="tue-close" name="tueC" type="text" class="validate">*@
                         <label for="tue-close">Tues Close</label>
                     </div>
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[2].Closes, new { id = "wed-close", @class = "validate" })
-                        @*<input id="Wed-close" name="wedC" type="text" class="validate">*@
                         <label for="Wed-close">Wed Close</label>
                     </div>
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[3].Closes, new { id = "Thur-close", @class = "validate" })
-                        @*<input id="Thur-close" name="thuC" type="text" class="validate">*@
                         <label for="Thur-close">Thur Close</label>
                     </div>
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[4].Closes, new { id = "Fri-close", @class = "validate" })
-                        @*<input id="Fri-close" name="friC" type="text" class="validate">*@
                         <label for="Fri-close">Fri Close</label>
                     </div>
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[5].Closes, new { id = "Sat-close", @class = "validate" })
-                        @*<input id="Sat-close" name="satC" type="text" class="validate">*@
                         <label for="Sat-close">Sat Close</label>
                     </div>
                     <div class="input-field col s6">
                         @Html.TextBoxFor(m => m.DaysHours[6].Closes, new { id = "Sun-close", @class = "validate" })
-                        @*<input id="Sun-close" name="sunC" type="text" class="validate">*@
                         <label for="Sun-close">Sun Close</label>
                     </div>
                 </div>
             </div>
         </div>
 
-        <button id="newbrewsubmit" type="submit" class="btn btn-block btn-success btn-lg">Large button</button>
+        <button id="newbrewsubmit" type="submit" class="btn btn-block btn-outline-success mroonbtn btn-lg">Update</button>
 
     </form>
 
 </div>
 
 
+<script>
+    $(function () {
+        $('#mcCheck').click(function () {
+            if ($('#mcCheck').is(':checked')) {
+                $("#mon-open").attr("disabled", false);
+                $("#labMC").text("Mon Open")
+            }
+            if (!$('#checktest').is(':checked')) {
+                $("#mclosed").empty();
+                $("#mclosed").append(`@Html.TextBoxFor(m => m.DaysHours[0].Closes, new { id = "mon-close", @class = "validate" })
+                                   <label for="mon-close" id="labMC">Closed</label>`);
+            }
+        })
+    })
+</script>
