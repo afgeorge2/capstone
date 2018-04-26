@@ -30,7 +30,7 @@ namespace Capstone.Web.DAL
 
 
 
-        #region --- User Methods ---
+         #region --- User Methods ---
 
         public User GetUser(string email)
         {

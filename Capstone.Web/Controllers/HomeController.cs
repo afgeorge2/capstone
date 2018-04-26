@@ -157,7 +157,7 @@ namespace Capstone.Web.Controllers
             _brew.UserRegistration(user);
             SessionKey.Email = user.EmailAddress;
 
-            return View("Index", user);
+            return RedirectToAction("Index");
            
         }
 

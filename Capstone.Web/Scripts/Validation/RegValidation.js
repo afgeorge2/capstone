@@ -12,6 +12,7 @@ $(document).ready(function () {
             Password: {
                 required: true,
                 minlength: 8
+                
             },
 
             EmailAddress: {
