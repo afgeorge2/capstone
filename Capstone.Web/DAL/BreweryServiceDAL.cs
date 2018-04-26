@@ -278,7 +278,11 @@ namespace Capstone.Web.DAL
             }
         }
 
+        public bool AddBeerReview()
+        {
+            throw new NotImplementedException();
         }
+    
             //beer is active/inactive
             //public bool ShowHideBeer(Beer b)
             //{
@@ -301,10 +305,6 @@ namespace Capstone.Web.DAL
 
 
 
-             bool AddBeerReview()
-            {
-                throw new NotImplementedException();
-            }
 
 
             #endregion
