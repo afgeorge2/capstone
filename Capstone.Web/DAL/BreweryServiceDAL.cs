@@ -370,7 +370,7 @@ namespace Capstone.Web.DAL
             #region --- SQL Readers ---
 
              public User MapUserFromReader(SqlDataReader reader)
-            {
+             {
                 User thisUser = new User()
                 {
                     EmailAddress = Convert.ToString(reader["email"]),
@@ -391,35 +391,27 @@ namespace Capstone.Web.DAL
                 }
 
                 return thisUser;
-            }
+             }
 
 
 
 
-            public Brewery GetBrewery(SqlDataReader reader)
+
+            private Brewery GetBrewery(SqlDataReader reader)
             {
                 Brewery brewery = new Brewery()
                 {
                     BreweryName = Convert.ToString(reader["name"]),
+                    Address = Convert.ToString(reader["address"]),
+                    ContactEmail = Convert.ToString(reader["contact_email"]),
+                    ContactName = Convert.ToString(reader["contact_name"]),
+                    ContactPhone = Convert.ToString(reader["contact_phone"]),
+                    History = Convert.ToString(reader["history"]),
+                    Imagery = Convert.ToString(reader["imagery"]),
                     BreweryID = Convert.ToInt32(reader["id"])
                 };
                 return brewery;
             }
-        private Brewery GetBrewery(SqlDataReader reader)
-        {
-            Brewery brewery = new Brewery()
-            {
-                BreweryName = Convert.ToString(reader["name"]),
-                Address = Convert.ToString(reader["address"]),
-                ContactEmail = Convert.ToString(reader["contact_email"]),
-                ContactName = Convert.ToString(reader["contact_name"]),
-                ContactPhone = Convert.ToString(reader["contact_phone"]),
-                History = Convert.ToString(reader["history"]),
-                Imagery = Convert.ToString(reader["imagery"]),
-                BreweryID = Convert.ToInt32(reader["id"])
-            };
-            return brewery;
-        }
 
 
 
@@ -432,10 +424,10 @@ namespace Capstone.Web.DAL
                 return beers;
             }
 
-        bool IBreweryServiceDAL.AddBeerReview()
-        {
-            throw new NotImplementedException();
-        }
+            bool IBreweryServiceDAL.AddBeerReview()
+            {
+                throw new NotImplementedException();
+            }
 
 
 
