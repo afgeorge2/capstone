@@ -261,15 +261,40 @@ namespace Capstone.Web.DAL
         //get beers from DB for dropdown in showhide
         public List<Beer> GetAllBeersFromBrewery(int breweryId)
         {
-            string SQL_BeersDropdown = "Select name, show_hide from beers where brewery_id = @breweryId;";
+            string SQL_Beers = "Select name from beers where brewery_id = @breweryId";
             List<Beer> shb = new List<Beer>();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(SQL_BeersDropdown, conn);
+                SqlCommand cmd = new SqlCommand(SQL_Beers, conn);
+
+                cmd.Parameters.AddWithValue("@breweryId", breweryId);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read()) 
+                {
+                    shb.Add(GetBeersShowHideFromReader(reader));
+                }
+
+                return shb;
+            }
+        }
+
+        public List<Beer> GetAllBeers()
+        {
+            string SQL_Beers = "Select * from beers;";
+            List<Beer> shb = new List<Beer>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(SQL_Beers, conn);
+
+             
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
                 {
                     shb.Add(GetBeersShowHideFromReader(reader));
                 }

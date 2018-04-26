@@ -19,7 +19,7 @@ namespace Capstone.Web.Models.Viewmodel
         [RegularExpression(@"^(?=.+\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$")]
         public string Password { get; set; }
 
-
+ 
         [Required]
         [MinLength(6, ErrorMessage = "required")]
         public string UserName { get; set; }

@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace Capstone.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController  : Controller
     {
         #region --- Contructors ---
 
