@@ -175,12 +175,14 @@
     <Compile Include="Models\Brewery.cs" />
     <Compile Include="Models\DaysHoursOperation.cs" />
     <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\ShowHideBeer.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\AddBeerModel.cs" />
     <Compile Include="Models\ViewModels\BrewerBrewery.cs" />
     <Compile Include="Models\ViewModels\HoursViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
+    <Compile Include="Models\ViewModels\ShowHideModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionKey.cs" />
   </ItemGroup>
@@ -196,6 +198,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\UserRegistration.cshtml" />
     <Content Include="Views\Home\FileUpload.cshtml" />
+    <Content Include="Views\Home\ShowHideBeer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

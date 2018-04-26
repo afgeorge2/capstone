@@ -23,6 +23,7 @@ namespace Capstone.Web.Models.ViewModels
         public Types BeerType { get; set; }
 
         public int BreweryId { get; set; }
+
     }
 
     public enum Types
