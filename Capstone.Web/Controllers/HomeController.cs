@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace Capstone.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController  : Controller
     {
         #region --- Contructors ---
 
@@ -36,7 +36,12 @@ namespace Capstone.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+          var allData = new IndexPageData();
+            allData.GetAllTheBreweries = _brew.GetAllBrewerys();
+            allData.GetAllTheBeers = _brew.GetAllBeers();
+
+
+            return View("Index", allData);
         }
 
 
@@ -125,6 +130,13 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
+        public ActionResult BreweryDetail(int brewID)
+        {
+            Brewery brewDetail = _brew.GetBreweryByID(brewID);
+
+            return View("Detail", "Home", brewDetail);
+        }
+
         #endregion
 
 
@@ -177,7 +189,7 @@ namespace Capstone.Web.Controllers
 
 
 
-        #region --- Add Beer Actions ---
+        #region --- Beer Actions ---
 
         //add beer view
         public ActionResult AddBeer()
@@ -194,6 +206,24 @@ namespace Capstone.Web.Controllers
 
             return Redirect("Index");
         }
+
+        //delete beer post
+        [HttpPost]
+        public ActionResult DeleteBeer()
+        {
+            return Redirect("Index");
+        }
+
+        //update beer availability (show/hide)
+     
+        public ActionResult ShowHideBeer()
+        {
+            //List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
+            List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
+
+            return View(beerlist);
+        }
+
 
         #endregion
 
@@ -219,7 +249,7 @@ namespace Capstone.Web.Controllers
             _brew.UserRegistration(user);
             SessionKey.Email = user.EmailAddress;
 
-            return View("Index", user);
+            return RedirectToAction("Index");
            
         }
 

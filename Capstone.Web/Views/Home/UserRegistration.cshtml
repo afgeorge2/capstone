@@ -17,7 +17,10 @@
     .button{
         background-color:black;
     }
- 
+    .text-area{
+        background-color: white;
+    }
+
 
 </style>
 
@@ -28,18 +31,18 @@
         <div class="jumbotron w-75 pt-3 mx-auto mt-5 jumbo">
             <h1 class="text-center text ">Registration</h1>
 
-            <div class="col-lg-8 form-group row">
+            <div class="col-lg-8 form-group row text-area">
                 @Html.TextBoxFor(m => m.UserName, new { placeholder = "username" })
                 <small>@Html.ValidationMessageFor(m => m.UserName)</small>
             </div>
            
-            <div class="mt-3 col-lg-8 form-group row">
+            <div class="mt-3 col-lg-8 form-group row text-area">
                 @Html.PasswordFor(m => m.Password, new { placeholder = "password" })
 
                 <small>@Html.ValidationMessageFor(m => m.Password)</small>
             </div>
 
-            <div class="mt-3 col-lg-8 form-group row text">
+            <div class="mt-3 col-lg-8 form-group row text text-area">
                 @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "email" })
                 <small>@Html.ValidationMessageFor(m => m.EmailAddress)</small>
             </div>

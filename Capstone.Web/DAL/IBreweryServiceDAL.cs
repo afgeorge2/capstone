@@ -29,6 +29,8 @@ namespace Capstone.Web.DAL
         //------------------------------------------------------Beer Methods
 
         bool AddNewBeer(AddBeerModel beer);
+        List<Beer> GetAllBeersFromBrewery(int breweryId);
+        List<Beer> GetAllBeers();
 
 
         //-------------------------------------------------------Review Methods

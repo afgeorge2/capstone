@@ -16,6 +16,7 @@ namespace Capstone.Web.Models
         public Types BeerType { get; set; }
         public string BreweryName { get; set; }
         public int BreweryId { get; set; }
+        public int ShowHide { get; set; }
     }
 
     public enum Types
