@@ -4,10 +4,12 @@ using Capstone.Web.Models.Viewmodel;
 using Capstone.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI.WebControls;
 
 namespace Capstone.Web.Controllers
 {
@@ -112,6 +114,49 @@ namespace Capstone.Web.Controllers
         }
 
         #endregion
+
+
+
+        #region --- UplaodFile ---
+
+
+        public ActionResult FileUpload()
+        {
+            return View();
+        }
+
+
+
+
+        private bool isValidContentType(string contentType)
+        {
+            return contentType.Equals("image/png") || contentType.Equals("image/gif") ||
+                contentType.Equals("image/jpg") || contentType.Equals("image/jpeg");
+        }
+
+
+        [HttpPost]
+        public ActionResult Process(HttpPostedFileBase photo)
+        {
+            if (!isValidContentType(photo.ContentType))
+            {
+                ViewBag.Error = "wrong format";
+                return View("FileUpload");
+            }
+            else
+            {
+                var filename = Path.GetFileName(photo.FileName);
+                //var filename = "pic1";
+                var path = Path.Combine(Server.MapPath("~/Photos"), filename);
+                photo.SaveAs(path);
+                return View("FileUpload");
+            }
+        }
+
+
+        #endregion
+
+
 
 
 
