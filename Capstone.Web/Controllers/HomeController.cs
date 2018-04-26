@@ -36,7 +36,8 @@ namespace Capstone.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            List<Brewery> brews = _brew.GetAllBrewerys();
+            return View("Index", model: brews);
         }
 
 
