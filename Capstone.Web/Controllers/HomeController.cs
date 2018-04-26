@@ -160,7 +160,7 @@ namespace Capstone.Web.Controllers
 
 
 
-        #region --- Add Beer Actions ---
+        #region --- Beer Actions ---
 
         //add beer view
         public ActionResult AddBeer()
@@ -177,6 +177,21 @@ namespace Capstone.Web.Controllers
 
             return Redirect("Index");
         }
+
+        //delete beer post
+        [HttpPost]
+        public ActionResult DeleteBeer()
+        {
+            return Redirect("Index");
+        }
+
+        //update beer availability (show/hide)
+        [HttpPost]
+        public ActionResult ShowHideBeer()
+        {
+            return Redirect("Index");
+        }
+
 
         #endregion
 
