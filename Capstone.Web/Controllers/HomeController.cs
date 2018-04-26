@@ -38,6 +38,7 @@ namespace Capstone.Web.Controllers
         {
           var allData = new IndexPageData();
             allData.GetAllTheBreweries = _brew.GetAllBrewerys();
+            allData.GetAllTheBeers = _brew.GetAllBeers();
 
 
             return View("Index", allData);
