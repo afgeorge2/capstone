@@ -1,0 +1,9 @@
+﻿@using Capstone.Web.Models
+@{int brewId = (int)Session["BreweryId"];}
+
+
+<a href=@Url.Action("AddBeer", "Home") class="btn btn-primary btn-lg disabled" role="button" aria-disabled="true">Add Beer</a>
+<a href="#" class="btn btn-primary btn-lg disabled" role="button" aria-disabled="true">Delete Beer</a>
+<a href="#" class="btn btn-primary btn-lg disabled" role="button" aria-disabled="true">Edit Availability</a>
+
+@*@Url.Action("AddBeer", "Home", new { brewID = brewery.BreweryID })*@

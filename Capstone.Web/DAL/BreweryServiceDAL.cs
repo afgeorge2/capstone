@@ -476,7 +476,7 @@ namespace Capstone.Web.DAL
             Beer beers = new Beer()
             {
                 Name = Convert.ToString(reader["name"]),
-
+                ShowHide = Convert.ToInt32(reader["show_hide"])
             };
             return beers;
         }
