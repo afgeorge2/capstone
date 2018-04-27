@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace Capstone.Web.Controllers
 {
-    public class HomeController  : Controller
+    public class HomeController : Controller
     {
         #region --- Contructors ---
 
@@ -36,12 +36,8 @@ namespace Capstone.Web.Controllers
 
         public ActionResult Index()
         {
-          //var allData = new IndexPageData();
-          //  allData.GetAllTheBreweries = 
-          //  allData.GetAllTheBeers = _brew.GetAllBeers();
-
-
-            return View("Index", _brew.GetAllBrewerys());
+            List<Brewery> allBreweries = _brew.GetAllBrewerys();
+            return View("Index",allBreweries);
         }
 
 
@@ -102,7 +98,7 @@ namespace Capstone.Web.Controllers
         {
             //if (m.BreweryName!=null)
             //{
-                m.BreweryID = _brew.AddNewBrewery(m.BreweryName);
+            m.BreweryID = _brew.AddNewBrewery(m.BreweryName);
             //}
             //if (!ModelState.IsValid)
             //{
@@ -166,7 +162,7 @@ namespace Capstone.Web.Controllers
 
         public ActionResult FileUpload()
         {
-            
+
             return View();
         }
 
@@ -213,7 +209,7 @@ namespace Capstone.Web.Controllers
 
         //add beer view
         public ActionResult AddBeer()
-        {
+        {       
             return View();
         }
 
@@ -221,9 +217,13 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddBeer(AddBeerModel b, int brewId)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("AddBeer", b);
+            }
+
             b.BreweryId = brewId;
             _brew.AddNewBeer(b);
-
             return Redirect("Index");
         }
 
@@ -235,7 +235,7 @@ namespace Capstone.Web.Controllers
         }
 
         //update beer availability (show/hide)
-     
+
         public ActionResult ShowHideBeer()
         {
             //List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
@@ -243,7 +243,15 @@ namespace Capstone.Web.Controllers
 
             return View(beerlist);
         }
-         
+
+        [HttpPost]
+        public ActionResult ShowHideBeer(int brewId)
+        {
+            //_brew.UpdateShowHide(List<Beer> beers);
+
+            return View();
+        }
+
 
 
         #endregion
@@ -271,7 +279,7 @@ namespace Capstone.Web.Controllers
             SessionKey.Email = user.EmailAddress;
 
             return RedirectToAction("Index");
-           
+
         }
 
         //The following ActionResults are for checking if a user is in session, and then enabling them to 
@@ -289,21 +297,28 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login(User model)
         {
-            model.EmailAddress = "mabucar88@gmail.com";
-            model.Password = "password";
+            if (model.EmailAddress == "" || model.EmailAddress == null )
+            {
+                return View("Login", model);
+            }
 
             string emailAddress = model.EmailAddress;
 
             User thisGuy = _brew.GetUser(emailAddress);
+            if (thisGuy == null || thisGuy.Password != model.Password)
+            {
+                ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");
+                return View("Login", model);
+            }
 
-            if (model.Password == thisGuy.Password)
+            if (model.Password == thisGuy.Password && model != null)
             {
                 FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
                 Session[SessionKey.Email] = thisGuy.EmailAddress;
                 Session[SessionKey.UserID] = thisGuy.UserName;
-                if (thisGuy.IsBrewer==true)
+                if (thisGuy.IsBrewer == true)
                 {
                     Session["BreweryId"] = thisGuy.BreweryId;
                 }
@@ -320,7 +335,7 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                return View("Login");//***For future, have js let user know this is incorrect 
+                return View("Login", model);
             }
 
         }

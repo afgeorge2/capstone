@@ -1,20 +1,30 @@
 ﻿@using Capstone.Web.Models
-@model List<Brewery> 
- 
-
+@model List<Brewery>
    
 <div>
     <h1 class="align-middle">GETCHADRINKON</h1>
 </div>
-<div class="jumbotron align-items-md-center" style="width:300px; align-self:auto; opacity:0.8">
+<div class="jumbotron align-items-md-center ml-2" style="width:400px; align-self:auto; opacity:0.8">
     <h3 style="text-align:center">Breweries</h3>
     <div>
         @foreach (Brewery brewery in Model)
         {
-            <span>
+        <div>
+            <div>
+               <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID })>
                 @brewery.BreweryName
-            </span>
+                  </a>
+            </div>
+            <br />
+            <div>
+                <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID })>
+                   @brewery.Imagery
+                   </a>
+            </div>
+            <br />
+
+        </div>
+            <b />
         }
     </div>
 </div>
-
