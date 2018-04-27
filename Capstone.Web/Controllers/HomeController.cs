@@ -217,12 +217,20 @@ namespace Capstone.Web.Controllers
      
         public ActionResult ShowHideBeer()
         {
-            //List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
-            List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
+            List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
+            //List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
 
             return View(beerlist);
         }
-         
+
+        [HttpPost]
+        public ActionResult ShowHideBeer(int brewId)
+        {
+            //_brew.UpdateShowHide(List<Beer> beers);
+
+            return View();
+        }
+
 
 
         #endregion
