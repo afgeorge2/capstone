@@ -72,6 +72,7 @@ namespace Capstone.Web.Controllers
             return Json(breweries, JsonRequestBehavior.AllowGet);
         }
 
+        
 
 
         [HttpGet]
@@ -304,6 +305,7 @@ namespace Capstone.Web.Controllers
             }
 
             string emailAddress = model.EmailAddress;
+
             User thisGuy = _brew.GetUser(emailAddress);
             if (thisGuy == null || thisGuy.Password != model.Password)
             {
