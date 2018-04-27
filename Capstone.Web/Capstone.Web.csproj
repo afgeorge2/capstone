@@ -200,6 +200,7 @@
     <Content Include="Views\Home\FileUpload.cshtml" />
     <Content Include="Views\Home\ShowHideBeer.cshtml" />
     <Content Include="Views\Home\BreweryDetail.cshtml" />
+    <Content Include="Views\Home\BeerDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

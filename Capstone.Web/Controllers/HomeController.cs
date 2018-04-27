@@ -36,12 +36,12 @@ namespace Capstone.Web.Controllers
 
         public ActionResult Index()
         {
-          var allData = new IndexPageData();
-            allData.GetAllTheBreweries = _brew.GetAllBrewerys();
-            allData.GetAllTheBeers = _brew.GetAllBeers();
+          //var allData = new IndexPageData();
+          //  allData.GetAllTheBreweries = 
+          //  allData.GetAllTheBeers = _brew.GetAllBeers();
 
 
-            return View("Index", allData);
+            return View("Index", _brew.GetAllBrewerys());
         }
 
 
@@ -121,8 +121,7 @@ namespace Capstone.Web.Controllers
         public ActionResult BreweryDetail(int brewID)
         {
             Brewery brewDetail = _brew.GetBreweryByID(brewID);
-
-            return View("Detail", "Home", brewDetail);
+            return View("BreweryDetail", "Home", brewDetail);
         }
 
         #endregion
@@ -205,6 +204,7 @@ namespace Capstone.Web.Controllers
 
             return View(beerlist);
         }
+         
 
 
         #endregion
