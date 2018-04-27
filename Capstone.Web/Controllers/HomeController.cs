@@ -76,6 +76,7 @@ namespace Capstone.Web.Controllers
             return Json(breweries, JsonRequestBehavior.AllowGet);
         }
 
+        
 
 
         [HttpGet]
