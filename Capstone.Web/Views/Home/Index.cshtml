@@ -1,20 +1,39 @@
 ﻿@using Capstone.Web.Models
-@model List<Brewery> 
- 
+@model List<Brewery>
+<style>
 
-   
-<div>
-    <h1 class="align-middle">GETCHADRINKON</h1>
-</div>
-<div class="jumbotron align-items-md-center" style="width:300px; align-self:auto; opacity:0.8">
-    <h3 style="text-align:center">Breweries</h3>
+    .tron {
+        --background: rgb(200, 54, 54);
+        --background-color: rgba(200, 54, 54, 0.5) !important;
+        background-color: rgba(0, 0, 0, 0.66) !important;
+    }
+    .text{
+        color:white
+    }
+
+
+</style>
+<h1 class="align-middle">GETCHADRINKON</h1>
+<div class="container">
     <div>
-        @foreach (Brewery brewery in Model)
-        {
-            <span>
-                @brewery.BreweryName
-            </span>
-        }
+    </div>
+    <div class="jumbotron w-75 pt-3 mx-auto mt-5 tron">
+        <h3 style="text-align:center" class="text">Breweries</h3>
+        <div>
+
+           
+            <div class="dropdown">
+                <button class="btn btn-secondary btn-lg dropdown-toggle"style="width:100%" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Breweries
+                </button>
+                <div class="dropdown-menu" style="width:100%" aria-labelledby="dropdownMenuButton">
+                    @foreach (Brewery brewery in Model)
+                    {
+                        <a class="dropdown-item">@brewery.BreweryName</a>
+                    }
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
-

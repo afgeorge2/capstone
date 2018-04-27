@@ -1,17 +1,26 @@
-﻿@{
-    Layout = null;
-}
+﻿@using Capstone.Web.Models
+@model Beer
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
+<div class="container">
     <div>
-    
     </div>
-</body>
-</html>
+    <div class="jumbotron w-75 pt-3 mx-auto mt-5 tron">
+        <h3 style="text-align:center" class="text">Breweries</h3>
+        <div>
+
+
+            <div class="dropdown">
+                <button class="btn btn-secondary btn-lg dropdown-toggle" style="width:100%" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Breweries
+                </button>
+                <div class="dropdown-menu" style="width:100%" aria-labelledby="dropdownMenuButton">
+                    @foreach (Beer beers in Model)
+                    {
+                        <a class="dropdown-item">@beers.BreweryName</a>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

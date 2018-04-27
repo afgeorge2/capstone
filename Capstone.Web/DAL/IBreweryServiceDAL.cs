@@ -15,6 +15,7 @@ namespace Capstone.Web.DAL
         bool UserRegistration(User user);
       //  User GetUser(LoginViewModel model);
         User GetUser(string email);
+        
 
 
         //-------------------------------------------------------Brewery Methods

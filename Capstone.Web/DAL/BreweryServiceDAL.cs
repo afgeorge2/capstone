@@ -301,6 +301,7 @@ namespace Capstone.Web.DAL
                 return shb;
             }
         }
+      
 
         public List<Beer> GetAllBeers()
         {
@@ -373,17 +374,17 @@ namespace Capstone.Web.DAL
              {
                 User thisUser = new User()
                 {
-                    EmailAddress = Convert.ToString(reader["email"]),
-                    UserName = Convert.ToString(reader["username"]),
-                    Password = Convert.ToString(reader["password"]),
-                    IsBrewer = Convert.ToBoolean(reader["is_brewer"]),
-                    IsAdmin = Convert.ToBoolean(reader["is_admin"])
+                    EmailAddress = Convert.ToString(reader["email"] as string),
+                    UserName = Convert.ToString(reader["username"] as string),
+                    Password = Convert.ToString(reader["password"] as string),
+                    IsBrewer = Convert.ToBoolean(reader["is_brewer"] as bool?),
+                    IsAdmin = Convert.ToBoolean(reader["is_admin"] as bool? ?? false)
                 };
                 var nullCheck = (reader["brewery_id"]);
 
                 if (nullCheck != DBNull.Value)
                 {
-                    thisUser.BreweryId = Convert.ToInt32(reader["brewery_id"]);
+                    thisUser.BreweryId = Convert.ToInt32(reader["brewery_id"] as string);
                 }
                 else
                 {
