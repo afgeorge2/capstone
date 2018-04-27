@@ -56,6 +56,33 @@ namespace Capstone.Web.DAL
 
         }
 
+
+
+
+        public List<User> SearchUserToAddBrewery(string email)
+        {
+
+
+            List<User> users = new List<User>();
+
+            string sql = @"SELECT * FROM users WHERE email = @email";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@email", email);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    users.Add(MapUserFromReader(reader));
+                }
+            }
+            return users;
+        }
+
         //This varia
 
         public bool UserRegistration(User user)

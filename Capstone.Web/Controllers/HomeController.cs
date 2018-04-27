@@ -294,6 +294,7 @@ namespace Capstone.Web.Controllers
             model.Password = "password";
 
             string emailAddress = model.EmailAddress;
+
             User thisGuy = _brew.GetUser(emailAddress);
 
             if (model.Password == thisGuy.Password)
