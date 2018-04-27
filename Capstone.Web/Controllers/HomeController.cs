@@ -210,6 +210,12 @@ namespace Capstone.Web.Controllers
 
         #region --- Beer Actions ---
 
+        public ActionResult ManageBeers()
+        {
+            return View();
+        }
+
+
         //add beer view
         public ActionResult AddBeer()
         {       

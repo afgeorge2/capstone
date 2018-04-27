@@ -368,23 +368,6 @@ namespace Capstone.Web.DAL
             throw new NotImplementedException();
         }
 
-        //beer is active/inactive
-        //public bool ShowHideBeer(Beer b)
-        //{
-        //    string SQL_ShowHideBeer = "UPDATE table_name SET show_hide = @showhide WHERE name = @Name and brewery_id = @brewId;";
-        //    using (SqlConnection conn = new SqlConnection(connectionString))
-        //    {
-        //        conn.Open();
-        //        SqlCommand cmd = new SqlCommand(SQL_ShowHideBeer, conn);
-        //        cmd.Parameters.AddWithValue("@showhide", b.Name);
-        //        cmd.Parameters.AddWithValue("@Name", b.ShowHide);
-        //        cmd.Parameters.AddWithValue("@brewId", b.BreweryId);
-        //        cmd.ExecuteNonQuery();
-
-        //    } 
-        //    return true;
-
-        //}
 
         public void UpdateShowHide(List<Beer> beers)
         {
@@ -487,7 +470,7 @@ namespace Capstone.Web.DAL
             Beer beers = new Beer()
             {
                 Name = Convert.ToString(reader["name"]),
-
+                ShowHide = Convert.ToInt32(reader["show_hide"])
             };
             return beers;
         }
