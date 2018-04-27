@@ -306,28 +306,6 @@ namespace Capstone.Web.DAL
 
         }
 
-        public List<DaysHoursOperation> GetHoursForBrewery(int brewID)
-        {
-            List<DaysHoursOperation> hours = new List<DaysHoursOperation>();
-            string sql = "SELECT * FROM OPERATION WHERE brewery_id = 1";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
-
-                var reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    hours.Add(GetOps(reader));
-                }
-            }
-            return hours;
-        }
-
-
-
-
         #endregion
 
 
@@ -406,42 +384,29 @@ namespace Capstone.Web.DAL
             throw new NotImplementedException();
         }
 
-        //beer is active/inactive
-        //public bool ShowHideBeer(Beer b)
-        //{
-        //    string SQL_ShowHideBeer = "UPDATE table_name SET show_hide = @showhide WHERE name = @Name and brewery_id = @brewId;";
-        //    using (SqlConnection conn = new SqlConnection(connectionString))
-        //    {
-        //        conn.Open();
-        //        SqlCommand cmd = new SqlCommand(SQL_ShowHideBeer, conn);
-        //        cmd.Parameters.AddWithValue("@showhide", b.Name);
-        //        cmd.Parameters.AddWithValue("@Name", b.ShowHide);
-        //        cmd.Parameters.AddWithValue("@brewId", b.BreweryId);
-        //        cmd.ExecuteNonQuery();
+        public void UpdateShowHide(List<Beer> beers)
+        {
+            string SQL_ShowHide = @"UPDATE beers SET show_hide=@showhide WHERE brewery_id=@brewid and name=@Name";
 
-        //    } 
-        //    return true;
-
-        //}
-
-
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(SQL_ShowHide, conn);
+                foreach (Beer b in beers)
+                {
+                    cmd.Parameters.AddWithValue("@showhide", b.ShowHide);
+                    cmd.Parameters.AddWithValue("@brewery_id", b.BreweryId);
+                    cmd.Parameters.AddWithValue("@name", b.Name);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
 
 
 
 
         #endregion
-
-
-
-
-
-
-
-
-
-
-
 
 
         #region --- SQL Readers ---
@@ -517,21 +482,6 @@ namespace Capstone.Web.DAL
         }
 
         bool IBreweryServiceDAL.AddBeerReview()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<DaysHoursOperation> GetHoursForBrewery(int brewID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string AddBreweryPhoto(string filepath, int? brewID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateShowHide(List<Beer> beers)
         {
             throw new NotImplementedException();
         }
