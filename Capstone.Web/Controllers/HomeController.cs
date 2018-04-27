@@ -76,6 +76,26 @@ namespace Capstone.Web.Controllers
             return Json(breweries, JsonRequestBehavior.AllowGet);
         }
 
+
+
+        [HttpGet]
+        public ActionResult GetCurrentBrewry(int brewID)
+        {
+            var breweries = _brew.GetBreweryByID(brewID);
+
+            return Json(breweries, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Gethours(int brewID)
+        {
+            var hours = _brew.GetHoursForBrewery(brewID);
+
+            return Json(hours, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         [HttpPost]
         public ActionResult AddBreweryNewUser(BrewerBrewery m, int? brewID)
         {
@@ -270,6 +290,8 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
+            model.EmailAddress = "mabucar88@gmail.com";
+            model.Password = "password";
 
             string emailAddress = model.EmailAddress;
             User thisGuy = _brew.GetUser(emailAddress);

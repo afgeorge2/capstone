@@ -25,6 +25,7 @@ namespace Capstone.Web.DAL
         void UpdateBreweryInfo(Brewery b);
         bool LinkBrewerToBrewery(int userID, int breweryID);
         void UpdateBreweryHours(HoursViewModel m);
+        List<DaysHoursOperation> GetHoursForBrewery(int brewID);
         string AddBreweryPhoto(string filepath, int? brewID);
         //------------------------------------------------------Beer Methods
 
