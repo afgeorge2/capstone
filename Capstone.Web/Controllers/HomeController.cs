@@ -36,12 +36,8 @@ namespace Capstone.Web.Controllers
 
         public ActionResult Index()
         {
-          var allData = new IndexPageData();
-            allData.GetAllTheBreweries = _brew.GetAllBrewerys();
-            allData.GetAllTheBeers = _brew.GetAllBeers();
-
-
-            return View("Index", allData);
+            List<Brewery> allBreweries = _brew.GetAllBrewerys();
+            return View("Index",allBreweries);
         }
 
 
@@ -250,13 +246,22 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login(User model)
         {
+            if (model.EmailAddress == "" || model.EmailAddress == null )
+            {
+                return View("Login", model);
+            }
 
             string emailAddress = model.EmailAddress;
             User thisGuy = _brew.GetUser(emailAddress);
+            if (thisGuy == null || thisGuy.Password != model.Password)
+            {
+                ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");
+                return View("Login", model);
+            }
 
-            if (model.Password == thisGuy.Password)
+            if (model.Password == thisGuy.Password && model != null)
             {
                 FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
                 Session[SessionKey.Email] = thisGuy.EmailAddress;
@@ -278,7 +283,7 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                return View("Login");//***For future, have js let user know this is incorrect 
+                return View("Login", model);
             }
 
         }

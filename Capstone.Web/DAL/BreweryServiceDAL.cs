@@ -142,7 +142,7 @@ namespace Capstone.Web.DAL
 
         public List<Brewery> GetAllBrewerys()
         {
-            string sql = "Select * from breweries";
+            string sql = "Select * from breweries;";
             List<Brewery> brews = new List<Brewery>();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -391,8 +391,7 @@ namespace Capstone.Web.DAL
             {
                 Beer beers = new Beer()
                 {
-                    Name = Convert.ToString(reader["name"]),
-                    ShowHide = Convert.ToInt32(reader["show_hide"])
+                    Name = Convert.ToString(reader["name"])
                 };
                 return beers;
             }
