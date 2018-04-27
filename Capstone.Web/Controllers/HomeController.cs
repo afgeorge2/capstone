@@ -99,27 +99,27 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddBreweryNewUser(BrewerBrewery m, int? brewID)
         {
-            if (m.BreweryName!=null)
-            {
+            //if (m.BreweryName!=null)
+            //{
                 m.BreweryID = _brew.AddNewBrewery(m.BreweryName);
-            }
-            if (!ModelState.IsValid)
-            {
-                return View("AddBrewery", m);
-            }
+            //}
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("AddBrewery", m);
+            //}
 
             _brew.AddNewBrewer(m.UserName, m.Password, true, m.BreweryID, m.EmailAddress);
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult AddUserExistingBrewery(BrewerBrewery m)
+        public ActionResult AddUserExistingBrewery(BrewerBrewery m, int brewID)
         {
 
-            _brew.AddNewBrewer(m.UserName, m.Password, true, m.BreweryID, m.EmailAddress);
+            _brew.AddNewBrewer(m.UserName, m.Password, true, brewID, m.EmailAddress);
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index");
         }
 
         public ActionResult UpdateBreweryInfo()
