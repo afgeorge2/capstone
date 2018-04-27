@@ -187,7 +187,7 @@ namespace Capstone.Web.DAL
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@history", b.History);
                 cmd.Parameters.AddWithValue("@address", b.Address);
                 cmd.Parameters.AddWithValue("@cname", b.ContactName);
@@ -210,6 +210,15 @@ namespace Capstone.Web.DAL
             m.DaysHours[5].DayOfWeek = "Saturday";
             m.DaysHours[6].DayOfWeek = "Sunday";
 
+            string removeOLD = @"delete from operation where brewery_id = @brewID";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(removeOLD, conn);
+                cmd.Parameters.AddWithValue("@brewID", m.BrewID);
+                cmd.ExecuteNonQuery();
+            }
+
             foreach (var day in m.DaysHours)
             {
                 string sql = @"INSERT INTO OPERATION VALUES (@brewID, @day, @open, @close);";
@@ -225,6 +234,29 @@ namespace Capstone.Web.DAL
                 }
             }
         }
+
+
+
+        public List<DaysHoursOperation> GetHoursForBrewery(int brewID)
+        {
+            List<DaysHoursOperation> hours = new List<DaysHoursOperation>();
+            string sql = "SELECT * FROM OPERATION WHERE brewery_id = 1";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    hours.Add(GetOps(reader));
+                }
+            }
+            return hours;
+        }
+
+
 
         public string AddBreweryPhoto(string filepath, int? brewID)
         {
@@ -410,6 +442,19 @@ namespace Capstone.Web.DAL
         }
 
 
+        private DaysHoursOperation GetOps(SqlDataReader reader)
+        {
+
+            DaysHoursOperation hours = new DaysHoursOperation()
+            {
+
+                DayOfWeek = Convert.ToString(reader["day"]),
+                Opens = Convert.ToString(reader["opens"]),
+                Closes = Convert.ToString(reader["closes"])
+            };
+
+            return hours;
+        }
 
 
 
@@ -430,13 +475,12 @@ namespace Capstone.Web.DAL
         }
 
 
-
         private Beer GetBeersShowHideFromReader(SqlDataReader reader)
         {
             Beer beers = new Beer()
             {
                 Name = Convert.ToString(reader["name"]),
-
+                    
             };
             return beers;
         }

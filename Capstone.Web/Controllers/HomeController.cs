@@ -76,30 +76,50 @@ namespace Capstone.Web.Controllers
             return Json(breweries, JsonRequestBehavior.AllowGet);
         }
 
+
+
+        [HttpGet]
+        public ActionResult GetCurrentBrewry(int brewID)
+        {
+            var breweries = _brew.GetBreweryByID(brewID);
+
+            return Json(breweries, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Gethours(int brewID)
+        {
+            var hours = _brew.GetHoursForBrewery(brewID);
+
+            return Json(hours, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         [HttpPost]
         public ActionResult AddBreweryNewUser(BrewerBrewery m, int? brewID)
         {
-            if (m.BreweryName!=null)
-            {
+            //if (m.BreweryName!=null)
+            //{
                 m.BreweryID = _brew.AddNewBrewery(m.BreweryName);
-            }
-            if (!ModelState.IsValid)
-            {
-                return View("AddBrewery", m);
-            }
+            //}
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("AddBrewery", m);
+            //}
 
             _brew.AddNewBrewer(m.UserName, m.Password, true, m.BreweryID, m.EmailAddress);
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult AddUserExistingBrewery(BrewerBrewery m)
+        public ActionResult AddUserExistingBrewery(BrewerBrewery m, int brewID)
         {
 
-            _brew.AddNewBrewer(m.UserName, m.Password, true, m.BreweryID, m.EmailAddress);
+            _brew.AddNewBrewer(m.UserName, m.Password, true, brewID, m.EmailAddress);
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index");
         }
 
         public ActionResult UpdateBreweryInfo()
@@ -278,6 +298,8 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
+            model.EmailAddress = "mabucar88@gmail.com";
+            model.Password = "password";
 
             string emailAddress = model.EmailAddress;
             User thisGuy = _brew.GetUser(emailAddress);
