@@ -401,6 +401,21 @@ namespace Capstone.Web.DAL
             throw new NotImplementedException();
         }
 
+        public List<DaysHoursOperation> GetHoursForBrewery(int brewID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string AddBreweryPhoto(string filepath, int? brewID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateShowHide(List<Beer> beers)
+        {
+            throw new NotImplementedException();
+        }
+
 
 
         #endregion
