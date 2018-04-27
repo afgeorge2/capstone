@@ -13,7 +13,7 @@ namespace Capstone.Web.Models.ViewModels
         public List<Brewery> GetAllTheBreweries { get; set; }
 
         //This first set of properties holds the data for each brewery
-
+         
         public string BreweryName { get; set; }
         public int BreweryID { get; set; }
         List<User> Users { get; set; }

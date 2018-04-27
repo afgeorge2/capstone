@@ -1,13 +1,135 @@
 ﻿@using Capstone.Web.Models
 @model List<Beer>
 
+<style>
 
-<div>
-    @foreach (Beer b in Model)
-    {
-    <span>@b.Name</span>
-
+    .btn-toggle {
+        margin: 0 4rem;
+        padding: 0;
+        position: relative;
+        border: none;
+        height: 1.5rem;
+        width: 3rem;
+        border-radius: 1.5rem;
+        color: #6b7381;
+        background: #bdc1c8;
     }
 
+        .btn-toggle:focus,
+        .btn-toggle.focus,
+        .btn-toggle:focus.active,
+        .btn-toggle.focus.active {
+            outline: none;
+        }
 
+        .btn-toggle:before,
+        .btn-toggle:after {
+            line-height: 1.5rem;
+            width: 4rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: absolute;
+            bottom: 0;
+            transition: opacity .25s;
+        }
+
+        .btn-toggle:before {
+            content: '';
+            left: -4rem;
+        }
+
+        .btn-toggle:after {
+            content: 'Active';
+            right: -4rem;
+            opacity: .5;
+        }
+
+        .btn-toggle > .handle {
+            position: absolute;
+            top: 0.1875rem;
+            left: 0.1875rem;
+            width: 1.125rem;
+            height: 1.125rem;
+            border-radius: 1.125rem;
+            background: #fff;
+            transition: left .25s;
+        }
+
+        .btn-toggle.active {
+            transition: background-color 0.25s;
+        }
+
+            .btn-toggle.active > .handle {
+                left: 1.6875rem;
+                transition: left .25s;
+            }
+
+            .btn-toggle.active:before {
+                opacity: .5;
+            }
+
+            .btn-toggle.active:after {
+                opacity: 1;
+            }
+
+
+
+        .btn-toggle:before,
+        .btn-toggle:after {
+            color: #6b7381;
+        }
+
+        .btn-toggle.active {
+            background-color: #29b5a8;
+        }
+
+
+        .btn-toggle.btn-secondary {
+            color: #6b7381;
+            background: #bdc1c8;
+        }
+
+            .btn-toggle.btn-secondary:before,
+            .btn-toggle.btn-secondary:after {
+                color: #6b7381;
+            }
+
+            .btn-toggle.btn-secondary.active {
+                background-color: #ff8300;
+            }
+</style>
+<h2 style="color: white; font-size: 30px; text-align: center">Which beers are actively available?</h2>
+<div class="jumbotron w-50 p-3 mx-auto mt-5 jumbo" style="background-color: black; opacity: 0.9">
+
+    <table style="width: 70%; margin-left: 15%;">
+        @foreach (Beer b in Model)
+        {
+            <tr>
+                <td style="color: white; font-size: 40px">
+                    <h5>@b.Name</h5>
+                </td>
+                <td>
+                    <div>
+                        <button type="button" class="btn btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off">
+                            <div class="handle"></div>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <button type="button" class="btn btn-primary btn-lg" style="margin-left: 35%">Save Changes</button>
 </div>
+
+<script>
+    //if toggle button is on, the value is 1, else it is 0. 
+    //dal method takes a list of beers 
+    //for each beer in the list, the breweryid is brewId 
+    //when page loads, the toggle buttons reflect the db show/hide state for each beer
+    //event for slider is change
+    //event for save button is submit 
+</script>
