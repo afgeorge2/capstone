@@ -150,7 +150,7 @@ namespace Capstone.Web.Controllers
         public ActionResult BreweryDetail(int brewID)
         {
             Brewery brewDetail = _brew.GetBreweryByID(brewID);
-            return View("BreweryDetail", "Home", brewDetail);
+            return View("BreweryDetail", brewDetail);
         }
 
         #endregion

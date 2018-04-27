@@ -11,13 +11,13 @@
         {
         <div>
             <div>
-                <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID })>
+                <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
                  @brewery.BreweryName
                 </a>
             </div>
             <br />
             <div>
-                <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID })>
+                <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
                    @brewery.Imagery
                    </a>
             </div>
