@@ -4,57 +4,35 @@
 @{int brewId = (int)Session["BreweryId"];}
 
 
+<div class="jumbotron w-75 p-3 mx-auto mt-5 jumbo" style="background-color: brown; opacity: 0.7">
 
-<div class="container mx-auto mt-5" style="text-align:center;">
-    <div class="btn-group " data-toggle="buttons">
-        <label id="one" class="btn btn-outline-success waves-effect mroonbtn">
-            <input type="radio" name="options" id="newbeer" checked="checked" autocomplete="off"> Add New Beer
-        </label>
-        <label id="two" class="btn btn-outline-success waves-effect mroonbtn">
-            <input type="radio" name="options" id="brew" autocomplete="off"> Hide Beer
-        </label>
-        <label id="two" class="btn btn-outline-success waves-effect mroonbtn">
-            <input type="radio" name="options" id="brew" autocomplete="off"> Delete Beer
-        </label>
-    </div>
-</div>
+    <form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
+        <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
+            <h1 style="text-align: center">Add a New Beer</h1>
+            Name: <div><span name="Name"> @Html.TextBoxFor(m => m.Name) @Html.ValidationMessageFor(m => m.Name)</span></div>
+            Choose beer type:
+            <div>
+                <span name="BeerType"> @Html.DropDownListFor(m => m.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.BeerType) </span>
+            </div>
 
+            <p></p>
+            Alcohol by Volume (example: 54%): <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
+            Description: <div><span name="Description"> @Html.TextBoxFor(m => m.Description) @Html.ValidationMessageFor(m => m.Description) </span></div>
+            <input hidden name="brewId" value="@brewId" />
+            <input type="submit" value="Submit new beer!" name="submitnewbeer" class="btn btn-outline-light" />
 
-<form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
-    <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
-        <h1 style="text-align: center">Add a New Beer</h1>
-        Name: <div style="background-color: white"><span name="Name"> @Html.TextBoxFor(m => m.Name) @Html.ValidationMessageFor(m => m.Name)</span></div>
-        Choose beer type:
-        <div>
-            <span name="BeerType"> @Html.DropDownListFor(m => m.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.BeerType) </span>
         </div>
-
-        <p></p>
-        Alcohol by Volume: <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
-        Description: <div><span name="Description"> @Html.TextBoxFor(m => m.Description) @Html.ValidationMessageFor(m => m.Description) </span></div>
-        <input hidden name="brewId" value="@brewId" />
-        <input type="submit" value="Submit new beer!" name="submitnewbeer" class="btn btn-outline-light" />
-
+    </form>
     </div>
-</form>
 
 
 
 
 
 
-<form method="post" action="@Url.Action("ShowHideBeer","Home")">
+    <form method="post" action="@Url.Action("ShowHideBeer","Home")"></form>
 
-
-
-</form>
-
-<form method="post" action="@Url.Action("DeleteBeer","Home")">
-
-
-
-</form>
-   
+    <form method="post" action="@Url.Action("DeleteBeer","Home")"></form>
 
 
 
@@ -63,7 +41,8 @@
 
 
 
- @*<form method="post" action="@Url.Action("DeleteHideBeer", "Home")" name="deletehidebeer">
+
+    @*<form method="post" action="@Url.Action("DeleteHideBeer", "Home")" name="deletehidebeer">
             <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
                 <h1 style="text-align: center">Delete or Hide a Beer</h1>
                 Name: <div style="background-color: white"><span name="Name"> @Html.TextBoxFor(m => m.Name) @Html.ValidationMessageFor(m => m.Name)</span></div>

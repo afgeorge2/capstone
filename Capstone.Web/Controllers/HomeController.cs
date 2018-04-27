@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace Capstone.Web.Controllers
 {
-    public class HomeController  : Controller
+    public class HomeController : Controller
     {
         #region --- Contructors ---
 
@@ -36,9 +36,9 @@ namespace Capstone.Web.Controllers
 
         public ActionResult Index()
         {
-          //var allData = new IndexPageData();
-          //  allData.GetAllTheBreweries = 
-          //  allData.GetAllTheBeers = _brew.GetAllBeers();
+            //var allData = new IndexPageData();
+            //  allData.GetAllTheBreweries = 
+            //  allData.GetAllTheBeers = _brew.GetAllBeers();
 
 
             return View("Index", _brew.GetAllBrewerys());
@@ -101,7 +101,7 @@ namespace Capstone.Web.Controllers
         {
             //if (m.BreweryName!=null)
             //{
-                m.BreweryID = _brew.AddNewBrewery(m.BreweryName);
+            m.BreweryID = _brew.AddNewBrewery(m.BreweryName);
             //}
             //if (!ModelState.IsValid)
             //{
@@ -165,7 +165,7 @@ namespace Capstone.Web.Controllers
 
         public ActionResult FileUpload()
         {
-            
+
             return View();
         }
 
@@ -212,7 +212,7 @@ namespace Capstone.Web.Controllers
 
         //add beer view
         public ActionResult AddBeer()
-        {
+        {       
             return View();
         }
 
@@ -220,9 +220,13 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddBeer(AddBeerModel b, int brewId)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("AddBeer", b);
+            }
+
             b.BreweryId = brewId;
             _brew.AddNewBeer(b);
-
             return Redirect("Index");
         }
 
@@ -234,11 +238,11 @@ namespace Capstone.Web.Controllers
         }
 
         //update beer availability (show/hide)
-     
+
         public ActionResult ShowHideBeer()
         {
-            List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
-            //List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
+            //List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
+            List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
 
             return View(beerlist);
         }
@@ -278,7 +282,7 @@ namespace Capstone.Web.Controllers
             SessionKey.Email = user.EmailAddress;
 
             return RedirectToAction("Index");
-           
+
         }
 
         //The following ActionResults are for checking if a user is in session, and then enabling them to 
@@ -298,8 +302,8 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
-            model.EmailAddress = "mabucar88@gmail.com";
-            model.Password = "password";
+            //model.EmailAddress = "mabucar88@gmail.com";
+            //model.Password = "password";
 
             string emailAddress = model.EmailAddress;
             User thisGuy = _brew.GetUser(emailAddress);
@@ -309,7 +313,7 @@ namespace Capstone.Web.Controllers
                 FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
                 Session[SessionKey.Email] = thisGuy.EmailAddress;
                 Session[SessionKey.UserID] = thisGuy.UserName;
-                if (thisGuy.IsBrewer==true)
+                if (thisGuy.IsBrewer == true)
                 {
                     Session["BreweryId"] = thisGuy.BreweryId;
                 }

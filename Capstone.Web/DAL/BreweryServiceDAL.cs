@@ -294,22 +294,29 @@ namespace Capstone.Web.DAL
             //add image later
             string SQL_AddBeer = "Insert into beers (name, description, abv, beer_type, brewery_id) Values(@Name, @Description, @AlcoholByVolume, @BeerType, @brewId);";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-                SqlCommand cmd = new SqlCommand(SQL_AddBeer, conn);
-                cmd.Parameters.Add(new SqlParameter("@Name", newBeer.Name));
-                cmd.Parameters.Add(new SqlParameter("@Description", newBeer.Description));
-                //cmd.Parameters.Add(new SqlParameter("@image", newBeer.Image));
-                cmd.Parameters.Add(new SqlParameter("@AlcoholByVolume", newBeer.AlcoholByVolume));
-                cmd.Parameters.Add(new SqlParameter("@BeerType", newBeer.BeerType));
-                cmd.Parameters.Add(new SqlParameter("@brewId", newBeer.BreweryId));
-                cmd.ExecuteNonQuery();
-
+                    SqlCommand cmd = new SqlCommand(SQL_AddBeer, conn);
+                    cmd.Parameters.Add(new SqlParameter("@Name", newBeer.Name));
+                    cmd.Parameters.Add(new SqlParameter("@Description", newBeer.Description));
+                    //cmd.Parameters.Add(new SqlParameter("@image", newBeer.Image));
+                    cmd.Parameters.Add(new SqlParameter("@AlcoholByVolume", newBeer.AlcoholByVolume));
+                    cmd.Parameters.Add(new SqlParameter("@BeerType", newBeer.BeerType));
+                    cmd.Parameters.Add(new SqlParameter("@brewId", newBeer.BreweryId));
+                    cmd.ExecuteNonQuery();                   
+                }
+                return true;
             }
-
-            return true;
+            catch (SqlException)
+            {
+                new Exception("This beer already exists.");
+                return false;
+            }
+           
         }
 
         //get beers from DB for dropdown in showhide
@@ -393,7 +400,7 @@ namespace Capstone.Web.DAL
                     cmd.Parameters.AddWithValue("@brewery_id", b.BreweryId);
                     cmd.Parameters.AddWithValue("@name", b.Name);
                     cmd.ExecuteNonQuery();
-                }               
+                }
             }
         }
 
@@ -480,7 +487,7 @@ namespace Capstone.Web.DAL
             Beer beers = new Beer()
             {
                 Name = Convert.ToString(reader["name"]),
-                    
+
             };
             return beers;
         }

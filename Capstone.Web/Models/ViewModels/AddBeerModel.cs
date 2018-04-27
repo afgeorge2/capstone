@@ -8,18 +8,18 @@ namespace Capstone.Web.Models.ViewModels
 {
     public class AddBeerModel
     {
-        [Required(ErrorMessage = "required")]
+        [Required(ErrorMessage = "*")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "required")]
+        [Required(ErrorMessage = "*")]
         public string Description { get; set; }
         
         //public string Image { get; set; }
 
-        [Required(ErrorMessage = "required")]
+        [Required(ErrorMessage = "*")]
         public double AlcoholByVolume { get; set; }
 
-        [Required(ErrorMessage = "required")]
+        [Required(ErrorMessage = "*")]
         public Types BeerType { get; set; }
 
         public int BreweryId { get; set; }
