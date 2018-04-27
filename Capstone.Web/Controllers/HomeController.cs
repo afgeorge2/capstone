@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace Capstone.Web.Controllers
 {
-    public class HomeController  : Controller
+    public class HomeController : Controller
     {
         #region --- Contructors ---
 
@@ -37,12 +37,8 @@ namespace Capstone.Web.Controllers
 
         public ActionResult Index()
         {
-          //var allData = new IndexPageData();
-          //  allData.GetAllTheBreweries = _brew.GetBreweries();
-          //  allData.GetAllTheBeers = _brew.GetAllBeers();
-
-
-            return View("Index", _brew.GetAllBrewerys());
+            List<Brewery> allBreweries = _brew.GetAllBrewerys();
+            return View("Index",allBreweries);
         }
 
 
@@ -77,30 +73,51 @@ namespace Capstone.Web.Controllers
             return Json(breweries, JsonRequestBehavior.AllowGet);
         }
 
+        
+
+
+        [HttpGet]
+        public ActionResult GetCurrentBrewry(int brewID)
+        {
+            var breweries = _brew.GetBreweryByID(brewID);
+
+            return Json(breweries, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Gethours(int brewID)
+        {
+            var hours = _brew.GetHoursForBrewery(brewID);
+
+            return Json(hours, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         [HttpPost]
         public ActionResult AddBreweryNewUser(BrewerBrewery m, int? brewID)
         {
-            if (m.BreweryName!=null)
-            {
-                m.BreweryID = _brew.AddNewBrewery(m.BreweryName);
-            }
-            if (!ModelState.IsValid)
-            {
-                return View("AddBrewery", m);
-            }
+            //if (m.BreweryName!=null)
+            //{
+            m.BreweryID = _brew.AddNewBrewery(m.BreweryName);
+            //}
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("AddBrewery", m);
+            //}
 
             _brew.AddNewBrewer(m.UserName, m.Password, true, m.BreweryID, m.EmailAddress);
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult AddUserExistingBrewery(BrewerBrewery m)
+        public ActionResult AddUserExistingBrewery(BrewerBrewery m, int brewID)
         {
 
-            _brew.AddNewBrewer(m.UserName, m.Password, true, m.BreweryID, m.EmailAddress);
+            _brew.AddNewBrewer(m.UserName, m.Password, true, brewID, m.EmailAddress);
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index");
         }
 
         public ActionResult UpdateBreweryInfo()
@@ -134,7 +151,7 @@ namespace Capstone.Web.Controllers
         public ActionResult BreweryDetail(int brewID)
         {
             Brewery brewDetail = _brew.GetBreweryByID(brewID);
-            return View("BreweryDetail", "Home", brewDetail);
+            return View("BreweryDetail", brewDetail);
         }
 
         #endregion
@@ -146,7 +163,7 @@ namespace Capstone.Web.Controllers
 
         public ActionResult FileUpload()
         {
-            
+
             return View();
         }
 
@@ -196,9 +213,15 @@ namespace Capstone.Web.Controllers
             return View("BeerDetail");
         }
 
+        public ActionResult ManageBeers()
+        {
+            return View();
+        }
+
+
         //add beer view
         public ActionResult AddBeer()
-        {
+        {       
             return View();
         }
 
@@ -206,9 +229,13 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddBeer(AddBeerModel b, int brewId)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("AddBeer", b);
+            }
+
             b.BreweryId = brewId;
             _brew.AddNewBeer(b);
-
             return Redirect("Index");
         }
 
@@ -220,7 +247,7 @@ namespace Capstone.Web.Controllers
         }
 
         //update beer availability (show/hide)
-     
+
         public ActionResult ShowHideBeer()
         {
             //List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
@@ -228,7 +255,15 @@ namespace Capstone.Web.Controllers
 
             return View(beerlist);
         }
-         
+
+        [HttpPost]
+        public ActionResult ShowHideBeer(int brewId)
+        {
+            //_brew.UpdateShowHide(List<Beer> beers);
+
+            return View();
+        }
+
 
 
         #endregion
@@ -293,18 +328,28 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login(User model)
         {
+            if (model.EmailAddress == "" || model.EmailAddress == null )
+            {
+                return View("Login", model);
+            }
 
             string emailAddress = model.EmailAddress;
-            User thisGuy = _brew.GetUser(emailAddress);
 
-            if (model.Password == thisGuy.Password)
+            User thisGuy = _brew.GetUser(emailAddress);
+            if (thisGuy == null || thisGuy.Password != model.Password)
+            {
+                ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");
+                return View("Login", model);
+            }
+
+            if (model.Password == thisGuy.Password && model != null)
             {
                 FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
                 Session[SessionKey.Email] = thisGuy.EmailAddress;
                 Session[SessionKey.UserID] = thisGuy.UserName;
-                if (thisGuy.IsBrewer==true)
+                if (thisGuy.IsBrewer == true)
                 {
                     Session["BreweryId"] = thisGuy.BreweryId;
                 }
@@ -321,7 +366,7 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                return View("Login");//***For future, have js let user know this is incorrect 
+                return View("Login", model);
             }
 
         }

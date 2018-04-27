@@ -165,7 +165,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UploadFileController.cs" />
     <Compile Include="DAL\BreweryServiceDAL.cs" />
     <Compile Include="DAL\IBreweryServiceDAL.cs" />
     <Compile Include="Global.asax.cs">
@@ -201,6 +200,7 @@
     <Content Include="Views\Home\ShowHideBeer.cshtml" />
     <Content Include="Views\Home\BreweryDetail.cshtml" />
     <Content Include="Views\Home\BeerDetail.cshtml" />
+    <Content Include="Views\Home\ManageBeers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

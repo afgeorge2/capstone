@@ -56,6 +56,33 @@ namespace Capstone.Web.DAL
 
         }
 
+
+
+
+        public List<User> SearchUserToAddBrewery(string email)
+        {
+
+
+            List<User> users = new List<User>();
+
+            string sql = @"SELECT * FROM users WHERE email = @email";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@email", email);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    users.Add(MapUserFromReader(reader));
+                }
+            }
+            return users;
+        }
+
         //This varia
 
         public bool UserRegistration(User user)
@@ -187,7 +214,7 @@ namespace Capstone.Web.DAL
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@history", b.History);
                 cmd.Parameters.AddWithValue("@address", b.Address);
                 cmd.Parameters.AddWithValue("@cname", b.ContactName);
@@ -210,6 +237,15 @@ namespace Capstone.Web.DAL
             m.DaysHours[5].DayOfWeek = "Saturday";
             m.DaysHours[6].DayOfWeek = "Sunday";
 
+            string removeOLD = @"delete from operation where brewery_id = @brewID";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(removeOLD, conn);
+                cmd.Parameters.AddWithValue("@brewID", m.BrewID);
+                cmd.ExecuteNonQuery();
+            }
+
             foreach (var day in m.DaysHours)
             {
                 string sql = @"INSERT INTO OPERATION VALUES (@brewID, @day, @open, @close);";
@@ -225,6 +261,29 @@ namespace Capstone.Web.DAL
                 }
             }
         }
+
+
+
+        public List<DaysHoursOperation> GetHoursForBrewery(int brewID)
+        {
+            List<DaysHoursOperation> hours = new List<DaysHoursOperation>();
+            string sql = "SELECT * FROM OPERATION WHERE brewery_id = 1";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    hours.Add(GetOps(reader));
+                }
+            }
+            return hours;
+        }
+
+
 
         public string AddBreweryPhoto(string filepath, int? brewID)
         {
@@ -244,12 +303,8 @@ namespace Capstone.Web.DAL
 
 
             return filepath;
-            
+
         }
-
-
-
-
 
         #endregion
 
@@ -288,12 +343,12 @@ namespace Capstone.Web.DAL
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                
+
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(SQL_Beers, conn);
                 cmd.Parameters.AddWithValue("@breweryId", breweryId);
                 var reader = cmd.ExecuteReader();
-                while (reader.Read()) 
+                while (reader.Read())
                 {
                     shb.Add(GetBeersShowHideFromReader(reader));
                 }
@@ -301,7 +356,6 @@ namespace Capstone.Web.DAL
                 return shb;
             }
         }
-      
 
         public List<Beer> GetAllBeers()
         {
@@ -314,7 +368,7 @@ namespace Capstone.Web.DAL
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(SQL_Beers, conn);
 
-             
+
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -329,107 +383,108 @@ namespace Capstone.Web.DAL
         {
             throw new NotImplementedException();
         }
-    
-            //beer is active/inactive
-            //public bool ShowHideBeer(Beer b)
-            //{
-            //    string SQL_ShowHideBeer = "UPDATE table_name SET show_hide = @showhide WHERE name = @Name and brewery_id = @brewId;";
-            //    using (SqlConnection conn = new SqlConnection(connectionString))
-            //    {
-            //        conn.Open();
-            //        SqlCommand cmd = new SqlCommand(SQL_ShowHideBeer, conn);
-            //        cmd.Parameters.AddWithValue("@showhide", b.Name);
-            //        cmd.Parameters.AddWithValue("@Name", b.ShowHide);
-            //        cmd.Parameters.AddWithValue("@brewId", b.BreweryId);
-            //        cmd.ExecuteNonQuery();
 
-            //    } 
-            //    return true;
+        public void UpdateShowHide(List<Beer> beers)
+        {
+            string SQL_ShowHide = @"UPDATE beers SET show_hide=@showhide WHERE brewery_id=@brewid and name=@Name";
 
-            //}
-
-
-
-
-
-
-
-            #endregion
-
-
-             
-
-
-
-
-
-
-
-
-
-
-            #region --- SQL Readers ---
-
-             public User MapUserFromReader(SqlDataReader reader)
-             {
-                User thisUser = new User()
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(SQL_ShowHide, conn);
+                foreach (Beer b in beers)
                 {
-                    EmailAddress = Convert.ToString(reader["email"] as string),
-                    UserName = Convert.ToString(reader["username"] as string),
-                    Password = Convert.ToString(reader["password"] as string),
-                    IsBrewer = Convert.ToBoolean(reader["is_brewer"] as bool?),
-                    IsAdmin = Convert.ToBoolean(reader["is_admin"] as bool? ?? false)
-                };
-                var nullCheck = (reader["brewery_id"]);
-
-                if (nullCheck != DBNull.Value)
-                {
-                    thisUser.BreweryId = Convert.ToInt32(reader["brewery_id"] as string);
+                    cmd.Parameters.AddWithValue("@showhide", b.ShowHide);
+                    cmd.Parameters.AddWithValue("@brewery_id", b.BreweryId);
+                    cmd.Parameters.AddWithValue("@name", b.Name);
+                    cmd.ExecuteNonQuery();
                 }
-                else
-                {
-                    thisUser.BreweryId = 0;
-                }
-
-                return thisUser;
-             }
+            }
+        }
 
 
 
 
 
-            private Brewery GetBrewery(SqlDataReader reader)
+        #endregion
+
+
+        #region --- SQL Readers ---
+
+        public User MapUserFromReader(SqlDataReader reader)
+        {
+            User thisUser = new User()
             {
-                Brewery brewery = new Brewery()
-                {
-                    BreweryName = Convert.ToString(reader["name"]),
-                    Address = Convert.ToString(reader["address"]),
-                    ContactEmail = Convert.ToString(reader["contact_email"]),
-                    ContactName = Convert.ToString(reader["contact_name"]),
-                    ContactPhone = Convert.ToString(reader["contact_phone"]),
-                    History = Convert.ToString(reader["history"]),
-                    Imagery = Convert.ToString(reader["imagery"]),
-                    BreweryID = Convert.ToInt32(reader["id"])
-                };
-                return brewery;
+                EmailAddress = Convert.ToString(reader["email"]),
+                UserName = Convert.ToString(reader["username"]),
+                Password = Convert.ToString(reader["password"]),
+                IsBrewer = Convert.ToBoolean(reader["is_brewer"]),
+                IsAdmin = Convert.ToBoolean(reader["is_admin"])
+            };
+            var nullCheck = (reader["brewery_id"]);
+
+            if (nullCheck != DBNull.Value)
+            {
+                thisUser.BreweryId = Convert.ToInt32(reader["brewery_id"]);
+            }
+            else
+            {
+                thisUser.BreweryId = 0;
             }
 
+            return thisUser;
+        }
 
 
-            private Beer GetBeersShowHideFromReader(SqlDataReader reader)
+        private DaysHoursOperation GetOps(SqlDataReader reader)
+        {
+
+            DaysHoursOperation hours = new DaysHoursOperation()
             {
-                Beer beers = new Beer()
-                {
-                    Name = Convert.ToString(reader["name"]),
-                    
-                };
-                return beers;
-            }
 
-            bool IBreweryServiceDAL.AddBeerReview()
+                DayOfWeek = Convert.ToString(reader["day"]),
+                Opens = Convert.ToString(reader["opens"]),
+                Closes = Convert.ToString(reader["closes"])
+            };
+
+            return hours;
+        }
+
+
+
+        private Brewery GetBrewery(SqlDataReader reader)
+        {
+            Brewery brewery = new Brewery()
             {
-                throw new NotImplementedException();
-            }
+                BreweryName = Convert.ToString(reader["name"]),
+                Address = Convert.ToString(reader["address"]),
+                ContactEmail = Convert.ToString(reader["contact_email"]),
+                ContactName = Convert.ToString(reader["contact_name"]),
+                ContactPhone = Convert.ToString(reader["contact_phone"]),
+                History = Convert.ToString(reader["history"]),
+                Imagery = Convert.ToString(reader["imagery"]),
+                BreweryID = Convert.ToInt32(reader["id"])
+            };
+            return brewery;
+        }
+
+
+
+
+        private Beer GetBeersShowHideFromReader(SqlDataReader reader)
+        {
+            Beer beers = new Beer()
+            {
+                Name = Convert.ToString(reader["name"]),
+                ShowHide = Convert.ToInt32(reader["show_hide"])
+            };
+            return beers;
+        }
+
+        bool IBreweryServiceDAL.AddBeerReview()
+        {
+            throw new NotImplementedException();
+        }
 
 
 

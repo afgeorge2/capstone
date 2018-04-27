@@ -15,7 +15,7 @@ namespace Capstone.Web.DAL
         bool UserRegistration(User user);
       //  User GetUser(LoginViewModel model);
         User GetUser(string email);
-        
+        List<User> SearchUserToAddBrewery(string email);
 
 
         //-------------------------------------------------------Brewery Methods
@@ -26,13 +26,14 @@ namespace Capstone.Web.DAL
         void UpdateBreweryInfo(Brewery b);
         bool LinkBrewerToBrewery(int userID, int breweryID);
         void UpdateBreweryHours(HoursViewModel m);
+        List<DaysHoursOperation> GetHoursForBrewery(int brewID);
         string AddBreweryPhoto(string filepath, int? brewID);
         //------------------------------------------------------Beer Methods
 
         bool AddNewBeer(AddBeerModel beer);
         List<Beer> GetAllBeersFromBrewery(int breweryId);
         List<Beer> GetAllBeers();
-
+        void UpdateShowHide(List<Beer> beers);
 
         //-------------------------------------------------------Review Methods
 
