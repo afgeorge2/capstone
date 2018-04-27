@@ -45,6 +45,18 @@ namespace Capstone.Web.Controllers
         }
 
 
+
+
+        public ActionResult Index1()
+        {
+            Brewery brew = _brew.GetBreweryByID(1);
+
+
+
+            return View(brew);
+        }
+
+
         #endregion
 
 
@@ -133,11 +145,9 @@ namespace Capstone.Web.Controllers
 
         public ActionResult FileUpload()
         {
+            
             return View();
         }
-
-
-
 
         private bool isValidContentType(string contentType)
         {
@@ -156,11 +166,18 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                var filename = Path.GetFileName(photo.FileName);
-                //var filename = "pic1";
+                Brewery brew = _brew.GetBreweryByID(1);
+
+                //var filename = Path.GetFileName(photo.FileName);
+                var filename = $"{brew.BreweryName}.jpg";
                 var path = Path.Combine(Server.MapPath("~/Photos"), filename);
+
+
+                _brew.AddBreweryPhoto(filename, brew.BreweryID);
+
                 photo.SaveAs(path);
-                return View("FileUpload");
+
+                return RedirectToAction("Index1");
             }
         }
 
@@ -200,7 +217,8 @@ namespace Capstone.Web.Controllers
      
         public ActionResult ShowHideBeer()
         {
-            List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
+            //List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
+            List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
 
             return View(beerlist);
         }
