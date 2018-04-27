@@ -1,7 +1,23 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div>
-    <h1 style="text-align:center"></h1>
+@using Capstone.Web.Models
+@model Brewery
+<div class="jumbotron align-content-center">
+    <h1 style="text-align:center">@Model.BreweryName</h1>
+</div>
+<div> 
+    <div>
+        <img src="@Model.Imagery" />
+    </div>
+    <div>
+        @Model.History
+    </div>
+    <div>
+        @Model.Address
+    </div>
+    <div>
+        @Model.ContactPhone
+    </div>
 </div>
 

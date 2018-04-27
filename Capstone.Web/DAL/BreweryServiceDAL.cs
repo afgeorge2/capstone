@@ -56,6 +56,33 @@ namespace Capstone.Web.DAL
 
         }
 
+
+
+
+        public List<User> SearchUserToAddBrewery(string email)
+        {
+
+
+            List<User> users = new List<User>();
+
+            string sql = @"SELECT * FROM users WHERE email = @email";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@email", email);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    users.Add(MapUserFromReader(reader));
+                }
+            }
+            return users;
+        }
+
         //This varia
 
         public bool UserRegistration(User user)
@@ -279,10 +306,6 @@ namespace Capstone.Web.DAL
 
         }
 
-
-
-
-
         #endregion
 
 
@@ -294,29 +317,22 @@ namespace Capstone.Web.DAL
             //add image later
             string SQL_AddBeer = "Insert into beers (name, description, abv, beer_type, brewery_id) Values(@Name, @Description, @AlcoholByVolume, @BeerType, @brewId);";
 
-            try
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
+                conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(SQL_AddBeer, conn);
-                    cmd.Parameters.Add(new SqlParameter("@Name", newBeer.Name));
-                    cmd.Parameters.Add(new SqlParameter("@Description", newBeer.Description));
-                    //cmd.Parameters.Add(new SqlParameter("@image", newBeer.Image));
-                    cmd.Parameters.Add(new SqlParameter("@AlcoholByVolume", newBeer.AlcoholByVolume));
-                    cmd.Parameters.Add(new SqlParameter("@BeerType", newBeer.BeerType));
-                    cmd.Parameters.Add(new SqlParameter("@brewId", newBeer.BreweryId));
-                    cmd.ExecuteNonQuery();                   
-                }
-                return true;
+                SqlCommand cmd = new SqlCommand(SQL_AddBeer, conn);
+                cmd.Parameters.Add(new SqlParameter("@Name", newBeer.Name));
+                cmd.Parameters.Add(new SqlParameter("@Description", newBeer.Description));
+                //cmd.Parameters.Add(new SqlParameter("@image", newBeer.Image));
+                cmd.Parameters.Add(new SqlParameter("@AlcoholByVolume", newBeer.AlcoholByVolume));
+                cmd.Parameters.Add(new SqlParameter("@BeerType", newBeer.BeerType));
+                cmd.Parameters.Add(new SqlParameter("@brewId", newBeer.BreweryId));
+                cmd.ExecuteNonQuery();
+
             }
-            catch (SqlException)
-            {
-                new Exception("This beer already exists.");
-                return false;
-            }
-           
+
+            return true;
         }
 
         //get beers from DB for dropdown in showhide
@@ -368,7 +384,6 @@ namespace Capstone.Web.DAL
             throw new NotImplementedException();
         }
 
-
         public void UpdateShowHide(List<Beer> beers)
         {
             string SQL_ShowHide = @"UPDATE beers SET show_hide=@showhide WHERE brewery_id=@brewid and name=@Name";
@@ -392,17 +407,6 @@ namespace Capstone.Web.DAL
 
 
         #endregion
-
-
-
-
-
-
-
-
-
-
-
 
 
         #region --- SQL Readers ---
@@ -463,6 +467,8 @@ namespace Capstone.Web.DAL
             };
             return brewery;
         }
+
+
 
 
         private Beer GetBeersShowHideFromReader(SqlDataReader reader)

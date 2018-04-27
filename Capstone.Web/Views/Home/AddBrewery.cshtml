@@ -23,46 +23,60 @@
     <div id="newBrewery">
         @using (Html.BeginForm("AddBreweryNewUser", "Home", FormMethod.Post))
         {
-            <div class="jumbotron w-75 pt-3 mx-auto mt-5">
-                <h1 style="text-align:center;" class="mb-5">Add New Brewery</h1>
+        <div class="jumbotron w-75 pt-3 mx-auto mt-5">
+            <h1 style="text-align:center;" class="mb-5">Add New Brewery</h1>
 
-                <small> @Html.ValidationMessageFor(m => m.BreweryName)</small>
-                <div class="form-group row">
-                    <label for="breweryname" class="col-3 col-form-label">Brewery Name:</label>
-                    <div class="col-8">
-                        @Html.TextBoxFor(m => m.BreweryName, new { @class = "form-control" })
-                    </div>
+            <div class="form-group row">
+                <label for="emailsearch" class="col-3 col-form-label">Search User By Email</label>
+                <div class="col-8 form-inline">
+                    <input id="emailsearch" type="email" class="col-9">
+                    <a id="srchBtn" class="waves-effect waves-teal btn-flat">Search</a>
                 </div>
-
-                <small>@Html.ValidationMessageFor(m => m.UserName)</small>
-                <div class="form-group row">
-                    <label for="Username" class="col-3 col-form-label">Username:</label>
-                    <div class="col-8">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                    </div>
-                </div>
-
-                <small>@Html.ValidationMessageFor(m => m.EmailAddress)</small>
-                <div class="form-group row">
-                    <label for="Email" class="col-3 col-form-label">Email:</label>
-                    <div class="col-8">
-                        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control" })
-                    </div>
-                </div>
-
-                <small> @Html.ValidationMessageFor(m => m.Password)</small>
-                <div class="form-group row">
-                    <label for="Password" class="col-3 col-form-label">Password:</label>
-                    <div class="col-8">
-                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
-                    </div>
-                </div>
-                <button id="newbrewsubmit" type="submit" class="btn btn-block btn-success btn-lg">Large button</button>
             </div>
-        }
-    </div>
+            <div id="searchresults">
+                <div id="userDD" class="form-group row">
+                    <label for="userDD" class="col-3 col-form-label">User Results</label>
+                    <div class="col-8">
+                        <select name="userID" class="form-control" id="userselect">
 
+                        </select>
+                    </div>
+                </div>
+            </div>
 
+            <small> @Html.ValidationMessageFor(m => m.BreweryName)</small>
+            <div class="form-group row">
+                <label for="breweryname" class="col-3 col-form-label">Brewery Name:</label>
+                <div class="col-8">
+                    @Html.TextBoxFor(m => m.BreweryName, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <small>@Html.ValidationMessageFor(m => m.UserName)</small>
+            <div class="form-group row">
+                <label for="Username" class="col-3 col-form-label">Username:</label>
+                <div class="col-8">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                </div>
+            </div>
+            <small>@Html.ValidationMessageFor(m => m.EmailAddress)</small>
+            <div class="form-group row">
+                <label for="Email" class="col-3 col-form-label">Email:</label>
+                <div class="col-8">
+                    @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control" })
+                </div>
+            </div>
+            <small> @Html.ValidationMessageFor(m => m.Password)</small>
+            <div class="form-group row">
+                <label for="Password" class="col-3 col-form-label">Password:</label>
+                <div class="col-8">
+                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <button id="newbrewsubmit" type="submit" class="btn btn-block btn-success btn-lg">Large button</button>
+        </div>
+            }
+        </div>
 
 
     <div id="exisitingBrewery">
@@ -113,15 +127,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
 <script>
 
     $("#radio_1").prop("checked", true);
@@ -137,6 +142,37 @@
         $("#newBrewery").hide();
         $("#exisitingBrewery").show();
     })
+
+
+
+    $(function () {
+        $("#srchBtn").click(function () {
+            var email = $("#emailsearch").val()
+            $.ajax({
+                url: "/Home/GetAllBreweries",
+                method: "GET",
+                dataType: "json"
+            })
+
+
+        })
+
+    })
+
+
+
+    //$(function () {
+    //    $("#srchBtn").click(function () {
+    //        var email = $("#emailsearch").val()
+    //        console.log(email)
+    //    })
+    //})
+
+
+
+
+
+
 
 
 
