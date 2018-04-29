@@ -1,0 +1,30 @@
+﻿@using Capstone.Web.Models
+@model List<Beer>
+    <style>
+        .text{
+            color:white;
+            text-align:center
+               
+        }
+        .jumb {
+            background-color:black;
+            opacity: 0.8;
+            filter: alpha(opacity=70); 
+        }
+    </style>
+
+    <div class="container jumbotron vertical-center col-8 jumb">
+        @foreach (Beer beer in Model)
+    {
+        <div class="text row align-content-center">
+            <a href=@Url.Action("BeerDetail", "Home", new { beerID = beer.BreweryId }, null)>
+                @beer.Name
+                @beer.Description
+        </div>
+    }
+   
+    <div>
+
+    </div>
+</div>
+

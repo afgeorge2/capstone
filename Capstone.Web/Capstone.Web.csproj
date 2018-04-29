@@ -201,6 +201,8 @@
     <Content Include="Views\Home\BreweryDetail.cshtml" />
     <Content Include="Views\Home\BeerDetail.cshtml" />
     <Content Include="Views\Home\ManageBeers.cshtml" />
+    <Content Include="Views\Beer.cshtml" />
+    <Content Include="Views\Home\GetAllBeers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

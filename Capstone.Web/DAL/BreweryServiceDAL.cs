@@ -359,8 +359,8 @@ namespace Capstone.Web.DAL
 
         public List<Beer> GetAllBeers()
         {
-            string SQL_Beers = "Select * from beers;";
-            List<Beer> shb = new List<Beer>();
+            string SQL_Beers = "Select * from beers";
+            List<Beer> beer = new List<Beer>();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -372,11 +372,31 @@ namespace Capstone.Web.DAL
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    shb.Add(GetBeersShowHideFromReader(reader));
+                    beer.Add(GetBeerFromReader(reader));
                 }
 
-                return shb;
+                return beer;
             }
+        }
+
+        public Beer GetBeersById(int beerId)
+        {
+            string sql = "Select* from beers where brewery_id = @breweryId";
+            Beer beer = new Beer();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                cmd.Parameters.AddWithValue("@breweryId", beerId);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    beer = (GetBeerFromReader(reader));
+                }
+
+            }
+            return beer;
         }
 
         public bool AddBeerReview()
@@ -468,10 +488,21 @@ namespace Capstone.Web.DAL
             return brewery;
         }
 
+        private Beer GetBeerFromReader(SqlDataReader reader)
+        {
+            Beer beer = new Beer()
+            {
+                BreweryId = Convert.ToInt32(reader["id"]),
+                Name = Convert.ToString(reader["name"]),
+                Image =Convert.ToString(reader["image"]),
+                Description = Convert.ToString(reader["description"])
 
 
+            };
+            return beer;
+        }
 
-        private Beer GetBeersShowHideFromReader(SqlDataReader reader)
+            private Beer GetBeersShowHideFromReader(SqlDataReader reader)
         {
             Beer beers = new Beer()
             {

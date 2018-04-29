@@ -22,6 +22,7 @@ namespace Capstone.Web.Controllers
         public HomeController(IBreweryServiceDAL brew)
         {
             _brew = brew;
+            _brew.GetAllBeers();
         }
 
         public HomeController()
@@ -207,10 +208,20 @@ namespace Capstone.Web.Controllers
 
 
         #region --- Beer Actions ---
+        //Working on
 
-        public ActionResult BeerDetail()
+        public ActionResult BeerDetail(Beer model)
         {
-            return View("BeerDetail");
+            return View("BeerDetail", model);
+        }
+
+        [HttpGet]
+
+        public ActionResult GetAllBeers()
+        {
+            List<Beer> beers = _brew.GetAllBeers();
+            return View("GetAllBeers", beers);
+  
         }
 
         public ActionResult ManageBeers()
