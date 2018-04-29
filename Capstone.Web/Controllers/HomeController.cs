@@ -33,6 +33,7 @@ namespace Capstone.Web.Controllers
 
         #region --- Home Page (INDEX) ---
 
+       
 
         public ActionResult Index()
         {
@@ -220,6 +221,11 @@ namespace Capstone.Web.Controllers
 
         #region --- Beer Actions ---
 
+        public ActionResult BeerDetail()
+        {
+            return View("BeerDetail");
+        }
+
         public ActionResult ManageBeers()
         {
             return View();
@@ -288,21 +294,40 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserRegistration(User user)
+        public ActionResult UserRegistration(RegisterViewModel model)
         {
-            if (user.UserName == null || user.Password == null || user.EmailAddress == null)
+            try
             {
+                User userExists = _brew.GetUser(model.EmailAddress); 
+
+                if (userExists.EmailAddress == model.EmailAddress)
+                {
+                    ModelState.AddModelError("username-exists", "That email address is not available");
+                    return View("UserRegistration");
+                }
+                else
+                {
+                    User users = new User()
+                    {
+                        EmailAddress = model.EmailAddress,
+                        UserName = model.UserName,
+                        Password = model.Password
+                    };
+
+                    FormsAuthentication.SetAuthCookie(users.EmailAddress, true);
+                    _brew.UserRegistration(users);
+                    SessionKey.Email = users.EmailAddress;
+                    return RedirectToAction("Index");
+                }
+
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("username-exists", "An error occurred");
                 return View("UserRegistration");
             }
-            _brew.UserRegistration(user);
-            SessionKey.Email = user.EmailAddress;
-
-            return RedirectToAction("Index");
-
         }
-
-        //The following ActionResults are for checking if a user is in session, and then enabling them to 
-        //log in, then return to the index view
+  
         public ActionResult Login()
         {
             if (Session[SessionKey.Email] == null)

@@ -2,25 +2,34 @@
 @model List<Brewery>
    
 <div>
-    <h1 class="align-middle">GETCHADRINKON</h1>
+    <h1 class="align-middle" style="text-align:center">GETCHADRINKON</h1>
 </div>
 <div class="jumbotron align-items-md-center ml-2" style="width:400px; align-self:auto; opacity:0.8">
     <h3 style="text-align:center">Breweries</h3>
-    <div>
+    <div class="jumbotron align-content-center" id="about-us">
+        <h3 class="" style="">
+            About Us:
+        </h3>
+        <div>
+            
+
+        </div>
+    </div>
+    <div class="align-content-center">
         @foreach (Brewery brewery in Model)
         {
-        <div>
-            <div>
+        <div> 
+            <div class="align-content-center">
                 <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
                  @brewery.BreweryName
                 </a>
             </div>
             <br />
-            <div>
+            <div class="align-content-center">
                 <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
                    @brewery.Imagery
                    </a>
-            </div>
+            </div> 
             <br />
 
         </div>
