@@ -6,10 +6,10 @@
 <div class="jumbotron align-content-center">
     <h1 style="text-align:center">@Model.BreweryName</h1>
     @*<button class="btn btn-primary" type="submit">View Beers</button>*@
-    <input type="button" class="btn btn-info" value="View Beers" onclick=" relocate_home()">
+    <input type="button" class="btn btn-info" value="View Beers" onclick=" relocate_beerDetail()">
 
     <script>
-function relocate_home()
+function relocate_beerDetail()
 {
     location.href = "http://localhost:55601/Home/GetAllBeers";
 }

@@ -3,7 +3,9 @@
     <style>
         .text{
             color:white;
-            text-align:center
+            text-align:center;
+            font-weight:bold;
+              
                
         }
         .jumb {
@@ -11,20 +13,29 @@
             opacity: 0.8;
             filter: alpha(opacity=70); 
         }
+        .pad{
+            margin-top:10px;
+        }
     </style>
 
     <div class="container jumbotron vertical-center col-8 jumb">
         @foreach (Beer beer in Model)
-    {
-        <div class="text row align-content-center">
-            <a href=@Url.Action("BeerDetail", "Home", new { beerID = beer.BreweryId }, null)>
-                @beer.Name
-                @beer.Description
+        {
+        <div class="text row align-content-center pad">
+            <div>
+                <a href=@Url.Action("BeerDetail", "Home", new { beerID = beer.BreweryId }, null)>
+                    @beer.Name
+            </div>
         </div>
-    }
-   
-    <div>
+        
+        <div>
+            @beer.Description
+        </div>
+}
 
+
+        <div>
+
+        </div>
     </div>
-</div>
 
