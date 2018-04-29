@@ -1,182 +1,333 @@
-﻿@using Capstone.Web.Models.Viewmodel;
-@model BrewerBrewery
+﻿@*@using Capstone.Web.Models.Viewmodel;
+@model BrewerBrewery*@
 
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+</head>
 
 <style>
     small {
         color: red;
     }
+    .collapsible-body {
+        background-color: white;
+        --border-radius: 9px;
+    }
+    .collection {
+        border: 1px solid #e0e0e0 !important;
+        border-radius: 4px;
+    }
+    li.active .collapsible-header, li.active .collapsible-header:active {
+        background-color: #ffffff !important;
+        outline-color: #00b9ff;
+        --outline-color: #ffad76;
+    }
+
+    .collection .collection-item {
+        background-color: #c4ffce;
+    }
+    #founduser, #founduser2 {
+        width: 172px;
+        height: 33px;
+        font-size: 12pt;
+        font-weight: 500;
+        border: 1px solid #d0d0d0;
+        border-radius: 3px;
+        background-color: #c4ffce;
+    }
+    #usernotfound1, #usernotfound2 {
+        width: 172px;
+        height: 33px;
+        font-size: 12pt;
+        font-weight: 500;
+        border: 1px solid #d0d0d0;
+        border-radius: 3px;
+        background-color: #ff9f91;
+    }
+    #hd1, #hd2, #hd3, #hd4 {
+        border: 1px solid #4a4a4a6b;
+        text-shadow: 6px 5px 20px #00000085;
+    }
+
+    
 </style>
 
-<div class="container">
-    <div class="container mx-auto mt-5" style="text-align:center;">
-        <div class="btn-group " data-toggle="buttons">
-            <label id="one" class="btn btn-outline-success waves-effect mroonbtn">
-                <input type="radio" name="options" id="newbrew" checked="checked" autocomplete="off"> Add New Brewery
-            </label>
-            <label id="two" class="btn btn-outline-success waves-effect mroonbtn">
-                <input type="radio" name="options" id="brew" autocomplete="off"> Add Brewer to Brewery
-            </label>
-        </div>
-    </div>
+<div class="container mt-5">
 
-    <div id="newBrewery">
-        @using (Html.BeginForm("AddBreweryNewUser", "Home", FormMethod.Post))
-        {
-        <div class="jumbotron w-75 pt-3 mx-auto mt-5">
-            <h1 style="text-align:center;" class="mb-5">Add New Brewery</h1>
 
-            <div class="form-group row">
-                <label for="emailsearch" class="col-3 col-form-label">Search User By Email</label>
-                <div class="col-8 form-inline">
-                    <input id="emailsearch" type="email" class="col-9">
-                    <a id="srchBtn" class="waves-effect waves-teal btn-flat">Search</a>
-                </div>
+
+
+
+    <ul class="collapsible">
+
+        <li>
+            <div id="hd1" class="collapsible-header">
+                <i class="fas fa-angle-right"></i>Click Here To Add a New Brewery & a New User
             </div>
-            <div id="searchresults">
-                <div id="userDD" class="form-group row">
-                    <label for="userDD" class="col-3 col-form-label">User Results</label>
-                    <div class="col-8">
-                        <select name="userID" class="form-control" id="userselect">
+            <div class="collapsible-body">
 
-                        </select>
+                @using (Html.BeginForm("NewBreweryNewUser", "Home", FormMethod.Post))
+                 {
+                    <div class="row">
+                        <div class="input-field col s12 my-0">
+                            <input name="bname1" id="brewname1" type="text" class="validate">
+                            <label for="brewname1">New Brewery Name</label>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <small> @Html.ValidationMessageFor(m => m.BreweryName)</small>
-            <div class="form-group row">
-                <label for="breweryname" class="col-3 col-form-label">Brewery Name:</label>
-                <div class="col-8">
-                    @Html.TextBoxFor(m => m.BreweryName, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <small>@Html.ValidationMessageFor(m => m.UserName)</small>
-            <div class="form-group row">
-                <label for="Username" class="col-3 col-form-label">Username:</label>
-                <div class="col-8">
-                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                </div>
-            </div>
-            <small>@Html.ValidationMessageFor(m => m.EmailAddress)</small>
-            <div class="form-group row">
-                <label for="Email" class="col-3 col-form-label">Email:</label>
-                <div class="col-8">
-                    @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control" })
-                </div>
-            </div>
-            <small> @Html.ValidationMessageFor(m => m.Password)</small>
-            <div class="form-group row">
-                <label for="Password" class="col-3 col-form-label">Password:</label>
-                <div class="col-8">
-                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
-                </div>
-            </div>
-            <button id="newbrewsubmit" type="submit" class="btn btn-block btn-success btn-lg">Large button</button>
-        </div>
-            }
-        </div>
-
-
-    <div id="exisitingBrewery">
-        @using (Html.BeginForm("AddUserExistingBrewery", "Home", FormMethod.Post))
-        {
-
-            <div class="jumbotron w-75 pt-3 mx-auto mt-5">
-
-                <h1 style="text-align:center;" class="mb-5">Add Brewer to Brewery</h1>
-                <small> @Html.ValidationMessageFor(m => m.BreweryName)</small>
-                <div id="brewdropdown" class="form-group row">
-                    <label for="Password" class="col-3 col-form-label">Breweries:</label>
-                    <div class="col-8">
-                        <select name="brewID" class="form-control" id="breweryDD"></select>
+                    <div class="row">
+                        <div class="input-field col s12 my-0">
+                            <input name="uname1" id="username1" type="text" class="validate">
+                            <label for="username1">Username</label>
+                        </div>
                     </div>
-                </div>
 
-                <small>@Html.ValidationMessageFor(m => m.UserName)</small>
-                <div class="form-group row">
-                    <label for="Username" class="col-3 col-form-label">Username:</label>
-                    <div class="col-8">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                        @*<input class="form-control" type="text" name="Username" id="Username">*@
+                    <div class="row">
+                        <div class="input-field col s12 my-0">
+                            <input name="e_mail1" id="email1" type="email" class="validate">
+                            <label for="email1">Email</label>
+                        </div>
                     </div>
-                </div>
-                <small>@Html.ValidationMessageFor(m => m.EmailAddress)</small>
-                <div class="form-group row">
-                    <label for="Email" class="col-3 col-form-label">Email:</label>
-                    <div class="col-8">
-                        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control" })
-                        @*<input class="form-control" type="email" name="Email" id="Email">*@
-                    </div>
-                </div>
 
-                <small> @Html.ValidationMessageFor(m => m.Password)</small>
-                <div class="form-group row">
-                    <label for="Password" class="col-3 col-form-label">Password:</label>
-                    <div class="col-8">
-                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
-                        @*<input class="form-control" type="text" name="Password" id="Password">*@
+                    <div class="row">
+                        <div class="input-field col s12 my-0">
+                            <input name="p_word1" id="password1" type="password" class="validate">
+                            <label for="password1">Password</label>
+                        </div>
                     </div>
-                </div>
-                <button id="existbrewsubmit" type="submit" class="btn btn-block btn-success btn-lg">Large button</button>
+
+                    <button id="newbrewsubmit" type="submit" class="btn btn-block btn-success btn-lg teal accent-1 teal-text">Submit</button>
+                 }
+
             </div>
-         }
-    </div>
+        </li>
+
+        <li>
+            <div id="hd2" class="collapsible-header"><i class="fas fa-angle-right"></i>Click Here To Add a New User to a Exisiting Brewery</div>
+            <div class="collapsible-body">
+                @using (Html.BeginForm("NewUserCurrentBrewery", "Home", FormMethod.Post))
+                 {
+                    <div>
+                        <label class="col mb-0">Current Breweries</label>
+                        <div class="input-field col s12 mt-1">
+                            <select name="brewID1" class="form-control" id="breweryDD"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 my-0">
+                            <input name="uname2" id="username2" type="text" class="validate">
+                            <label for="username2">Username</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 my-0">
+                            <input name="e_mail2" id="email2" type="email" class="validate">
+                            <label for="email2">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 my-0">
+                            <input name="p_word2" id="password2" type="password" class="validate">
+                            <label for="password2">Password</label>
+                        </div>
+                    </div>
+                    <button id="existbrewsubmit" type="submit" class="btn btn-block btn-success btn-lg teal accent-1 teal-text">Submit</button>
+                 }
+            </div>
+        </li>
+
+
+        <li>
+            <div id="hd3" class="collapsible-header"><i class="fas fa-angle-right"></i>Click Here To Add a Current User To a New Brewery</div>
+            <div id="srch1" class="collapsible-body">
+            <div class="row mb-1">
+                <div class="input-field col s6">
+                    <input name="bname2" id="newBrewery" type="text">
+                    <label for="newBrewery">New Brewery Name</label>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="input-field col s6 my-0">
+                    <input id="srchuser1" name="email3" type="email" class="validate">
+                    <label for="srchuser1">Search For Current User</label>
+                    <span class="helper-text" data-error="Not a valid email" data-success="Click Search">Email Address</span>
+                </div>
+                <a id="usersearch1" class="waves-effect waves-light btn-small mt-4  teal accent-1">Search</a>
+            </div>
+            <ul class="collection z-depth-3" id="userresults1">
+                <li class="collection-item">Username</li>
+                <li class="collection-item">Email</li>
+            </ul>
+            <button id="submit1" type="submit" class="btn btn-block btn-success btn-lg mt-3 teal accent-1 teal-text">Submit</button>
+
+            </div>
+        </li>
+
+        <li>
+            <div id="hd4" class="collapsible-header"><i class="fas fa-angle-right"></i>Click Here To Add a Current User to a Exisiting Brewery</div>
+            <div id="srch2" class="collapsible-body">
+
+                    <div>
+                        <label class="col mb-0">Current Breweries</label>
+                        <div class="input-field col s12 mt-1">
+                            <select name="brewID2" class="form-control" id="breweryDD2"></select>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="input-field col s6 my-0">
+                            <input id="srchuser2" name="email4" type="email" class="validate">
+                            <label for="srchuser2">Search For Current User</label>
+                            <span class="helper-text" data-error="Not a valid email" data-success="Click Search">Email Address</span>
+                        </div>
+                        <a id="usersearch2" class="waves-effect waves-light btn-small mt-4  teal accent-1">Search</a>
+                    </div>
+                    <ul class="collection z-depth-3" id="userresults2">
+                        <li class="collection-item">Username</li>
+                        <li class="collection-item">Email</li>
+                    </ul>
+                    <button id="submit2" type="submit" class="btn btn-block btn-success btn-lg mt-3 teal accent-1 teal-text">Submit</button>
+            </div>
+        </li>
+    </ul>
+
 </div>
 
 
 
 <script>
 
-    $("#radio_1").prop("checked", true);
-    $("#newBrewery").show();
-    $("#exisitingBrewery").hide();
+    $("#newbrewsubmit").addClass("disabled")
 
-    $("#one").click(function () {
-        $("#newBrewery").show();
-        $("#exisitingBrewery").hide();
+    $("#brewname1, #username1, #email1, #password1").keyup(function (event) {
+        if ( ($("#brewname1").val().length < 6) || ($("#username1").val().length < 6) || ($("#email1").val().length < 6) || ($("#password1").val().length < 6)) {
+            $("#newbrewsubmit").addClass("disabled")
+        }
+        else {
+            $("#newbrewsubmit").removeClass("disabled")
+        }
     })
 
-    $("#two").click(function () {
-        $("#newBrewery").hide();
-        $("#exisitingBrewery").show();
+    $("#existbrewsubmit").addClass("disabled")
+
+    $("#username2, #email2, #password2").keyup(function (event) {
+        if (($("#username2").val().length < 6) || ($("#email2").val().length < 6) || ($("#password2").val().length < 6)) {
+            $("#existbrewsubmit").addClass("disabled")
+        }
+        else {
+            $("#existbrewsubmit").removeClass("disabled")
+        }
     })
 
 
 
+    $(document).ready(function () {
+        $('.collapsible').collapsible();
+    });
+
+    $("#userresults1").empty()
+    $("#userresults1").hide()
+    $("#submit1").addClass("disabled")
+
+    var currentuser1;
+    var currentuser2;
+
+    //!Search Users for CURRENT User NEW Brewery
     $(function () {
-        $("#srchBtn").click(function () {
-            var email = $("#emailsearch").val()
+        $("#usersearch1").on("click",function () {
+            var email = $("#srchuser1").val()
+            
             $.ajax({
-                url: "/Home/GetAllBreweries",
+                url: "/Home/SearchUsers?email=" + email,
                 method: "GET",
                 dataType: "json"
+            }).done(function (user) {
+                console.log(user)
+                currentuser1 = user;
+                $("#userresults1").empty()
+                $("#founduser").remove()
+                $("#usernotfound1").remove()
+
+                var found;
+                var username = `<li id="email2submit_1" class="collection-item">Email: ${user.EmailAddress}</li>`;
+                var emailuser = `<li class="collection-item">Username: ${user.UserName}</li>`;
+
+                if (user.EmailAddress == null) {
+
+                    found = `<div id="usernotfound1" class="center mb-2 pt-1 z-depth-3">No User Found</div>`
+                    $("#userresults1").hide()
+                    $("#submit1").addClass("disabled")
+                }
+
+                if (user.EmailAddress != null) {
+
+                    found = `<div id="founduser" class="center mb-2 pt-1 z-depth-3">User Found!</div>`
+                    $("#submit1").removeClass("disabled")
+                    $("#userresults1").show()
+                    $("#userresults1").append(username)
+                    $("#userresults1").append(emailuser)
+                }
+
+                $("#userresults1").before(found)
+
+
+
             })
-
-
         })
-
     })
+    
+    $("#userresults2").empty()
+    $("#userresults2").hide()
+    $("#submit2").addClass("disabled")
+
+    //!Search Users for CURRENT User CURRENT Brewery
+    $(function () {
+        $("#usersearch2").on("click",function () {
+            var email = $("#srchuser2").val()
+            console.log(email)
+            $.ajax({
+                url: "/Home/SearchUsers?email=" + email,
+                method: "GET",
+                dataType: "json"
+            }).done(function (user) {
+                console.log(user)
+                currentuser2 = user;
+                $("#userresults2").empty()
+                $("#founduser2").remove()
+                $("#usernotfound2").remove()
+
+                var found2;
+                var username2 = `<li id="email2submit_2" class="collection-item">Email: ${user.EmailAddress}</li>`;
+                var emailuser2 = `<li class="collection-item">Username: ${user.UserName}</li>`;
+
+                if (user.EmailAddress == null) {
+
+                    found2 = `<div id="usernotfound2" class="center mb-2 pt-1 z-depth-3">No User Found</div>`
+                    $("#userresults2").hide()
+                    $("#submit2").addClass("disabled")
+                }
+
+                if (user.EmailAddress != null) {
+
+                    found2 = `<div id="founduser2" class="center mb-2 pt-1 z-depth-3">User Found!</div>`
+                    $("#submit2").removeClass("disabled")
+                    $("#userresults2").show()
+                    $("#userresults2").append(username2)
+                    $("#userresults2").append(emailuser2)
+                }
+
+                $("#userresults2").before(found2)
+
+                //found = `<div id="founduser2" class="center mb-2 pt-1 z-depth-3">User Found!</div>`
+
+                //$("#userresults2").before(found)
+                //$("#userresults2").append(username2)
+                //$("#userresults2").append(emailuser2)
 
 
 
-    //$(function () {
-    //    $("#srchBtn").click(function () {
-    //        var email = $("#emailsearch").val()
-    //        console.log(email)
-    //    })
-    //})
-
-
-
-
-
-
-
-
-
-
+            })
+        })
+    })
 
     $(function () {
         $.ajax({
@@ -187,33 +338,64 @@
             console.log(result)
 
             $("#breweryDD").empty();
+            $("#breweryDD2").empty();
+
 
             var select = `<option disabled selected>Select a Brewery</option>`
             $("#breweryDD").append(select);
+            $("#breweryDD2").append(select);
 
             for (var i = 0; i < result.length; i++) {
                 var r = result[i];
 
                 var html = `<option value=${r.BreweryID}>${r.BreweryName}</option>`;
                 $("#breweryDD").append(html);
+                $("#breweryDD2").append(html);
             }
         })
     })
 
 
 
-    //$("#newbrewsubmit").click(function () {
-    //    $.ajax({
-    //        url: `/Home/AddBreweryNewUser?breweryName=${breweryName}&username=${username}&Email=${Email}&Passowrd=${Passowrd}`,
-    //        method: "POST",
-    //        dataType: "json"
-    //    })
+    $(function () {
+        $("#submit1").click( function (event) {
+            var bname1 = $("#newBrewery").val();
+            var emailOut1 = currentuser1.EmailAddress;
 
-    //})
+            //console.log(`${bname1} ${emailOut1}`)
 
+            $.ajax({
+                url: `/Home/CurrentUserNewBrewery?bname2=${bname1}&email3=${emailOut1}`,
+                method: "POST",
+                dataType: "json",
+                success: function (data) {
+                    window.location.href = "/Home/index";
+                    
+                }
+            })
+        
+        })
+    })
 
+    $(function () {
+        $("#submit2").click(function (event) {
+            var brewID2 = $("#breweryDD2").val();
+            var emailOut2 = currentuser2.EmailAddress;
 
+            //console.log(`${brewID2} ${emailOut2}`)
 
+            $.ajax({
+                url: `/Home/CurrentUserCurrentBrewery?brewID2=${brewID2}&email4=${emailOut2}`,
+                method: "POST",
+                dataType: "json",
+                success: function (data) {
+                    window.location.href = "/Home/index";
+
+                }
+            })
+
+        })
+    })
 
 
 </script>
@@ -225,8 +407,3 @@
 
 
 
-@*   int AddNewBrewery(string breweryName);
-
-    bool AddNewBrewer(string username, string password, bool isBrewer, int breweryID, string email);
-
-    bool LinkBrewerToBrewery(int userID, int breweryID);  *@
