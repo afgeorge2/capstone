@@ -358,7 +358,7 @@
 
 
     $(function () {
-        $("#submit1").on("click", function () {
+        $("#submit1").click( function (event) {
             var bname1 = $("#newBrewery").val();
             var emailOut1 = currentuser1.EmailAddress;
 
@@ -367,14 +367,18 @@
             $.ajax({
                 url: `/Home/CurrentUserNewBrewery?bname2=${bname1}&email3=${emailOut1}`,
                 method: "POST",
-                dataType: "json"
+                dataType: "json",
+                success: function (data) {
+                    window.location.href = "/Home/index";
+                    
+                }
             })
         
         })
     })
 
     $(function () {
-        $("#submit2").on("click", function () {
+        $("#submit2").click(function (event) {
             var brewID2 = $("#breweryDD2").val();
             var emailOut2 = currentuser2.EmailAddress;
 
@@ -383,7 +387,11 @@
             $.ajax({
                 url: `/Home/CurrentUserCurrentBrewery?brewID2=${brewID2}&email4=${emailOut2}`,
                 method: "POST",
-                dataType: "json"
+                dataType: "json",
+                success: function (data) {
+                    window.location.href = "/Home/index";
+
+                }
             })
 
         })

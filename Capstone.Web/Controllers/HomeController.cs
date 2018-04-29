@@ -90,7 +90,7 @@ namespace Capstone.Web.Controllers
 
             _brew.UpdateUserBrewer(breweryID, email3);
 
-            return RedirectToAction("Index");
+            return Json(new { data = true });
         }
 
 
@@ -98,7 +98,7 @@ namespace Capstone.Web.Controllers
         {
             _brew.UpdateUserBrewer(brewID2, email4);
 
-            return RedirectToAction("Index");
+            return Json(new { data = true });
         }
 
         [HttpGet]
