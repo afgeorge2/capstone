@@ -397,14 +397,14 @@ namespace Capstone.Web.DAL
 
         public Beer GetBeersById(int beerId)
         {
-            string sql = "Select* from beers where brewery_id = @breweryId";
+            string sql = "Select* from beers where id= @id";
             Beer beer = new Beer();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
-                cmd.Parameters.AddWithValue("@breweryId", beerId);
+                cmd.Parameters.AddWithValue("@beerID", beerId);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -511,7 +511,9 @@ namespace Capstone.Web.DAL
                 BreweryId = Convert.ToInt32(reader["id"]),
                 Name = Convert.ToString(reader["name"]),
                 Image =Convert.ToString(reader["image"]),
-                Description = Convert.ToString(reader["description"])
+                Description = Convert.ToString(reader["description"]),
+                
+                
 
 
             };
