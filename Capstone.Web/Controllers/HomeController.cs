@@ -64,6 +64,42 @@ namespace Capstone.Web.Controllers
             return View("AddBrewery");
         }
 
+        public ActionResult NewBreweryNewUser(string bname1, string uname1, string e_mail1, string p_word1)
+        {
+            int breweryID = _brew.AddNewBrewery(bname1);
+
+            _brew.AddNewBrewer(uname1, p_word1, true, breweryID, e_mail1);
+
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult NewUserCurrentBrewery(int brewID1, string uname2, string e_mail2, string p_word2)
+        {
+
+            _brew.AddNewBrewer(uname2, p_word2, true, brewID1, e_mail2);
+
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult CurrentUserNewBrewery(string bname2, string email3)
+        {
+            int breweryID = _brew.AddNewBrewery(bname2);
+
+            _brew.UpdateUserBrewer(breweryID, email3);
+
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult CurrentUserCurrentBrewery(int brewID2, string email4)
+        {
+            _brew.UpdateUserBrewer(brewID2, email4);
+
+            return RedirectToAction("Index");
+        }
+
         [HttpGet]
         public ActionResult GetAllBreweries()
         {
@@ -72,8 +108,13 @@ namespace Capstone.Web.Controllers
             return Json(breweries, JsonRequestBehavior.AllowGet);
         }
 
-        
+        [HttpGet]
+        public ActionResult SearchUsers(string email)
+        {
+           User user = _brew.SearchUserToAddBrewery(email);
 
+            return Json(user, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpGet]
         public ActionResult GetCurrentBrewry(int brewID)
@@ -89,34 +130,6 @@ namespace Capstone.Web.Controllers
             var hours = _brew.GetHoursForBrewery(brewID);
 
             return Json(hours, JsonRequestBehavior.AllowGet);
-        }
-
-
-
-        [HttpPost]
-        public ActionResult AddBreweryNewUser(BrewerBrewery m, int? brewID)
-        {
-            //if (m.BreweryName!=null)
-            //{
-            m.BreweryID = _brew.AddNewBrewery(m.BreweryName);
-            //}
-            //if (!ModelState.IsValid)
-            //{
-            //    return View("AddBrewery", m);
-            //}
-
-            _brew.AddNewBrewer(m.UserName, m.Password, true, m.BreweryID, m.EmailAddress);
-
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public ActionResult AddUserExistingBrewery(BrewerBrewery m, int brewID)
-        {
-
-            _brew.AddNewBrewer(m.UserName, m.Password, true, brewID, m.EmailAddress);
-
-            return RedirectToAction("Index");
         }
 
         public ActionResult UpdateBreweryInfo()
@@ -349,5 +362,27 @@ namespace Capstone.Web.Controllers
         #endregion
 
 
+
+
+        #region --- New ADD Brewery Calls ---
+
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
 }
