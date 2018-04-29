@@ -59,11 +59,11 @@ namespace Capstone.Web.DAL
 
 
 
-        public List<User> SearchUserToAddBrewery(string email)
+        public User SearchUserToAddBrewery(string email)
         {
 
 
-            List<User> users = new List<User>();
+            User users = new User();
 
             string sql = @"SELECT * FROM users WHERE email = @email";
 
@@ -77,7 +77,7 @@ namespace Capstone.Web.DAL
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    users.Add(MapUserFromReader(reader));
+                    users = MapUserFromReader(reader);
                 }
             }
             return users;
@@ -146,9 +146,6 @@ namespace Capstone.Web.DAL
 
         public bool AddNewBrewer(string username, string password, bool isBrewer, int breweryID, string email)
         {
-
-
-
             string sql = "INSERT INTO users values (@email, @username, @password, @isBrewer, @breweryID, @admin)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -166,6 +163,25 @@ namespace Capstone.Web.DAL
             return true;
 
         }
+
+        public void UpdateUserBrewer(int brewID, string email)
+        {
+
+            string sql = @"UPDATE users SET is_brewer = @isbrewer, brewery_id = @brewID WHERE email = @email";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                cmd.Parameters.AddWithValue("@isbrewer", true);
+                cmd.Parameters.AddWithValue("@brewID", brewID);
+                cmd.Parameters.AddWithValue("@email", email);
+
+                var reader = cmd.ExecuteReader();
+
+            }
+        }
+
 
         public List<Brewery> GetAllBrewerys()
         {

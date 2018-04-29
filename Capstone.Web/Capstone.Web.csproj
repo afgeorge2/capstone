@@ -135,6 +135,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+	<Content Include="DB_script\DatabaseScript_Brewerys_Beers_Users_Added.sql" />
     <Content Include="Photos\8a658fbe99870dc34473986bd5981f22.jpg" />
     <Content Include="Photos\beerback1.jpg" />
     <Content Include="Photos\beerback2.jpg" />
