@@ -1,8 +1,18 @@
 ﻿@using Capstone.Web.Models
 @model Beer
-        <div>
-          @Model.Description
+<div class="center jumbotron">
+    <h2 style="text-align:center">@Model.BreweryName</h2>
+    <div class="center" style="text-align:center">
+        <h3 style="text-align:center">@Model.Name</h3>
+        <br />
+        <img src="~/Photos/@Model.Image" style="width:300px; border:1px solid black" />
+        <br />
+        <div style="text-align:center">
+            <h4 style="text-align:center">@Model.BeerType</h4>
+            @Model.Description
         </div>
-
-
-        <img src="~/Photos/beerback2.jpg" />
+        <div style="text-align:center">
+            <strong>ABV: @Model.AlcoholByVolume</strong>
+        </div>
+    </div>
+</div>
