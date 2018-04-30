@@ -15,7 +15,7 @@
                 <span name="BeerType"> @Html.DropDownListFor(m => m.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.BeerType) </span>
             </div>  
             <p></p>
-            Alcohol by Volume (example: 54%): <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
+            Alcohol by Volume (example: 8.5%): <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
             Description: <div><span name="Description"> @Html.TextBoxFor(m => m.Description, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.Description) </span></div>
             <input hidden name="brewId" value="@brewId" />
             <input type="submit" value="Submit new beer!" name="submitnewbeer" class="btn btn-outline-light" style="background-color: brown" />

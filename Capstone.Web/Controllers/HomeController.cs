@@ -263,11 +263,18 @@ namespace Capstone.Web.Controllers
             return Redirect("Index");
         }
 
-        //delete beer post
-        [HttpPost]
+
         public ActionResult DeleteBeer()
         {
-            return Redirect("Index");
+            return View();
+        }
+        //delete beer post
+        [HttpPost]
+        public ActionResult DeleteBeer(DeleteBeer b, int brewId)
+        {
+            b.BreweryId = brewId;
+            _brew.DeleteBeer(b);
+            return Redirect("AddBeer");
         }
 
         //update beer availability (show/hide)

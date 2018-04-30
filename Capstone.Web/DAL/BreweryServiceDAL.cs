@@ -438,6 +438,32 @@ namespace Capstone.Web.DAL
             }
         }
 
+        public bool DeleteBeer(DeleteBeer beer)
+        {
+            string SQL_DeleteBeer = "Delete from beers where brewery_id = @brewId and name = @Name;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(SQL_DeleteBeer, conn);
+                    cmd.Parameters.Add(new SqlParameter("@Name", beer.Name));
+                    cmd.Parameters.Add(new SqlParameter("@brewId", beer.BreweryId));
+                    cmd.ExecuteNonQuery();
+
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+                //add exception here
+            }
+            
+        }
 
 
 
