@@ -227,6 +227,11 @@ namespace Capstone.Web.Controllers
         #region --- Beer Actions ---
         //Working on
 
+        public ActionResult ManageBeers()
+        {
+            return View();
+        }
+
         public ActionResult BeerDetail(Beer model)
         {
             return View("BeerDetail", model);
