@@ -63,6 +63,11 @@ namespace Capstone.Web.Controllers
 
         public ActionResult AddBrewery()
         {
+            if (Session["Admin"] == null)
+            {
+                RedirectToAction("Index");
+            }
+
             return View("AddBrewery");
         }
 
@@ -136,6 +141,11 @@ namespace Capstone.Web.Controllers
 
         public ActionResult UpdateBreweryInfo()
         {
+            if (Session["BreweryId"] == null)
+            {
+                RedirectToAction("Index");
+            }
+
             return View();
         }
 
@@ -227,6 +237,11 @@ namespace Capstone.Web.Controllers
         #region --- Beer Actions ---
         //Working on
 
+        public ActionResult ManageBeers()
+        {
+            return View();
+        }
+
         public ActionResult BeerDetail(Beer model)
         {
             return View("BeerDetail", model);
@@ -258,6 +273,12 @@ namespace Capstone.Web.Controllers
             {
                 b.BeerType = beertypes;
             }
+            //This first check redirects the user to the home page if they are not a brewer
+            if (Session["BreweryId"] == null)
+            {
+                RedirectToAction("Index");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View("AddBeer", b);
@@ -271,10 +292,14 @@ namespace Capstone.Web.Controllers
         //---------DELETE BEERS------------
         public ActionResult DeleteBeer()
         {
+            if (Session["BreweryId"] == null)
+            {
+                RedirectToAction("Index");
+            }
+
             int brewId = (int)Session["BreweryId"];
             DeleteBeer b = new DeleteBeer();
             b.DropDownBeers = _brew.GetAllBeersFromBrewery(brewId);
-
             return View("DeleteBeer", b);
         }
 
@@ -302,7 +327,10 @@ namespace Capstone.Web.Controllers
         {
             //List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
             List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
-
+            if (Session["BreweryId"] == null)
+            {
+                RedirectToAction("Index");
+            }
             return View(beerlist);
         }
 
@@ -378,7 +406,7 @@ namespace Capstone.Web.Controllers
                 }
 
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 ModelState.AddModelError("username-exists", "An error occurred");
                 return View("UserRegistration");
