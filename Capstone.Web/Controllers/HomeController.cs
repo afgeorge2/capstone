@@ -378,6 +378,15 @@ namespace Capstone.Web.Controllers
             }
         }
 
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.Remove(SessionKey.Email);
+            Session.Remove(SessionKey.UserID);
+            Session.RemoveAll();
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         public ActionResult Login(User model)
         {
