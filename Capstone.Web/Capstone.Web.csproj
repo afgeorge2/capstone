@@ -208,6 +208,7 @@
     <Content Include="Views\Home\TestPhoto.cshtml" />
     <Content Include="Views\Home\DeleteBeer.cshtml" />
     <Content Include="Views\Home\GetAllBeers.cshtml" />
+    <Content Include="Views\Home\BreweryBeers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
