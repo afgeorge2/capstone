@@ -308,6 +308,13 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
+        //This action directs to a view that lists all of the beers made by a specific brewery
+        public ActionResult BreweryBeerDetail(int brewID)
+        {
+            List<Beer> beerlist = _brew.GetAllBeersFromBrewery(brewID);
+            return View("BreweryBeers", beerlist);
+        }
+
 
 
         #endregion
