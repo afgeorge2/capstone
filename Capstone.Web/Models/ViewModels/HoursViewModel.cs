@@ -10,6 +10,8 @@ namespace Capstone.Web.Models.ViewModels
         public int BrewID { get; set; }
         public List<DaysHoursOperation> DaysHours { get; set; }
 
+
+
     }
 }
 
