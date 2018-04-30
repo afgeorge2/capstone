@@ -26,23 +26,31 @@ namespace Capstone.Web.DAL
         Brewery GetBreweryByID(int brewID);
         void UpdateBreweryInfo(Brewery b);
         bool LinkBrewerToBrewery(int userID, int breweryID);
-        void UpdateBreweryHours(HoursViewModel m);
+
+        //void UpdateBreweryHours(HoursViewModel m);
+        void UpdateBreweryHours(int brewID, string open0, string close0, string open1, string close1, string open2, string close2, string open3, string close3, string open4, string close4, string open5, string close5, string open6, string close6);
+
+
         List<DaysHoursOperation> GetHoursForBrewery(int brewID);
-        string AddBreweryPhoto(string filepath, int? brewID);
+        
         //------------------------------------------------------Beer Methods
 
         bool AddNewBeer(AddBeerModel beer);
         List<Beer> GetAllBeersFromBrewery(int breweryId);
         List<Beer> GetAllBeers();
         void UpdateShowHide(List<Beer> beers);
+        bool DeleteBeer(DeleteBeer beer);
 
         //-------------------------------------------------------Review Methods
 
         bool AddBeerReview();
-        
 
 
+        //-------------------------------------------------------Photo Methods
 
+        void UploadBreweryPhoto(string filename, int brewID, bool profilePic);
+        void UploadBeerPhoto(string filename, int beerID);
+        //BreweryPhoto GetBreweryPhoto(int brewID);
 
 
 

@@ -7,9 +7,9 @@ namespace Capstone.Web.Models
 {
     public class DaysHoursOperation
     {
-        public string DayOfWeek { get; set; }
-        public string Opens { get; set; }
-        public string Closes { get; set; }
+        public string DayOfWeek { get; set; } = "d";
+        public string Opens { get; set; } = "o";
+        public string Closes { get; set; } = "c";
 
     }
 }

@@ -1,0 +1,53 @@
+﻿@using Capstone.Web.Models.ViewModels
+@model DeleteBeer
+
+@{int brewId = (int)Session["BreweryId"];}
+
+<select name="dropdown1" id="dropdown1"></select>
+
+<div class="jumbotron w-75 p-3 mx-auto mt-5 jumbo" style="background-color: black; opacity: 0.7">
+
+    <form method="post" action="@Url.Action("DeleteBeer", "Home")" name="deletebeer">
+        <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
+            <h1 style="text-align: center">Delete a Beer</h1>
+            Name of beer:
+            <div name="Name">
+                <span> @Html.TextBoxFor(m => m.Name, new { style = "color: white" })</span>
+            </div>
+            @*<div>
+                    @Html<select>
+                        @foreach(Beer b in Model)
+                        {
+                            <option>b.Name</option>
+                        }
+                    </select>
+                    <span name="BeerName"> @Html.DropDownListFor(m => m.BeerName, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.BeerType) </span>
+                </div>*@
+
+            <input hidden name="brewId" value="@brewId" />
+            <input type="submit" value="Delete Beer" name="deletebeer" class="btn btn-outline-light" style="background-color: red" />
+            <br />
+            <br />
+
+        </div>
+    </form>
+</div>
+
+
+
+@*<script>
+    @*// Assume $db is a PDO object
+    $query = $db->query("Select beer_id, name from beers where brewery_id = @brewId;"); // Run your query
+
+    echo '<select name="dropdown1">'; // Open your drop down box
+
+        @*// Loop through the query results, outputing the options one by one
+        while ($row = $query->fetch(PDO,FETCH_ASSOC)) {
+        echo '<option value="'.$row['something'].'">'.$row['something'].'</option>';
+        }
+
+        echo '
+    </select>';@*// Close your drop down box
+    </script>*@
+
+

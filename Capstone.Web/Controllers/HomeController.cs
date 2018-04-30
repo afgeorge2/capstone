@@ -139,9 +139,30 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult UpdateBreweryInfo(string history, string address, string cname, string email, string phone, int brewID, HoursViewModel m)
+        public ActionResult BreweryDetail(int brewID)
         {
+            Brewery brewDetail = _brew.GetBreweryByID(brewID);
+            return View("BreweryDetail", brewDetail);
+        }
+
+        #endregion
+
+
+        #region --- UplaodFile ---
+
+        private bool isValidContentType(string contentType)
+        {
+            return contentType.Equals("image/png") || contentType.Equals("image/gif") ||
+                contentType.Equals("image/jpg") || contentType.Equals("image/jpeg");
+        }
+
+        [HttpPost]
+        public ActionResult Process(HttpPostedFileBase photo, int picbrewID, string history, string address, string cname, string email, string phone, int brewID, HoursViewModel m
+            ,string open0, string close0, string open1, string close1, string open2, string close2, string open3, string close3, string open4, string close4, string open5, string close5, string open6, string close6
+            )
+        {
+
+
             Brewery b = new Brewery
             {
                 History = history,
@@ -154,64 +175,47 @@ namespace Capstone.Web.Controllers
 
             _brew.UpdateBreweryInfo(b);
             m.BrewID = brewID;
-            _brew.UpdateBreweryHours(m);
+            _brew.UpdateBreweryHours(brewID, open0, close0, open1, close1, open2, close2, open3, close3, open4, close4, open5, close5, open6, close6);
 
-
-
-
-            return View();
-        }
-
-        public ActionResult BreweryDetail(int brewID)
-        {
-            Brewery brewDetail = _brew.GetBreweryByID(brewID);
-            return View("BreweryDetail", brewDetail);
-        }
-
-        #endregion
-
-
-
-        #region --- UplaodFile ---
-
-
-        public ActionResult FileUpload()
-        {
-
-            return View();
-        }
-
-        private bool isValidContentType(string contentType)
-        {
-            return contentType.Equals("image/png") || contentType.Equals("image/gif") ||
-                contentType.Equals("image/jpg") || contentType.Equals("image/jpeg");
-        }
-
-
-        [HttpPost]
-        public ActionResult Process(HttpPostedFileBase photo)
-        {
-            if (!isValidContentType(photo.ContentType))
+            if (photo!=null)
             {
-                ViewBag.Error = "wrong format";
-                return View("FileUpload");
+                if (!isValidContentType(photo.ContentType))
+                {
+                    ViewBag.Error = "wrong format";
+                    return View("FileUpload");
+                }
+                else
+                {
+                    Brewery brew = _brew.GetBreweryByID(picbrewID);
+
+                    var filename = $"{brew.BreweryName}.jpg";
+
+                    var path = Path.Combine(Server.MapPath("~/Photos"), filename);
+
+                    _brew.UploadBreweryPhoto(filename, brew.BreweryID,true);
+
+                    photo.SaveAs(path);
+
+                    return Redirect("Index");
+                }
             }
-            else
-            {
-                Brewery brew = _brew.GetBreweryByID(1);
 
-                //var filename = Path.GetFileName(photo.FileName);
-                var filename = $"{brew.BreweryName}.jpg";
-                var path = Path.Combine(Server.MapPath("~/Photos"), filename);
+            return RedirectToAction("Index");
 
-
-                _brew.AddBreweryPhoto(filename, brew.BreweryID);
-
-                photo.SaveAs(path);
-
-                return RedirectToAction("Index1");
-            }
         }
+
+
+
+        public ActionResult TestPhoto()
+        {
+
+            Brewery brew = _brew.GetBreweryByID(1);
+
+
+            return View(brew);
+        }
+
+
 
 
         #endregion
@@ -263,11 +267,18 @@ namespace Capstone.Web.Controllers
             return Redirect("Index");
         }
 
-        //delete beer post
-        [HttpPost]
+
         public ActionResult DeleteBeer()
         {
-            return Redirect("Index");
+            return View();
+        }
+        //delete beer post
+        [HttpPost]
+        public ActionResult DeleteBeer(DeleteBeer b, int brewId)
+        {
+            b.BreweryId = brewId;
+            _brew.DeleteBeer(b);
+            return Redirect("AddBeer");
         }
 
         //update beer availability (show/hide)
@@ -286,6 +297,13 @@ namespace Capstone.Web.Controllers
             //_brew.UpdateShowHide(List<Beer> beers);
 
             return View();
+        }
+
+        //This action directs to a view that lists all of the beers made by a specific brewery
+        public ActionResult BreweryBeerDetail(int brewID)
+        {
+            List<Beer> beerlist = _brew.GetAllBeersFromBrewery(brewID);
+            return View("BreweryBeers", beerlist);
         }
 
 

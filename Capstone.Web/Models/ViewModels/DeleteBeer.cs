@@ -5,13 +5,9 @@ using System.Web;
 
 namespace Capstone.Web.Models.ViewModels
 {
-    public class HoursViewModel
+    public class DeleteBeer
     {
-        public int BrewID { get; set; }
-        public List<DaysHoursOperation> DaysHours { get; set; }
-
-
-
+        public int BreweryId { get; set; }
+        public string Name { get; set; }
     }
 }
-

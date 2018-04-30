@@ -208,6 +208,7 @@ namespace Capstone.Web.DAL
             string sql = "SELECT * FROM breweries WHERE id=@id";
             Brewery brews = new Brewery();
 
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -219,7 +220,12 @@ namespace Capstone.Web.DAL
                     brews = GetBrewery(reader);
                 }
 
+                brews.BreweryPhoto = GetBreweryPhoto(brewID);
+
             }
+
+            brews.Hours = GetHoursForBrewery(brewID);
+
             return brews;
         }
 
@@ -243,15 +249,60 @@ namespace Capstone.Web.DAL
         }
 
 
-        public void UpdateBreweryHours(HoursViewModel m)
+        //string open0, string close0, string open1, string close1, string open2, string close2, string open3, string close3, string open4, string close4, string open5, string close5, string open6, string close6
+        //public void UpdateBreweryHours(HoursViewModel m)
+
+
+        public void UpdateBreweryHours(int brewID, string open0, string close0, string open1, string close1, string open2, string close2, string open3, string close3, string open4, string close4, string open5, string close5, string open6, string close6)
         {
-            m.DaysHours[0].DayOfWeek = "Monday";
-            m.DaysHours[1].DayOfWeek = "Tuesday";
-            m.DaysHours[2].DayOfWeek = "Wednesday";
-            m.DaysHours[3].DayOfWeek = "Thursday";
-            m.DaysHours[4].DayOfWeek = "Friday";
-            m.DaysHours[5].DayOfWeek = "Saturday";
-            m.DaysHours[6].DayOfWeek = "Sunday";
+
+            //DaysHoursOperation day = new DaysHoursOperation();
+
+            HoursViewModel m = new HoursViewModel();
+            m.DaysHours = new List<DaysHoursOperation>() {
+
+                new DaysHoursOperation(){DayOfWeek = "Monday"},
+                new DaysHoursOperation(){DayOfWeek = "Tuesday"},
+                new DaysHoursOperation(){DayOfWeek = "Wednesday"},
+                new DaysHoursOperation(){DayOfWeek = "Thursday"},
+                new DaysHoursOperation(){DayOfWeek = "Friday"},
+                new DaysHoursOperation(){DayOfWeek = "Saturday"},
+                new DaysHoursOperation(){ DayOfWeek = "Sunday" }
+            };
+            m.BrewID = brewID;
+
+            m.DaysHours[0].Opens = open0 ?? "CLOSED";
+            m.DaysHours[1].Opens = open1 ?? "CLOSED";
+            m.DaysHours[2].Opens = open2 ?? "CLOSED";
+            m.DaysHours[3].Opens = open3 ?? "CLOSED";
+            m.DaysHours[4].Opens = open4 ?? "CLOSED";
+            m.DaysHours[5].Opens = open5 ?? "CLOSED";
+            m.DaysHours[6].Opens = open6 ?? "CLOSED";
+
+            m.DaysHours[0].Closes = close0 ?? "CLOSED";
+            m.DaysHours[1].Closes = close1 ?? "CLOSED";
+            m.DaysHours[2].Closes = close2 ?? "CLOSED";
+            m.DaysHours[3].Closes = close3 ?? "CLOSED";
+            m.DaysHours[4].Closes = close4 ?? "CLOSED";
+            m.DaysHours[5].Closes = close5 ?? "CLOSED";
+            m.DaysHours[6].Closes = close6 ?? "CLOSED";
+
+
+
+            foreach (var day in m.DaysHours)
+            {
+                if (day.Opens == null)
+                {
+                    day.Opens = "CLOSED";
+                }
+                if (day.Closes == null)
+                {
+                    day.Closes = "CLOSED";
+                }
+            }
+
+
+
 
             string removeOLD = @"delete from operation where brewery_id = @brewID";
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -283,12 +334,13 @@ namespace Capstone.Web.DAL
         public List<DaysHoursOperation> GetHoursForBrewery(int brewID)
         {
             List<DaysHoursOperation> hours = new List<DaysHoursOperation>();
-            string sql = "SELECT * FROM OPERATION WHERE brewery_id = 1";
+            string sql = "SELECT * FROM OPERATION WHERE brewery_id = @brewid";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                cmd.Parameters.AddWithValue("@brewid", brewID);
 
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -296,31 +348,92 @@ namespace Capstone.Web.DAL
                     hours.Add(GetOps(reader));
                 }
             }
+
+            //foreach (var day in hours)
+            //{
+
+            //    if (day.Opens == "Not Set")
+            //    {
+            //        day.Opens = "";
+            //    }
+            //    if (day.Closes == "Not Set")
+            //    {
+            //        day.Closes = "";
+            //    }
+            //}
+
             return hours;
         }
 
 
 
-        public string AddBreweryPhoto(string filepath, int? brewID)
+        #endregion
+
+
+
+
+
+        #region --- Photos ---
+
+        public void UploadBreweryPhoto(string filename, int brewID, bool profilePic)
         {
 
-            string sql = "UPDATE breweries SET imagery = @filepath WHERE id = @brewID";
+            string sql = @"INSERT INTO breweryPhotos VALUES( @FILE_NAME, @brewery_id, @profile_pic)";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
-                cmd.Parameters.AddWithValue("@filepath", filepath);
-                cmd.Parameters.AddWithValue("@brewID", brewID);
+                cmd.Parameters.AddWithValue("@FILE_NAME", filename);
+                cmd.Parameters.AddWithValue("@brewery_id", brewID);
+                cmd.Parameters.AddWithValue("@profile_pic", profilePic);
                 cmd.ExecuteReader();
 
             }
 
+        }
 
+        public void UploadBeerPhoto(string filename, int beerID)
+        {
+            string sql = @"INSERT INTO beerPhotos VALUES( @FILE_NAME, @beer_id)";
 
-            return filepath;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                cmd.Parameters.AddWithValue("@FILE_NAME", filename);
+                cmd.Parameters.AddWithValue("@beer_id", beerID);
+                cmd.ExecuteReader();
+
+            }
 
         }
+
+
+
+        private BreweryPhoto GetBreweryPhoto(int brewID)
+        {
+            string sql = @"SELECT * FROM breweryPhotos WHERE brewery_id = @brewID";
+
+            BreweryPhoto brewphoto = new BreweryPhoto();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                cmd.Parameters.AddWithValue("@brewID", brewID);
+                //cmd.ExecuteReader();
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    brewphoto = (MakeBreweryPhoto(reader));
+                }
+            }
+            return brewphoto;
+        }
+
+
 
         #endregion
 
@@ -438,6 +551,32 @@ namespace Capstone.Web.DAL
             }
         }
 
+        public bool DeleteBeer(DeleteBeer beer)
+        {
+            string SQL_DeleteBeer = "Delete from beers where brewery_id = @brewId and name = @Name;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(SQL_DeleteBeer, conn);
+                    cmd.Parameters.Add(new SqlParameter("@Name", beer.Name));
+                    cmd.Parameters.Add(new SqlParameter("@brewId", beer.BreweryId));
+                    cmd.ExecuteNonQuery();
+
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+                //add exception here
+            }
+            
+        }
 
 
 
@@ -484,6 +623,27 @@ namespace Capstone.Web.DAL
             };
 
             return hours;
+        }
+
+        private BeerPhoto MakeBeerPhoto(SqlDataReader reader)
+        {
+            BeerPhoto beerpic = new BeerPhoto()
+            {
+                Filename = Convert.ToString(reader["FILE_NAME"]),
+                BeerID = Convert.ToInt32(reader["beer_id"])
+            };
+            return beerpic;
+        }
+
+        private BreweryPhoto MakeBreweryPhoto(SqlDataReader reader)
+        {
+            BreweryPhoto breweryPhoto = new BreweryPhoto()
+            {
+                Filename = Convert.ToString(reader["FILE_NAME"]),
+                BreweryID = Convert.ToInt32(reader["brewery_id"]),
+                ProfilePic = Convert.ToBoolean(reader["profile_pic"])
+            };
+            return breweryPhoto;
         }
 
 
