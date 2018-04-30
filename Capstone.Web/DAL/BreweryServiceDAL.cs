@@ -510,7 +510,7 @@ namespace Capstone.Web.DAL
 
         public Beer GetBeersById(int beerId)
         {
-            string sql = "Select* from beers where id= @id";
+            string sql = "Select * from beers where id= @id";
             Beer beer = new Beer();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -665,7 +665,7 @@ namespace Capstone.Web.DAL
                 Name = Convert.ToString(reader["name"]),
                 Description = Convert.ToString(reader["description"]),
                 AlcoholByVolume =Convert.ToString(reader["abv"]),
-                
+                BeerType = Convert.ToString(reader["beer_type"]),
                 ShowHide = Convert.ToInt32(reader["show_hide"]),
                 Image = Convert.ToString(reader["image"])
 
@@ -692,6 +692,7 @@ namespace Capstone.Web.DAL
             throw new NotImplementedException();
         }
 
+        
 
 
         #endregion

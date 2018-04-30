@@ -7,7 +7,7 @@
     <h1 style="text-align:center">@Model.BreweryName</h1>
         <div class="jumbotron align-content-center">
             <div class="center"  style="margin-bottom:25px;">
-                <img src="~/Photos/@Model.BreweryPhoto.Filename" style="width: 200px; height: 200px;" />
+                <img src="~/Photos/@Model.BreweryPhoto.Filename" style="width: 200px; height: 200px; border: 1px solid black" />
             </div>
             <div class="align-content-center">
                 @Model.History
@@ -17,11 +17,29 @@
                 <strong>Brewery Address: </strong> @Model.Address <br />
                  
                <strong>Phone Number: </strong> @Model.ContactPhone <br />
-                Contact Person:  @Model.ContactName  <br />
-                Contact Email  @Model.ContactEmail <br />
+                <strong>Contact Person: </strong> @Model.ContactName  <br />
+                <strong>Contact Email: </strong> @Model.ContactEmail <br />
+            </div>
+            <div class="center">
+                <h2 style="text-align:center"> Hours of Operation</h2>
+                <table class="center" style="width:50%; align-content:center">
+                    <tr>
+                        <th>Day</th>
+                        <th>Open</th>
+                        <th>Close</th>
+                    </tr>
+                    @foreach (var hour in Model.Hours)
+                     {
+                       <tr>
+                          <td>@hour.DayOfWeek</td>
+                          <td>@hour.Opens</td>
+                          <td>@hour.Closes</td>
+                       </tr>
+                     }
+                </table>
             </div>
             <br />
-            <div >
+            <div class="center">
                 <form method="get" action="@Url.Action("BreweryBeerDetail", "Home", null)">
                     <input hidden value="@Model.BreweryID" name="brewID" />
                     <button type="submit" class="waves-effect waves-light btn mroonbtn">View Beers</button>

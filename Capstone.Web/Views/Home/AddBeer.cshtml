@@ -3,42 +3,78 @@
 
 @{int brewId = (int)Session["BreweryId"];}
 
+<style>
+    #ddlist li span {
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+    #ddlist li{
+        height: 40px !important;
+        min-height: 10px !important;
 
-<div class="jumbotron w-75 p-3 mx-auto mt-5 jumbo" style="background-color: black; opacity: 0.8">
+    }
+</style>
+<div class="jumbotron w-75 p-3 mx-auto mt-5">
 
     <form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
-        <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
+        <div style="width: 60%; height: 80%; margin-left: 20%">
             <h1 style="text-align: center">Add a New Beer</h1>
-            Name: <div><span name="Name"> @Html.TextBoxFor(m => m.Name, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.Name)</span></div>
-            Choose beer type:
-            <div>
-                <span name="BeerType" id="dropdown"> @Html.DropDownListFor(m => m.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.BeerType) </span>
-                <div><span id="textforother" name="Other"> @Html.TextBoxFor(m => m.Name, new { id="bType" } )</span></div>
-                @*<div><span id="textforother" name="Other"> @Html.TextBoxFor(m => m.Name, new { style = "visibility:hidden; color: white" })</span></div>*@
+            Name: <div><span name="Name"> @Html.TextBoxFor(m => m.Name) @Html.ValidationMessageFor(m => m.Name)</span></div>
+           
+                <select id="dd" class="browser-default" name="beertypes">
+                    <option value="" disabled selected>Select a Type</option>
+                    <option>Ale  </option>
+                    <option>Cider </option>
+                    <option>IPA   </option>
+                    <option>Lager  </option>
+                    <option>Malt  </option>
+                    <option>Pilsner</option>
+                    <option>Porter </option>
+                    <option>Rye    </option>
+                    <option>Stout  </option>
+                    <option>Wheat  </option>
+                    <option value=null>Other   </option>
+                </select>
 
-            </div>  
+
+            <div>@Html.TextBoxFor(m => m.BeerType, new { id = "bType" })</div>
+        </div>
             <p></p>
             Alcohol by Volume (example: 4.5%): <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
             Description: <div><span name="Description"> @Html.TextBoxFor(m => m.Description, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.Description) </span></div>
             <input hidden name="brewId" value="@brewId" />
             <input type="submit" value="Submit new beer!" name="submitnewbeer" class="btn btn-outline-light" style="background-color: brown" />
-            <br /> 
-            <br/> 
+            <br />
+            <br />
 
-        </div>
     </form>
     </div>
 
 
 
+
 <script>
-    $(function () {
-        if ($("#dropdown").val() == 'Other') {
-            $("#textforother").show();
-        }
+
+    $(document).ready(function () {
+        $('select').formSelect();
     });
 
 
+    $("#bType").hide()
+   
+    $("#dd").change(function () {
+
+        $("#bType").val('')
+
+        if ($("#dd").val() == "null") {
+            console.log($("#dd").val())
+            $("#bType").show()
+        }
+
+        if ($("#dd").val() != "null") {
+            $("#bType").hide()
+        }
+    })
 
 
 
@@ -47,7 +83,7 @@
 </script>
 
 
-    @*<form method="post" action="@Url.Action("ShowHideBeer","Home")"></form>
+@*<form method="post" action="@Url.Action("ShowHideBeer","Home")"></form>
 
     <form method="post" action="@Url.Action("DeleteBeer","Home")"></form>*@
 
@@ -59,30 +95,30 @@
 
 
 
-    @*<form method="post" action="@Url.Action("DeleteHideBeer", "Home")" name="deletehidebeer">
-            <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
-                <h1 style="text-align: center">Delete or Hide a Beer</h1>
-                Name: <div style="background-color: white"><span name="Name"> @Html.TextBoxFor(m => m.Name) @Html.ValidationMessageFor(m => m.Name)</span></div>
-                Choose beer type:
-                <div>
-                    <span name="BeerType"> @Html.DropDownListFor(m => m.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.BeerType) </span>
-                </div>
-
-                <p></p>
-                Alcohol by Volume: <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
-                Description: <div><span name="Description"> @Html.TextBoxFor(m => m.Description) @Html.ValidationMessageFor(m => m.Description) </span></div>
-                <input hidden name="brewId" value="@brewId" />
-                <input type="submit" value="Submit new beer!" name="submitnewbeer" class="btn btn-outline-light" />
-
+@*<form method="post" action="@Url.Action("DeleteHideBeer", "Home")" name="deletehidebeer">
+        <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
+            <h1 style="text-align: center">Delete or Hide a Beer</h1>
+            Name: <div style="background-color: white"><span name="Name"> @Html.TextBoxFor(m => m.Name) @Html.ValidationMessageFor(m => m.Name)</span></div>
+            Choose beer type:
+            <div>
+                <span name="BeerType"> @Html.DropDownListFor(m => m.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.BeerType) </span>
             </div>
-        </form>*@
 
-    @*hide/delete beer
-        check session to get brewery id
-        use brewery id to get list of beers
-        user chooses a beer
-        has option to either delete beer or hide beer from list
-        (need to add show/hide column to database --default show)
-        doing a delete and update command
-        make a for loop to get a drop down full of that particular brewery's beers*@
-    @* add to schema and redo database*@
+            <p></p>
+            Alcohol by Volume: <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
+            Description: <div><span name="Description"> @Html.TextBoxFor(m => m.Description) @Html.ValidationMessageFor(m => m.Description) </span></div>
+            <input hidden name="brewId" value="@brewId" />
+            <input type="submit" value="Submit new beer!" name="submitnewbeer" class="btn btn-outline-light" />
+
+        </div>
+    </form>*@
+
+@*hide/delete beer
+    check session to get brewery id
+    use brewery id to get list of beers
+    user chooses a beer
+    has option to either delete beer or hide beer from list
+    (need to add show/hide column to database --default show)
+    doing a delete and update command
+    make a for loop to get a drop down full of that particular brewery's beers*@
+@* add to schema and redo database*@

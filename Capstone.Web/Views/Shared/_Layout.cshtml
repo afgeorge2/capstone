@@ -100,15 +100,22 @@
             <ul class="right hide-on-med-and-down">
                 <li>@Html.ActionLink("Register", "UserRegistration", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
                 <li>@Html.ActionLink("Login", "Login", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+
+                @if (Session.SessionID != null)
+                 {
+                  <li>@Html.ActionLink("Logout", "Logout", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                 }
+
                 @if (Session["BreweryId"] != null)
                  {
-                    <li>@Html.ActionLink("Add A Beer", "AddBeer", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
-                    <li>@Html.ActionLink("Edit Brewery Info", "UpdateBreweryInfo", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                  <li>@Html.ActionLink("Add A Beer", "AddBeer", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                  <li>@Html.ActionLink("Edit Brewery Info", "UpdateBreweryInfo", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
                  }
+
                 @if (Session["Admin"] != null)
-                {
-                    <li>@Html.ActionLink("Add A Brewery", "AddBrewery", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
-                }
+                 {
+                  <li>@Html.ActionLink("Add A Brewery", "AddBrewery", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                 }
             </ul>
         </div>
     </nav>

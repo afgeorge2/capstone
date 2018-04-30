@@ -244,14 +244,20 @@ namespace Capstone.Web.Controllers
 
         //add beer view
         public ActionResult AddBeer()
-        {       
+        {
+            Session["BreweryId"] = 1;
+
             return View();
         }
 
         //add beer post
         [HttpPost]
-        public ActionResult AddBeer(AddBeerModel b, int brewId)
+        public ActionResult AddBeer(AddBeerModel b, int brewId, string beertypes)
         {
+            if (beertypes!="null")
+            {
+                b.BeerType = beertypes;
+            }
             if (!ModelState.IsValid)
             {
                 return View("AddBeer", b);
@@ -389,6 +395,15 @@ namespace Capstone.Web.Controllers
             {
                 return RedirectToAction("Index");
             }
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.Remove(SessionKey.Email);
+            Session.Remove(SessionKey.UserID);
+            Session.RemoveAll();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
