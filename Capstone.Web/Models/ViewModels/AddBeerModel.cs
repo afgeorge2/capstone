@@ -17,7 +17,7 @@ namespace Capstone.Web.Models.ViewModels
         //public string Image { get; set; }
 
         [Required(ErrorMessage = "*")]
-        public double AlcoholByVolume { get; set; }
+        public string AlcoholByVolume { get; set; }
 
         [Required(ErrorMessage = "*")]
         public Types BeerType { get; set; }
@@ -28,12 +28,15 @@ namespace Capstone.Web.Models.ViewModels
 
     public enum Types
     {
-        Other,
         Ale,
+        Cider,
+        IPA,
         Lager,
         Malt,
-        Porter,
+        Pilsner,
+        Porter,      
+        Rye,
         Stout,
-        IPA
+        Wheat
     }
 }

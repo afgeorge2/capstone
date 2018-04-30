@@ -21,12 +21,16 @@ namespace Capstone.Web.Models
 
     public enum Types
     {
-         Other,
          Ale,
+         Cider,
+         IPA,
          Lager,
          Malt,
+         Pilsner,
          Porter,
          Stout,
-         IPA
+         Rye,
+         Wheat
+         
     }
 }
