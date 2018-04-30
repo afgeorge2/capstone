@@ -237,11 +237,6 @@ namespace Capstone.Web.Controllers
   
         }
 
-        public ActionResult ManageBeers()
-        {
-            return View();
-        }
-
 
         //add beer view
         public ActionResult AddBeer()
@@ -263,10 +258,14 @@ namespace Capstone.Web.Controllers
             return Redirect("Index");
         }
 
-
+        //---------DELETE BEERS------------
         public ActionResult DeleteBeer()
         {
-            return View();
+            int brewId = (int)Session["BreweryId"];
+            DeleteBeer b = new DeleteBeer();
+            b.DropDownBeers = _brew.GetAllBeersFromBrewery(brewId);
+
+            return View("DeleteBeer", b);
         }
         //delete beer post
         [HttpPost]

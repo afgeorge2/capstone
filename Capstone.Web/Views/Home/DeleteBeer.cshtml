@@ -1,4 +1,5 @@
 ﻿@using Capstone.Web.Models.ViewModels
+@using Capstone.Web.Models
 @model DeleteBeer
 
 @{int brewId = (int)Session["BreweryId"];}
@@ -13,6 +14,19 @@
             Name of beer:
             <div name="Name">
                 <span> @Html.TextBoxFor(m => m.Name, new { style = "color: white" })</span>
+            </div>
+            <div>
+                <ul>
+                    @foreach (Beer b in Model.DropDownBeers)
+                    {
+                    <li>
+                        <div class="radio">
+                            <label><input type="radio" value ="@b.Name" name="optradio">@b.Name</label>
+                        </div>
+                    </li>
+                    }
+                </ul>
+
             </div>
             @*<div>
                     @Html<select>
@@ -32,6 +46,8 @@
         </div>
     </form>
 </div>
+
+
 
 
 
