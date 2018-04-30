@@ -13,7 +13,9 @@
             Choose beer type:
             <div>
                 <span name="BeerType" id="dropdown"> @Html.DropDownListFor(m => m.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.BeerType) </span>
-                <div><span id="textforother" name="Other"> @Html.TextBoxFor(m => m.Name, new { style = "visibility:hidden; color: white" })</span></div>
+                <div><span id="textforother" name="Other"> @Html.TextBoxFor(m => m.Name, new { id="bType" } )</span></div>
+                @*<div><span id="textforother" name="Other"> @Html.TextBoxFor(m => m.Name, new { style = "visibility:hidden; color: white" })</span></div>*@
+
             </div>  
             <p></p>
             Alcohol by Volume (example: 4.5%): <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
@@ -35,6 +37,13 @@
             $("#textforother").show();
         }
     });
+
+
+
+
+
+
+
 </script>
 
 

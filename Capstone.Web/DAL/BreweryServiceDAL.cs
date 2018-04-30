@@ -663,8 +663,12 @@ namespace Capstone.Web.DAL
             {
                 BreweryId = Convert.ToInt32(reader["id"]),
                 Name = Convert.ToString(reader["name"]),
-                Image =Convert.ToString(reader["image"]),
                 Description = Convert.ToString(reader["description"]),
+                AlcoholByVolume =Convert.ToString(reader["abv"]),
+                
+                ShowHide = Convert.ToInt32(reader["show_hide"]),
+                Image = Convert.ToString(reader["image"])
+
                 
                 
 

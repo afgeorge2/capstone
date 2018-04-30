@@ -311,10 +311,23 @@ namespace Capstone.Web.Controllers
         //This action directs to a view that lists all of the beers made by a specific brewery
         public ActionResult BreweryBeerDetail(int brewID)
         {
+            // (note from mataan) I think this View should have a single bber passed in to it if im thinking about this correctly? 
+
             List<Beer> beerlist = _brew.GetAllBeersFromBrewery(brewID);
             return View("BreweryBeers", beerlist);
         }
 
+
+
+
+        public ActionResult BreweryBeers()
+        {
+            int brewID = 1;
+
+            List<Beer> beerlist = _brew.GetAllBeersFromBrewery(brewID);
+
+            return View(beerlist);
+        }
 
 
         #endregion
