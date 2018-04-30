@@ -19,6 +19,7 @@ namespace Capstone.Web.Models
         public string ContactPhone { get; set; }
 
 
+        public BreweryPhoto BreweryPhoto { get; set; }
 
 
 

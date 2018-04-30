@@ -135,7 +135,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-	<Content Include="DB_script\DatabaseScript_Brewerys_Beers_Users_Added.sql" />
+    <Content Include="DB_script\DatabaseScript_Brewerys_Beers_Users_Added.sql" />
     <Content Include="Photos\8a658fbe99870dc34473986bd5981f22.jpg" />
     <Content Include="Photos\beerback1.jpg" />
     <Content Include="Photos\beerback2.jpg" />
@@ -172,8 +172,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Beer.cs" />
+    <Compile Include="Models\BeerPhoto.cs" />
     <Compile Include="Models\Brewery.cs" />
+    <Compile Include="Models\BreweryAndBeersPhotoCombo.cs" />
     <Compile Include="Models\DaysHoursOperation.cs" />
+    <Compile Include="Models\BreweryPhoto.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\AddBeerModel.cs" />
@@ -197,11 +200,11 @@
     <Content Include="Views\Home\AddBeer.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\UserRegistration.cshtml" />
-    <Content Include="Views\Home\FileUpload.cshtml" />
     <Content Include="Views\Home\ShowHideBeer.cshtml" />
     <Content Include="Views\Home\BreweryDetail.cshtml" />
     <Content Include="Views\Home\BeerDetail.cshtml" />
     <Content Include="Views\Home\ManageBeers.cshtml" />
+    <Content Include="Views\Home\TestPhoto.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

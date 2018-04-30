@@ -1,0 +1,30 @@
+﻿@model Capstone.Web.Models.Brewery
+
+@{
+    ViewBag.Title = "TestPhoto";
+}
+
+<style>
+    #pic1{
+        width:100px;
+        height:auto;
+    }
+</style>
+
+
+
+<div class="jumbotron w-50 center">
+
+    <h2>@Model.BreweryName</h2>
+
+    <img id="pic1" src="~/Photos/@Model.BreweryPhoto.Filename" />
+
+
+
+    <p>
+        @Model.Address
+    </p>
+    <p>
+        @Model.History
+    </p>
+</div>
