@@ -1,38 +1,83 @@
 ﻿@using Capstone.Web.Models
 @model List<Brewery>
-   
-<div>
-    <h1 class="align-middle" style="text-align:center" id="#page-headers">BREWSTER</h1>
-</div>
-<div class="jumbotron align-items-md-center ml-2" style="width:400px; align-self:auto; opacity:0.8">
-    <h3 style="text-align:center">Breweries</h3>
-    <div class="jumbotron align-content-center" id="about-us">
-        <h3 class="" style="">
-            About Us:
-        </h3>
-        <div>
-            
 
-        </div>
+<style>
+
+    .jumbo{
+        background-color:black;
+        float:right;
+    }
+    .text{
+        color:white
+    }
+    .pad{
+        padding-top:10px;
+    }
+    .brewbtn{
+        width: 343px;
+    }
+</style>
+<div class="container-fluid">
+    <div>
+        <h1 class="align-middle" style="text-align:center" id="#page-headers">BREWSTER</h1>
     </div>
-    <div class="center">
-        @foreach (Brewery brewery in Model) 
-        {
-        <div> 
-            <div class="align-content-center">
-                <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
-                 @brewery.BreweryName
-                </a>
+    <div class="jumbotron align-items-md-center ml-2 jumbo" style="width:400px; align-self:auto; opacity:0.8">
+        <h1 class="text">Breweries</h1>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                View Breweries
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                @foreach (Brewery brewery in Model)
+                {
+            <div>
+                <div class="align-content-center">
+                    <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
+                        @brewery.BreweryName
+                    </a>
+                </div>
             </div>
-            <br />
-            <div class="align-content-center">
-                <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
-                   @brewery.Imagery
-                   </a>
-            </div> 
-            <br />
+                }
+                </div>
+            </div>
+                
+        <div class="jumbotron align-content-center" id="about-us">
+            <h3 class="" style="">
+                About Us:
+            </h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
+
+                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa.
+
+                Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet.
+
+
+            </p>
+            <div>
+
+
+            </div>
         </div>
+        @*<div class="align-content-center">
+            @foreach (Brewery brewery in Model)
+        {
+            <div>
+                <div class="align-content-center">
+                    <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
+                        @brewery.BreweryName
+                    </a>
+                </div>
+                <br />
+                <div class="align-content-center">
+                    <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
+                        @brewery.Imagery
+                    </a>
+                </div>*@
+                @*<br />
+            </div>*@
             <b />
-        }
+    }
+        
     </div>
 </div>

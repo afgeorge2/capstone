@@ -63,6 +63,11 @@ namespace Capstone.Web.Controllers
 
         public ActionResult AddBrewery()
         {
+            if (Session["Admin"] == null)
+            {
+                RedirectToAction("Index");
+            }
+
             return View("AddBrewery");
         }
 
@@ -136,6 +141,11 @@ namespace Capstone.Web.Controllers
 
         public ActionResult UpdateBreweryInfo()
         {
+            if (Session["BreweryId"] == null)
+            {
+                RedirectToAction("Index");
+            }
+
             return View();
         }
 
@@ -257,6 +267,12 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddBeer(AddBeerModel b, int brewId)
         {
+            //This first check redirects the user to the home page if they are not a brewer
+            if (Session["BreweryId"] == null)
+            {
+                RedirectToAction("Index");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View("AddBeer", b);
@@ -270,10 +286,14 @@ namespace Capstone.Web.Controllers
         //---------DELETE BEERS------------
         public ActionResult DeleteBeer()
         {
+            if (Session["BreweryId"] == null)
+            {
+                RedirectToAction("Index");
+            }
+
             int brewId = (int)Session["BreweryId"];
             DeleteBeer b = new DeleteBeer();
             b.DropDownBeers = _brew.GetAllBeersFromBrewery(brewId);
-
             return View("DeleteBeer", b);
         }
 
@@ -301,7 +321,10 @@ namespace Capstone.Web.Controllers
         {
             //List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
             List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
-
+            if (Session["BreweryId"] == null)
+            {
+                RedirectToAction("Index");
+            }
             return View(beerlist);
         }
 
