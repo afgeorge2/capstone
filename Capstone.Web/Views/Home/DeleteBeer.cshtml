@@ -1,31 +1,37 @@
 ﻿@using Capstone.Web.Models.ViewModels
+@using Capstone.Web.Models
 @model DeleteBeer
 
 @{int brewId = (int)Session["BreweryId"];}
 
 <select name="dropdown1" id="dropdown1"></select>
 
-<div class="jumbotron w-75 p-3 mx-auto mt-5 jumbo" style="background-color: black; opacity: 0.7">
+<div class="jumbotron w-50 p-3 mx-auto mt-5 jumbo" style="background-color: black; opacity: 0.8">
 
     <form method="post" action="@Url.Action("DeleteBeer", "Home")" name="deletebeer">
         <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
-            <h1 style="text-align: center">Delete a Beer</h1>
-            Name of beer:
-            <div name="Name">
-                <span> @Html.TextBoxFor(m => m.Name, new { style = "color: white" })</span>
+            <h3 style="text-align: center">Delete a Beer</h3>
+            <div style="margin-left:15%">
+                <ul>
+                    @foreach (Beer b in Model.DropDownBeers)
+            {
+                <li>
+                    <div class="radio">
+                        <label>
+                            <input name="beername" value="@b.Name" type="radio" />
+                            <span>@b.Name</span>
+                        </label>
+                    </div>
+                </li>
+    }
+                </ul>
             </div>
-            @*<div>
-                    @Html<select>
-                        @foreach(Beer b in Model)
-                        {
-                            <option>b.Name</option>
-                        }
-                    </select>
-                    <span name="BeerName"> @Html.DropDownListFor(m => m.BeerName, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.BeerType) </span>
-                </div>*@
 
             <input hidden name="brewId" value="@brewId" />
-            <input type="submit" value="Delete Beer" name="deletebeer" class="btn btn-outline-light" style="background-color: red" />
+            <div id="hiddenstuff" style="text-align: center; color: gray; font-size: 20px">
+            </div>
+                <input type="submit" id="deletebutton" value="Delete Beer" name="deletebeer" class="btn btn-outline-light" onclick="confirmDelete()" style="background-color: red; margin-left: 15%" />
+            
             <br />
             <br />
 
@@ -35,6 +41,42 @@
 
 
 
+
+<script>
+
+
+        //if no beers to display, hide delete button
+    @*var list = @Model.DropDownBeers.ToList();
+    console.log(list);*@
+
+    function confirmDelete() {
+        if (!confirm("Are you sure you want to delete @Model.Name?")) {
+            event.preventDefault();
+        }
+    }
+
+    $(function () {
+        $.ajax({
+            url: "/Home/GetBeersToDelete",
+            method: "GET",
+            dataType: "json"
+        }).done(function (results) {
+            console.log(results)
+            //if dropdown.length is 0, hide delete
+            if (results.DropDownBeers.length > 0) {
+                $("#deletebutton").show();
+            }
+            else {
+                $("#deletebutton").hide();
+                $("#hiddenstuff")
+                    .html("<p>There are no available beers to delete.</p>");
+                    @*.html("<button> @Html.ActionLink("Add A Beer", "AddBeer", "Home")</button>");*@
+            }
+        })
+
+    })
+
+</script>
 @*<script>
     @*// Assume $db is a PDO object
     $query = $db->query("Select beer_id, name from beers where brewery_id = @brewId;"); // Run your query

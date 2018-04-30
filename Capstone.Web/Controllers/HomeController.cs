@@ -241,11 +241,6 @@ namespace Capstone.Web.Controllers
   
         }
 
-        public ActionResult ManageBeers()
-        {
-            return View();
-        }
-
 
         //add beer view
         public ActionResult AddBeer()
@@ -267,18 +262,32 @@ namespace Capstone.Web.Controllers
             return Redirect("Index");
         }
 
-
+        //---------DELETE BEERS------------
         public ActionResult DeleteBeer()
         {
-            return View();
+            int brewId = (int)Session["BreweryId"];
+            DeleteBeer b = new DeleteBeer();
+            b.DropDownBeers = _brew.GetAllBeersFromBrewery(brewId);
+
+            return View("DeleteBeer", b);
+        }
+
+        public ActionResult GetBeersToDelete()
+        {
+            int brewId = (int)Session["BreweryId"];
+            DeleteBeer b = new DeleteBeer();
+            b.DropDownBeers = _brew.GetAllBeersFromBrewery(brewId);
+
+            return Json(b, JsonRequestBehavior.AllowGet);
         }
         //delete beer post
         [HttpPost]
-        public ActionResult DeleteBeer(DeleteBeer b, int brewId)
+        public ActionResult DeleteBeer(DeleteBeer b, int brewId, string beername)
         {
             b.BreweryId = brewId;
+            b.Name = beername;
             _brew.DeleteBeer(b);
-            return Redirect("AddBeer");
+            return Redirect("DeleteBeer");
         }
 
         //update beer availability (show/hide)

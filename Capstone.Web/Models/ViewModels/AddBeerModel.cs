@@ -37,6 +37,7 @@ namespace Capstone.Web.Models.ViewModels
         Porter,      
         Rye,
         Stout,
-        Wheat
+        Wheat,
+        Other
     }
 }

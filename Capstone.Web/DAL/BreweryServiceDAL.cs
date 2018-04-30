@@ -555,8 +555,6 @@ namespace Capstone.Web.DAL
         {
             string SQL_DeleteBeer = "Delete from beers where brewery_id = @brewId and name = @Name;";
 
-            try
-            {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
@@ -569,12 +567,7 @@ namespace Capstone.Web.DAL
                 }
 
                 return true;
-            }
-            catch
-            {
-                return false;
-                //add exception here
-            }
+            
             
         }
 

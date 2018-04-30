@@ -9,5 +9,6 @@ namespace Capstone.Web.Models.ViewModels
     {
         public int BreweryId { get; set; }
         public string Name { get; set; }
+        public List<Beer> DropDownBeers{get; set;}
     }
 }
