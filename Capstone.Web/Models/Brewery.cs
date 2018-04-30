@@ -18,6 +18,8 @@ namespace Capstone.Web.Models
         public string ContactEmail { get; set; }
         public string ContactPhone { get; set; }
 
+        public List<DaysHoursOperation> Hours { get; set; }
+
 
         public BreweryPhoto BreweryPhoto { get; set; }
 
