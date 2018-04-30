@@ -397,7 +397,7 @@ namespace Capstone.Web.DAL
 
         public Beer GetBeersById(int beerId)
         {
-            string sql = "Select* from beers where id= @id";
+            string sql = "Select * from beers where id= @id";
             Beer beer = new Beer();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -535,6 +535,7 @@ namespace Capstone.Web.DAL
             throw new NotImplementedException();
         }
 
+        
 
 
         #endregion
