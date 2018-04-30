@@ -4,7 +4,7 @@
 @{int brewId = (int)Session["BreweryId"];}
 
 
-<div class="jumbotron w-75 p-3 mx-auto mt-5 jumbo" style="background-color: black; opacity: 0.7">
+<div class="jumbotron w-75 p-3 mx-auto mt-5 jumbo" style="background-color: black; opacity: 0.8">
 
     <form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
         <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
@@ -12,7 +12,8 @@
             Name: <div><span name="Name"> @Html.TextBoxFor(m => m.Name, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.Name)</span></div>
             Choose beer type:
             <div>
-                <span name="BeerType"> @Html.DropDownListFor(m => m.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.BeerType) </span>
+                <span name="BeerType" id="dropdown"> @Html.DropDownListFor(m => m.BeerType, new SelectList(Enum.GetValues(typeof(Types))), "Select Beer Type", new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.BeerType) </span>
+                <div><span id="textforother" name="Other"> @Html.TextBoxFor(m => m.Name, new { style = "visibility:hidden; color: white" })</span></div>
             </div>  
             <p></p>
             Alcohol by Volume (example: 4.5%): <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
@@ -28,12 +29,18 @@
 
 
 
+<script>
+    $(function () {
+        if ($("#dropdown").val() == 'Other') {
+            $("#textforother").show();
+        }
+    });
+</script>
 
 
+    @*<form method="post" action="@Url.Action("ShowHideBeer","Home")"></form>
 
-    <form method="post" action="@Url.Action("ShowHideBeer","Home")"></form>
-
-    <form method="post" action="@Url.Action("DeleteBeer","Home")"></form>
+    <form method="post" action="@Url.Action("DeleteBeer","Home")"></form>*@
 
 
 

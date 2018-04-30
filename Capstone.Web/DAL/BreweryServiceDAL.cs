@@ -510,7 +510,7 @@ namespace Capstone.Web.DAL
 
         public Beer GetBeersById(int beerId)
         {
-            string sql = "Select* from beers where id= @id";
+            string sql = "Select * from beers where id= @id";
             Beer beer = new Beer();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -555,8 +555,6 @@ namespace Capstone.Web.DAL
         {
             string SQL_DeleteBeer = "Delete from beers where brewery_id = @brewId and name = @Name;";
 
-            try
-            {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
@@ -569,12 +567,7 @@ namespace Capstone.Web.DAL
                 }
 
                 return true;
-            }
-            catch
-            {
-                return false;
-                //add exception here
-            }
+            
             
         }
 
@@ -695,6 +688,7 @@ namespace Capstone.Web.DAL
             throw new NotImplementedException();
         }
 
+        
 
 
         #endregion
