@@ -6,26 +6,26 @@
 <div class="jumbotron align-content-center">
     <h1 style="text-align:center">@Model.BreweryName</h1>
         <div class="jumbotron align-content-center">
-            <div class="align-content-center">
-                <img src="@Model.Imagery" />
+            <div class="center"  style="margin-bottom:25px;">
+                <img src="~/Photos/@Model.BreweryPhoto.Filename" style="width: 200px; height: 200px;" />
             </div>
             <div class="align-content-center">
                 @Model.History
             </div>
-            <div class="align-text-center">
+            <div class="center" style="margin-bottom:25px;">
                 <h3 style="text-align:center">Contact Info</h3> <br />
-              Brewery Address: @Model.Address
-              Phone Number:  @Model.ContactPhone <br />
-              Contact Person:  @Model.ContactName  <br />
-              Contact Email  @Model.ContactEmail <br />
+                <strong>Brewery Address: </strong> @Model.Address <br />
+                 
+               <strong>Phone Number: </strong> @Model.ContactPhone <br />
+                Contact Person:  @Model.ContactName  <br />
+                Contact Email  @Model.ContactEmail <br />
             </div>
             <br />
-            <div>
-                @Html.ActionLink("View Beers", "BreweryBeerDetail", "Home", new { @class = "waves-effect waves-light btn mroonbtn",  brewID = Model.BreweryID })
+            <div >
+                <form method="get" action="@Url.Action("BreweryBeerDetail", "Home", null)">
+                    <input hidden value="@Model.BreweryID" name="brewID" />
+                    <button type="submit" class="waves-effect waves-light btn mroonbtn">View Beers</button>
+                </form>
             </div>
         </div>
-        <form method="get" action="@Url.Action("BreweryBeerDetail", "Home", null)">
-            <input hidden value="@Model.BreweryID" name="brewID"/>
-            <button type="submit">View Beers</button>
-        </form>
 </div>
