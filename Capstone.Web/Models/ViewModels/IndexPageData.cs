@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Capstone.Web.Models;
 using Capstone.Web.DAL;
+using System.Web.Services.Description;
 
 namespace Capstone.Web.Models.ViewModels
 {
