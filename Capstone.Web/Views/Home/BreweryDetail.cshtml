@@ -6,6 +6,21 @@
 <div class="jumbotron align-content-center">
     <h1 style="text-align:center">@Model.BreweryName</h1>
     @*<button class="btn btn-primary" type="submit">View Beers</button>*@
+        <div class="jumbotron align-content-center">
+            <div class="align-content-center">
+                <img src="@Model.Imagery" />
+            </div>
+            <div class="align-content-center">
+                @Model.History
+            </div>
+            <div class="align-text-center">
+                <h3 style="text-align:center">Contact Info</h3> <br />
+              Brewery Address: @Model.Address
+              Phone Number:  @Model.ContactPhone <br />
+              Contact Person:  @Model.ContactName  <br />
+              Contact Email  @Model.ContactEmail <br />
+            </div>
+        </div>
     <input type="button" class="btn btn-info" value="View Beers" onclick=" relocate_beerDetail()">
 
     <script>
@@ -15,7 +30,7 @@ function relocate_beerDetail()
 }
     </script>
 </div>
-<div> 
+@*<div> 
     <div>
         <img src="@Model.Imagery" />
     </div>
@@ -31,5 +46,5 @@ function relocate_beerDetail()
     <div>
         
     </div>
-</div>
+</div>*@
 
