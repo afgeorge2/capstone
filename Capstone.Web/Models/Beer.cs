@@ -13,24 +13,11 @@ namespace Capstone.Web.Models
         public string Description { get; set; }
         public string Image { get; set; }
         public double AlcoholByVolume { get; set; }
-        public Types BeerType { get; set; }
+        public string BeerType { get; set; }
         public string BreweryName { get; set; }
         public int BreweryId { get; set; }
         public int ShowHide { get; set; }
     }
 
-    public enum Types
-    {
-         Ale,
-         Cider,
-         IPA,
-         Lager,
-         Malt,
-         Pilsner,
-         Porter,
-         Stout,
-         Rye,
-         Wheat
-         
-    }
+ 
 }
