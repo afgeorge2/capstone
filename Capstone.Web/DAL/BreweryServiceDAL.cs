@@ -208,6 +208,7 @@ namespace Capstone.Web.DAL
             string sql = "SELECT * FROM breweries WHERE id=@id";
             Brewery brews = new Brewery();
 
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -222,6 +223,9 @@ namespace Capstone.Web.DAL
                 brews.BreweryPhoto = GetBreweryPhoto(brewID);
 
             }
+
+            brews.Hours = GetHoursForBrewery(brewID);
+
             return brews;
         }
 
