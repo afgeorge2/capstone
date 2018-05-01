@@ -52,10 +52,10 @@
             background-size: cover;
         }
 
-        .beerback {
+        /*.beerback {
             background-image: url('../../Photos/beerback3.jpg');
             min-height: 100%;
-        }
+        }*/
 
         #layoutnav {
             background-color: #a7a7a7ad;
@@ -100,6 +100,7 @@
         <div class="nav-wrapper">
             @Html.ActionLink("Home", "Index", "Home", new { @class = "ml-2 waves-effect waves-light btn mroonbtn" })
             <ul class="right hide-on-med-and-down">
+                <li>@Html.ActionLink("All Breweries", "ViewAllBreweries", "Home", new { @class = "ml-2 waves-effect waves-light btn mroonbtn" })</li>
                 <li>@Html.ActionLink("Register", "UserRegistration", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
                 <li>@Html.ActionLink("Login", "Login", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
 

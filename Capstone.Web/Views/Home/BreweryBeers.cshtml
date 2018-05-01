@@ -1,9 +1,12 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@using Capstone.Web.Models
+﻿@using Capstone.Web.Models;
 @model List<Beer>
-    <div class="jumbotron center">
 
-    </div>
 
+<div class="jumbotron center">
+
+    @foreach (var b in Model)
+    {
+        <p>@b.Name @b.Description @b.BeerType @b.AlcoholByVolume</p>
+    }
+
+</div>

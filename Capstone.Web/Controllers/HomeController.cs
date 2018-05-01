@@ -155,6 +155,12 @@ namespace Capstone.Web.Controllers
             return View("BreweryDetail", brewDetail);
         }
 
+        public ActionResult ViewAllBreweries()
+        {
+            List<Brewery> brews = _brew.GetAllBrewerys();
+            return View("AllBreweries", brews);
+        }
+
         #endregion
 
 
@@ -242,6 +248,22 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
+        public ActionResult GetBeersForManaging(int brewID)
+        {
+            List<Beer> beers = _brew.GetAllBeersFromBrewery(brewID);
+            
+            return Json(beers, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ShowHideBeer(int beerID, int showHide)
+        {
+            _brew.UpdateShowHide(beerID, showHide);
+
+            return View();
+        }
+
+
         public ActionResult BeerDetail(Beer model)
         {
             return View("BeerDetail", model);
@@ -259,14 +281,20 @@ namespace Capstone.Web.Controllers
 
         //add beer view
         public ActionResult AddBeer()
-        {       
+        {
+            Session["BreweryId"] = 1;
+
             return View();
         }
 
         //add beer post
         [HttpPost]
-        public ActionResult AddBeer(AddBeerModel b, int brewId)
+        public ActionResult AddBeer(AddBeerModel b, int brewId, string beertypes)
         {
+            if (beertypes!="null")
+            {
+                b.BeerType = beertypes;
+            }
             //This first check redirects the user to the home page if they are not a brewer
             if (Session["BreweryId"] == null)
             {
@@ -317,32 +345,38 @@ namespace Capstone.Web.Controllers
 
         //update beer availability (show/hide)
 
-        public ActionResult ShowHideBeer()
-        {
-            //List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
-            List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
-            if (Session["BreweryId"] == null)
-            {
-                RedirectToAction("Index");
-            }
-            return View(beerlist);
-        }
+        //public ActionResult ShowHideBeer()
+        //{
+        //    List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
+        //    if (Session["BreweryId"] == null)
+        //    {
+        //        RedirectToAction("Index");
+        //    }
+        //    return View(beerlist);
+        //}
 
-        [HttpPost]
-        public ActionResult ShowHideBeer(int brewId)
-        {
-            //_brew.UpdateShowHide(List<Beer> beers);
 
-            return View();
-        }
 
         //This action directs to a view that lists all of the beers made by a specific brewery
         public ActionResult BreweryBeerDetail(int brewID)
         {
+            // (note from mataan) I think this View should have a single bber passed in to it if im thinking about this correctly? 
+
             List<Beer> beerlist = _brew.GetAllBeersFromBrewery(brewID);
             return View("BreweryBeers", beerlist);
         }
 
+
+
+
+        public ActionResult BreweryBeers()
+        {
+            int brewID = 1;
+
+            List<Beer> beerlist = _brew.GetAllBeersFromBrewery(brewID);
+
+            return View(beerlist);
+        }
 
 
         #endregion
@@ -387,7 +421,7 @@ namespace Capstone.Web.Controllers
                 }
 
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 ModelState.AddModelError("username-exists", "An error occurred");
                 return View("UserRegistration");

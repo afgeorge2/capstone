@@ -38,7 +38,7 @@ namespace Capstone.Web.DAL
         bool AddNewBeer(AddBeerModel beer);
         List<Beer> GetAllBeersFromBrewery(int breweryId);
         List<Beer> GetAllBeers();
-        void UpdateShowHide(List<Beer> beers);
+        void UpdateShowHide(int beerID, int showHide);
         bool DeleteBeer(DeleteBeer beer);
 
         //-------------------------------------------------------Review Methods

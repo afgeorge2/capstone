@@ -1,6 +1,35 @@
 ﻿
-<style>
+@{
+    int brewId = (int)Session["BreweryId"];
+    //int brewId = 1;
+}
 
+
+<style>
+    .bord {
+        border-radius: 3px;
+        margin:0px 5px;
+    }
+    #hide {
+        color:rgb(61, 61, 61);
+        font-size:10pt;
+    }
+    #show {
+        color: rgb(30, 181, 114);
+        font-size: 10pt;
+    }
+    span.lever {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        background-color: #84c7c1;
+    }
+
+    .switch label .lever:after {
+        background-color: red;
+    }
+    .switch label input[type=checkbox]:checked + .lever:after {
+        background-color: #7DE688;
+    }
 
 </style>
 
@@ -24,13 +53,71 @@
         <a href="AddBeer"><i class="fas fa-beer fa-5x" style="color: lawngreen; margin-right: 10%"></i></a>
         <a href="DeleteBeer"><i class="fas fa-beer fa-5x" style="color: red; margin-right: 10%"></i></a>
         <a href="ShowHideBeer"><i class="far fa-eye-slash fa-5x" style="color:darkgray"></i></a>
-            <br />
-            <br />
+        <br />
+        <br />
 
-</div>
+    </div>
     @*<a href="ShowHideBeer"><i class="fas fa-beer fa-5x" style="color: cornflowerblue"></i></a>*@
 
 
 
+</div>
+
+<div id="beerSH" class="row col justify-content-center">
+
 
 </div>
+
+
+
+
+
+
+
+
+
+<script>
+    $.ajax({
+        url: "/Home/GetBeersForManaging?brewID=" + @brewId,
+        method: "GET",
+        dataType: "json"
+    }).done(function (beers) {
+        console.log(beers)
+        for (var i = 0; i < beers.length; i++) {
+            var beer = `<div id="beer${i}" class="center p-2 z-depth-1 bord"><strong>${beers[i].Name}</strong><div id="bswitch" class="switch"><label><span id="hide">Hide</span><input id="beercheck${i}" type="checkbox"><span class="lever"></span><span id="show">Show</span></label></div></div>`
+            $("#beerSH").append(beer)
+            $(`#beercheck${i}`).data('beerID',beers[i].BeerID)
+            if (beers[i].ShowHide==1) {
+                $(`#beercheck${i}`).prop("checked", true)
+            }
+        }
+        })
+
+    $(function () {
+
+    $("#bswitch label input").click(function () {
+        var noHashId = $(this).prop('id')
+        var id = `#${noHashId}`
+        var beerid = $(this).data('beerID')
+        console.log(beerid)
+
+        if ($(this).prop("checked")) {
+
+            $.ajax({
+            url: `/Home/ShowHideBeer?beerID=${beerid}&showHide=${1}` ,
+            method: "post",
+            dataType: "json"
+            })
+            
+        }
+        if (!$(this).prop("checked")) {
+            $.ajax({
+                url: `/Home/ShowHideBeer?beerID=${beerid}&showHide=${0}`,
+                method: "post",
+                dataType: "json"
+            })
+        }
+    })
+    })
+
+</script>
