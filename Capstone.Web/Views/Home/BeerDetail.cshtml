@@ -72,7 +72,7 @@
 
     // Submit the form using AJAX.
     $.ajax({
-        url: "/Home/ReviewBeer?email=" + email,
+        url: `/Home/ReviewBeer?rating=${rating}&review=${review}&userId=${userId}&beerId=${beerId}`,
         method: "POST",
         data: 'json'
     }).done(function (response) {
@@ -86,7 +86,6 @@
         // Clear the form.
         $('#rating').val('');
         $('#review').val('');
-        $('#message').val('');////////////////////////
     }).fail(function (data) {
         // Make sure that the formMessages div has the 'error' class.
         $(formMessages).removeClass('success');
