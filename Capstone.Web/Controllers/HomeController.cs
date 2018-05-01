@@ -264,8 +264,9 @@ namespace Capstone.Web.Controllers
         }
 
 
-        public ActionResult BeerDetail(Beer model)
+        public ActionResult BeerDetail(int beerID)
         {
+            Beer model = _brew.GetBeersById(beerID);
             return View("BeerDetail", model);
         }
 
@@ -343,19 +344,6 @@ namespace Capstone.Web.Controllers
             return Redirect("DeleteBeer");
         }
 
-        //update beer availability (show/hide)
-
-        //public ActionResult ShowHideBeer()
-        //{
-        //    List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
-        //    if (Session["BreweryId"] == null)
-        //    {
-        //        RedirectToAction("Index");
-        //    }
-        //    return View(beerlist);
-        //}
-
-
 
         //This action directs to a view that lists all of the beers made by a specific brewery
         public ActionResult BreweryBeerDetail(int brewID)
@@ -376,6 +364,12 @@ namespace Capstone.Web.Controllers
             List<Beer> beerlist = _brew.GetAllBeersFromBrewery(brewID);
 
             return View(beerlist);
+        }
+
+        //Review a beer
+        public ActionResult ReviewBeer()
+        {
+            return View();
         }
 
 

@@ -19,6 +19,7 @@
     <form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
         <div style="width: 60%; height: 80%; margin-left: 20%">
             <h1 style="text-align: center">Add a New Beer</h1>
+
             Name: <div><span name="Name"> @Html.TextBoxFor(m => m.Name) @Html.ValidationMessageFor(m => m.Name)</span></div>
                 <select id="dd" class="browser-default" name="beertypes">
                     <option value="" disabled selected>Select a Type</option>

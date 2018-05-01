@@ -526,7 +526,7 @@ namespace Capstone.Web.DAL
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
-                cmd.Parameters.AddWithValue("@beerID", beerId);
+                cmd.Parameters.AddWithValue("@id", beerId);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -537,9 +537,25 @@ namespace Capstone.Web.DAL
             return beer;
         }
 
-        public bool AddBeerReview()
+        //--------------------------BEER REVIEW-------------------------------------------
+        public bool AddBeerReview(ReviewModel m)
         {
-            throw new NotImplementedException();
+            string SQL_BeerReview = "Insert into reviews (user_id, beer_id, rating, review) Values(@userId, @beerId, @rating, @review);";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(SQL_BeerReview, conn);
+                cmd.Parameters.Add(new SqlParameter("@userId", m.UserId));
+                cmd.Parameters.Add(new SqlParameter("@beerId", m.BeerId));
+                cmd.Parameters.Add(new SqlParameter("@rating", m.Rating));
+                cmd.Parameters.Add(new SqlParameter("@review", m.ReviewPost));
+                cmd.ExecuteNonQuery();
+
+            }
+
+            return true;
         }
 
         public void UpdateShowHide(int beerID, int showHide)
