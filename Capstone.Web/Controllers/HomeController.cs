@@ -398,6 +398,12 @@ namespace Capstone.Web.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View("UserRegistration", model);
+                }
+
+
                 User userExists = _brew.GetUser(model.EmailAddress); 
 
                 if (userExists.EmailAddress == model.EmailAddress)

@@ -1,19 +1,19 @@
 ﻿@using Capstone.Web.Models
 @model List<Brewery>
-<head>
+@*<head>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-</head>
+</head>*@
 <style>
 
     .jumbo {
-        background-color: black;
+        --background-color: black;
         float: right;
     }
 
     .text {
-        color: white
+        --color: white
     }
 
     .pad {
@@ -61,14 +61,28 @@
     .rightest {
         visibility: visible;
     }
+
     .center1 {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
 }
+    img.center {
+        display: block;
+        margin: 0 auto;
+    }
 
-</style> 
+    #brewScroll {
+        max-height: 173px;
+        overflow: auto;
+    }
+
+        #brewScroll a {
+            text-decoration: none;
+            padding: 5px 20px;
+        }
+</style>
 <img class="col-lg-8 center1" src="https://brewsters.ca/wp-content/themes/brewsters/assets/images/logo-full.svg" />
 <div class="container ">
         <div class="col-md-12">
@@ -139,26 +153,46 @@
 
 
 
-<div class="container-fluid col-lg-12 col-md-12 col-sm-12">
-    <div class="jumbotron align-items-md-center ml-2 jumbo" style="width:400px; align-self:auto; opacity:0.8">
-        <h1 class="text">Brewster</h1>
-        <div class="dropdown">
+
+<div class="container-fluid pt-0">
+
+
+
+
+    <div class="jumbotron align-items-md-center ml-2 pt-0 jumbo" style="width:400px; align-self:auto;">
+        <h1 class="center">Breweries</h1>
+
+
+
+        <div id="brewScroll" class="collection">
+        @foreach (Brewery brewery in Model)
+        {
+                <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null) class="collection-item">@brewery.BreweryName</a>
+        }
+        </div>
+
+
+
+
+
+
+        @*<div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 View Top 5 Breweries
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 @foreach (Brewery brewery in Model)
-                {
-                    <div>
-                        <div class="align-content-center">
-                            <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
-                                @brewery.BreweryName
-                            </a>
-                        </div>
+            {
+                <div>
+                    <div class="align-content-center">
+                        <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
+                            @brewery.BreweryName
+                        </a>
                     </div>
-                }
+                </div>
+        }
             </div>
-        </div>
+        </div>*@
 
         <div class="jumbotron align-content-center" id="about-us">
             <h3 class="" style="">
