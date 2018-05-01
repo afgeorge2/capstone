@@ -35,8 +35,8 @@
 
     
 </style>
-<div class="jumbotron  w-50 pt-3 mx-auto mt-5">
-    <h2 class="text-center">USER LOGIN</h2>
+<div class="jumbotron col-5 pt-3 mx-auto mt-5">
+    <h3 class="text-center">USER LOGIN</h3>
     @using (Html.BeginForm("Login", "Home", FormMethod.Post))
     {@Html.ValidationMessage("invalid-credentials")
 
@@ -57,7 +57,7 @@
 
 
 
-    <button class="btn btn-primary btn-lg btn-block mt-5 button" id="login-button">Login</button>
+    <button class="btn btn-primary btn-lg btn-block mt-5 teal accent-1 teal-text z-depth-3" id="login-button">Login</button>
 }
 
 

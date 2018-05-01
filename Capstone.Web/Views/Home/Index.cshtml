@@ -4,11 +4,11 @@
 <style>
 
     .jumbo{
-        background-color:black;
+        --background-color:black;
         float:right;
     }
     .text{
-        color:white
+        --color:white
     }
     .pad{
         padding-top:10px;
@@ -16,31 +16,61 @@
     .brewbtn{
         width: 343px;
     }
+
+
+    #brewScroll{
+        max-height:173px;
+        overflow:auto;
+
+    }
+    #brewScroll a {
+        text-decoration: none;
+        padding: 5px 20px;
+    }
 </style>
-<div class="container-fluid">
-    <div>
-        <h1 class="align-middle" style="text-align:center" id="#page-headers">BREWSTER</h1>
+<div class="container-fluid pt-0">
+
+
+
+    <div style="height:200px;">
+
     </div>
-    <div class="jumbotron align-items-md-center ml-2 jumbo" style="width:400px; align-self:auto; opacity:0.8">
-        <h1 class="text">Breweries</h1>
-        <div class="dropdown">
+
+    <div class="jumbotron align-items-md-center ml-2 pt-0 jumbo" style="width:400px; align-self:auto;">
+        <h1 class="center">Breweries</h1>
+
+
+
+        <div id="brewScroll" class="collection">
+        @foreach (Brewery brewery in Model)
+        {
+                <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null) class="collection-item">@brewery.BreweryName</a>
+        }
+        </div>
+
+
+
+
+
+
+        @*<div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 View Breweries
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 @foreach (Brewery brewery in Model)
-                {
-            <div>
-                <div class="align-content-center">
-                    <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
-                        @brewery.BreweryName
-                    </a>
+            {
+                <div>
+                    <div class="align-content-center">
+                        <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
+                            @brewery.BreweryName
+                        </a>
+                    </div>
                 </div>
+        }
             </div>
-                }
-                </div>
-            </div>
-                
+        </div>*@
+
         <div class="jumbotron align-content-center" id="about-us">
             <h3 class="" style="">
                 About Us:
@@ -74,10 +104,10 @@
                         @brewery.Imagery
                     </a>
                 </div>*@
-                @*<br />
-            </div>*@
-            <b />
-    }
-        
+        @*<br />
+        </div>*@
+        <b />
+        }
+
     </div>
 </div>
