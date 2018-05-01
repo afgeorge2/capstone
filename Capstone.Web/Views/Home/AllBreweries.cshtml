@@ -17,7 +17,9 @@
                 {
                     <tr>
                         <td>
+                            <a href=@Url.Action("BreweryDetail", "Home", new { brewID = b.BreweryID }, null)>
                             @b.BreweryName
+                                </a>
                         </td>
                         <td>
                             @b.History

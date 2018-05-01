@@ -155,6 +155,12 @@ namespace Capstone.Web.Controllers
             return View("BreweryDetail", brewDetail);
         }
 
+        public ActionResult ViewAllBreweries()
+        {
+            List<Brewery> brews = _brew.GetAllBrewerys();
+            return View("AllBreweries", brews);
+        }
+
         #endregion
 
 
