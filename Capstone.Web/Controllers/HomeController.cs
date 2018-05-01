@@ -467,9 +467,8 @@ namespace Capstone.Web.Controllers
             }
 
             string emailAddress = model.EmailAddress;
-            string usern = model.UserName;
 
-            User thisGuy = _brew.GetUser(emailAddress,usern);
+            User thisGuy = _brew.LoginUser(emailAddress);
             if (thisGuy == null || thisGuy.Password != model.Password)
             {
                 ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");

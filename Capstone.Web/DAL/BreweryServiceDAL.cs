@@ -57,6 +57,30 @@ namespace Capstone.Web.DAL
 
         }
 
+        public User LoginUser(string email)
+        {
+            User thisUser = new User();
+
+            string sqlGetOne = "Select * from users WHERE users.email = @email;";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sqlGetOne, conn);
+                cmd.Parameters.AddWithValue("@email", email);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    thisUser = MapUserFromReader(reader);
+                }
+                return thisUser;
+            }
+
+
+        }
+
 
 
 
