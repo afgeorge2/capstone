@@ -264,8 +264,9 @@ namespace Capstone.Web.Controllers
         }
 
 
-        public ActionResult BeerDetail(Beer model)
+        public ActionResult BeerDetail(int beerID)
         {
+            Beer model = _brew.GetBeersById(beerID);
             return View("BeerDetail", model);
         }
 

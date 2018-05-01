@@ -526,7 +526,7 @@ namespace Capstone.Web.DAL
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
-                cmd.Parameters.AddWithValue("@beerID", beerId);
+                cmd.Parameters.AddWithValue("@id", beerId);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
