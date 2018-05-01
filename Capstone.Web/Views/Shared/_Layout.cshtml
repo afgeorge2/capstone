@@ -111,7 +111,7 @@
 
                 @if (Session["BreweryId"] != null)
                  {
-                  <li>@Html.ActionLink("Add A Beer", "AddBeer", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                  <li>@Html.ActionLink("Beer Manager", "ManageBeers", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
                   <li>@Html.ActionLink("Edit Brewery Info", "UpdateBreweryInfo", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
                  }
 
