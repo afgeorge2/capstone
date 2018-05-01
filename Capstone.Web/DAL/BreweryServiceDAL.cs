@@ -32,7 +32,32 @@ namespace Capstone.Web.DAL
 
         #region --- User Methods ---
 
-        public User GetUser(string email)
+        public User GetUser(string email, string userName)
+        {
+            User thisUser = new User();
+
+            string sqlGetOne = "Select * from users WHERE users.email = @email OR users.username = @user;";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sqlGetOne, conn);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@user", userName);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    thisUser = MapUserFromReader(reader);
+                }
+                return thisUser;
+            }
+
+
+        }
+
+        public User LoginUser(string email)
         {
             User thisUser = new User();
 
