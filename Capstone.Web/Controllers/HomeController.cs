@@ -369,8 +369,11 @@ namespace Capstone.Web.Controllers
         //Review a beer
 
         [HttpPost]
-        public ActionResult ReviewBeer(ReviewModel m, int userId, int beerId)
+        public ActionResult ReviewBeer(int rating, string review, int userId, int beerId)
         {
+            ReviewModel m = new ReviewModel();
+            m.Rating = rating;
+            m.ReviewPost = review;
             m.UserId = userId;
             m.BeerId = beerId;
             _brew.AddBeerReview(m);
