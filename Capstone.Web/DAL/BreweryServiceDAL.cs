@@ -479,7 +479,7 @@ namespace Capstone.Web.DAL
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    shb.Add(GetBeersShowHideFromReader(reader));
+                    shb.Add(GetBeerFromReader(reader));
                 }
 
                 return shb;
@@ -533,21 +533,19 @@ namespace Capstone.Web.DAL
             throw new NotImplementedException();
         }
 
-        public void UpdateShowHide(List<Beer> beers)
+        public void UpdateShowHide(int beerID, int showHide)
         {
-            string SQL_ShowHide = @"UPDATE beers SET show_hide=@showhide WHERE brewery_id=@brewid and name=@Name";
+            string SQL_ShowHide = @"UPDATE beers SET show_hide=@showhide WHERE id=@beerID ";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(SQL_ShowHide, conn);
-                foreach (Beer b in beers)
-                {
-                    cmd.Parameters.AddWithValue("@showhide", b.ShowHide);
-                    cmd.Parameters.AddWithValue("@brewery_id", b.BreweryId);
-                    cmd.Parameters.AddWithValue("@name", b.Name);
-                    cmd.ExecuteNonQuery();
-                }
+
+                cmd.Parameters.AddWithValue("@showhide", showHide);
+                cmd.Parameters.AddWithValue("@beerID", beerID);
+                cmd.ExecuteNonQuery();
+                
             }
         }
 
@@ -661,7 +659,8 @@ namespace Capstone.Web.DAL
         {
             Beer beer = new Beer()
             {
-                BreweryId = Convert.ToInt32(reader["id"]),
+                BeerID = Convert.ToInt32(reader["id"]),
+                BreweryId = Convert.ToInt32(reader["brewery_id"]),
                 Name = Convert.ToString(reader["name"]),
                 Description = Convert.ToString(reader["description"]),
                 AlcoholByVolume =Convert.ToString(reader["abv"]),
@@ -677,15 +676,6 @@ namespace Capstone.Web.DAL
             return beer;
         }
 
-            private Beer GetBeersShowHideFromReader(SqlDataReader reader)
-        {
-            Beer beers = new Beer()
-            {
-                Name = Convert.ToString(reader["name"]),
-                ShowHide = Convert.ToInt32(reader["show_hide"])
-            };
-            return beers;
-        }
 
         bool IBreweryServiceDAL.AddBeerReview()
         {

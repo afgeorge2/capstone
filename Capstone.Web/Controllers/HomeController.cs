@@ -242,6 +242,22 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
+        public ActionResult GetBeersForManaging(int brewID)
+        {
+            List<Beer> beers = _brew.GetAllBeersFromBrewery(brewID);
+            
+            return Json(beers, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ShowHideBeer(int beerID, int showHide)
+        {
+            _brew.UpdateShowHide(beerID, showHide);
+
+            return View();
+        }
+
+
         public ActionResult BeerDetail(Beer model)
         {
             return View("BeerDetail", model);
@@ -323,24 +339,17 @@ namespace Capstone.Web.Controllers
 
         //update beer availability (show/hide)
 
-        public ActionResult ShowHideBeer()
-        {
-            //List<Beer> beerlist = _brew.GetAllBeersFromBrewery((int)Session["breweryId"]);
-            List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
-            if (Session["BreweryId"] == null)
-            {
-                RedirectToAction("Index");
-            }
-            return View(beerlist);
-        }
+        //public ActionResult ShowHideBeer()
+        //{
+        //    List<Beer> beerlist = _brew.GetAllBeersFromBrewery(1);
+        //    if (Session["BreweryId"] == null)
+        //    {
+        //        RedirectToAction("Index");
+        //    }
+        //    return View(beerlist);
+        //}
 
-        [HttpPost]
-        public ActionResult ShowHideBeer(int brewId)
-        {
-            //_brew.UpdateShowHide(List<Beer> beers);
 
-            return View();
-        }
 
         //This action directs to a view that lists all of the beers made by a specific brewery
         public ActionResult BreweryBeerDetail(int brewID)
