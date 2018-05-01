@@ -1,0 +1,124 @@
+﻿
+@{
+    //int brewId = (int)Session["BreweryId"];
+    int brewId = 1;
+}
+
+
+<style>
+    .bord {
+        border-radius: 3px;
+        margin:0px 5px;
+    }
+    #hide {
+        color:rgb(61, 61, 61);
+        font-size:10pt;
+    }
+    #show {
+        color: rgb(30, 181, 114);
+        font-size: 10pt;
+    }
+    span.lever {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        background-color: #84c7c1;
+    }
+
+    .switch label .lever:after {
+        background-color: red;
+    }
+    .switch label input[type=checkbox]:checked + .lever:after {
+        background-color: #7DE688;
+    }
+
+</style>
+
+<div class="jumbotron w-75 p-3 mx-auto mt-5 jumbo" style="background-color: black; opacity: 0.9">
+    <h1 style="color: white; text-align: center">Beer Manager</h1>
+    <div style="margin-left: 100px; margin-right: 100px">
+        @*<p style="color: white; font-size: 18px">
+            Howdy-Ho, brewer! You can use this page to manage the beers on your brewery page.
+            <br />
+            To add a new beer, click the <i class="fas fa-beer fa-sm" style="color: lawngreen"></i> icon.
+            <br />
+            To delete a beer, click the <i class="fas fa-beer fa-sm" style="color: red"></i> icon.
+            <br />
+            To hide or show a beer on your page depending on its current availability, click the <i class="far fa-eye-slash fa-sm" style="color: darkgray"></i> icon.
+        </p>*@
+    </div>
+
+    <br />
+    <br />
+    <div style="text-align: center">
+        @*<a href="AddBeer"><i class="fas fa-beer fa-5x" style="color: lawngreen; margin-right: 10%"></i></a>
+        <a href="DeleteBeer"><i class="fas fa-beer fa-5x" style="color: red; margin-right: 10%"></i></a>*@
+        <a href="AddBeer" class="waves-effect waves-light btn" @*style="background-color: black; border-style:solid; border-color: white"*@><i class="material-icons left fas fa-beer" style="color: lawngreen"></i>Add Beer</a>
+        <a href="DeleteBeer" class="waves-effect waves-light btn" @*style="background-color: black; border-style:solid; border-color: white"*@><i class="material-icons left fas fa-beer" style="color: red"></i>Delete Beer</a>
+        <br />
+        <br />
+
+    </div>
+    @*<a href="ShowHideBeer"><i class="fas fa-beer fa-5x" style="color: cornflowerblue"></i></a>*@
+
+
+
+</div>
+
+<div id="beerSH" class="row col justify-content-center">
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+    $.ajax({
+        url: "/Home/GetBeersForManaging?brewID=" + @brewId,
+        method: "GET",
+        dataType: "json"
+    }).done(function (beers) {
+        console.log(beers)
+        for (var i = 0; i < beers.length; i++) {
+            var beer = `<div id="beer${i}" class="center p-2 z-depth-1 bord"><strong>${beers[i].Name}</strong><div id="bswitch" class="switch"><label><span id="hide">Hide</span><input id="beercheck${i}" type="checkbox"><span class="lever"></span><span id="show">Show</span></label></div></div>`
+            $("#beerSH").append(beer)
+            $(`#beercheck${i}`).data('beerID',beers[i].BeerID)
+            if (beers[i].ShowHide==1) {
+                $(`#beercheck${i}`).prop("checked", true)
+            }
+        }
+        })
+
+    $(function () {
+
+    $("#bswitch label input").click(function () {
+        var noHashId = $(this).prop('id')
+        var id = `#${noHashId}`
+        var beerid = $(this).data('beerID')
+        console.log(beerid)
+
+        if ($(this).prop("checked")) {
+
+            $.ajax({
+            url: `/Home/ShowHideBeer?beerID=${beerid}&showHide=${1}` ,
+            method: "post",
+            dataType: "json"
+            })
+            
+        }
+        if (!$(this).prop("checked")) {
+            $.ajax({
+                url: `/Home/ShowHideBeer?beerID=${beerid}&showHide=${0}`,
+                method: "post",
+                dataType: "json"
+            })
+        }
+    })
+    })
+
+</script>

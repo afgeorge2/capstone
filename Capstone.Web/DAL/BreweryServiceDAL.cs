@@ -196,8 +196,17 @@ namespace Capstone.Web.DAL
                 while (reader.Read())
                 {
                     brews.Add(GetBrewery(reader));
-                }
+                } 
 
+            }
+            foreach (var brewery in brews)
+            {
+                brewery.BreweryPhoto = GetBreweryPhoto(brewery.BreweryID);
+
+                if (brewery.BreweryPhoto.Filename == null)
+                {
+                    brewery.BreweryPhoto.Filename = "defaultPhoto.jpg";
+                }
             }
             return brews;
 
@@ -479,7 +488,7 @@ namespace Capstone.Web.DAL
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    shb.Add(GetBeersShowHideFromReader(reader));
+                    shb.Add(GetBeerFromReader(reader));
                 }
 
                 return shb;
@@ -517,7 +526,7 @@ namespace Capstone.Web.DAL
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
-                cmd.Parameters.AddWithValue("@beerID", beerId);
+                cmd.Parameters.AddWithValue("@id", beerId);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -528,26 +537,40 @@ namespace Capstone.Web.DAL
             return beer;
         }
 
-        public bool AddBeerReview()
+        //--------------------------BEER REVIEW-------------------------------------------
+        public bool AddBeerReview(ReviewModel m)
         {
-            throw new NotImplementedException();
+            string SQL_BeerReview = "Insert into reviews (user_id, beer_id, rating, review) Values(@userId, @beerId, @rating, @review);";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(SQL_BeerReview, conn);
+                cmd.Parameters.Add(new SqlParameter("@userId", m.UserId));
+                cmd.Parameters.Add(new SqlParameter("@beerId", m.BeerId));
+                cmd.Parameters.Add(new SqlParameter("@rating", m.Rating));
+                cmd.Parameters.Add(new SqlParameter("@review", m.ReviewPost));
+                cmd.ExecuteNonQuery();
+
+            }
+
+            return true;
         }
 
-        public void UpdateShowHide(List<Beer> beers)
+        public void UpdateShowHide(int beerID, int showHide)
         {
-            string SQL_ShowHide = @"UPDATE beers SET show_hide=@showhide WHERE brewery_id=@brewid and name=@Name";
+            string SQL_ShowHide = @"UPDATE beers SET show_hide=@showhide WHERE id=@beerID ";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(SQL_ShowHide, conn);
-                foreach (Beer b in beers)
-                {
-                    cmd.Parameters.AddWithValue("@showhide", b.ShowHide);
-                    cmd.Parameters.AddWithValue("@brewery_id", b.BreweryId);
-                    cmd.Parameters.AddWithValue("@name", b.Name);
-                    cmd.ExecuteNonQuery();
-                }
+
+                cmd.Parameters.AddWithValue("@showhide", showHide);
+                cmd.Parameters.AddWithValue("@beerID", beerID);
+                cmd.ExecuteNonQuery();
+                
             }
         }
 
@@ -636,6 +659,16 @@ namespace Capstone.Web.DAL
                 BreweryID = Convert.ToInt32(reader["brewery_id"]),
                 ProfilePic = Convert.ToBoolean(reader["profile_pic"])
             };
+            var nullCheck = (reader["FILE_NAME"]);
+
+            if (nullCheck != DBNull.Value)
+            {
+                breweryPhoto.Filename = Convert.ToString(reader["FILE_NAME"]);
+            }
+            else
+            {
+                breweryPhoto.Filename = "empty";
+            }
             return breweryPhoto;
         }
 
@@ -661,10 +694,15 @@ namespace Capstone.Web.DAL
         {
             Beer beer = new Beer()
             {
-                BreweryId = Convert.ToInt32(reader["id"]),
+                BeerID = Convert.ToInt32(reader["id"]),
+                BreweryId = Convert.ToInt32(reader["brewery_id"]),
                 Name = Convert.ToString(reader["name"]),
-                Image =Convert.ToString(reader["image"]),
                 Description = Convert.ToString(reader["description"]),
+                AlcoholByVolume =Convert.ToString(reader["abv"]),
+                BeerType = Convert.ToString(reader["beer_type"]),
+                ShowHide = Convert.ToInt32(reader["show_hide"]),
+                Image = Convert.ToString(reader["image"])
+
                 
                 
 
@@ -673,15 +711,6 @@ namespace Capstone.Web.DAL
             return beer;
         }
 
-            private Beer GetBeersShowHideFromReader(SqlDataReader reader)
-        {
-            Beer beers = new Beer()
-            {
-                Name = Convert.ToString(reader["name"]),
-                ShowHide = Convert.ToInt32(reader["show_hide"])
-            };
-            return beers;
-        }
 
         bool IBreweryServiceDAL.AddBeerReview()
         {

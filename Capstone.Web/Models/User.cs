@@ -12,6 +12,7 @@ namespace Capstone.Web.Models
         [Required(ErrorMessage = "An email address is required")]
         public string EmailAddress { get; set; }
         public string UserName { get; set; }
+        [Required(ErrorMessage = "Must enter a password")]
         public string Password { get; set; }
         public bool? IsBrewer { get; set; }
         public int? BreweryId { get; set; }

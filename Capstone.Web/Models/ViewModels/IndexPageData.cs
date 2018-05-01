@@ -31,7 +31,7 @@ namespace Capstone.Web.Models.ViewModels
         public string Description { get; set; }
         public string Image { get; set; }
         public double AlcoholByVolume { get; set; }
-        public Types BeerType { get; set; }
+        public string BeerType { get; set; }
         //public string BreweryName { get; set; }
         public int BreweryId { get; set; }
         public int ShowHide { get; set; }

@@ -1,0 +1,58 @@
+﻿@*REVIEW A BEER
+
+    Pull in dropdown of all breweries
+    When a brewery is selected from the dropdown, create a new dropdown of all the beers in that brewery
+
+    User selects beer from dropdown
+    User selects rating for that beer
+    User types review
+
+    SUBMIT
+        -takes userId
+
+    POSTS
+        -username, brewery, beer, rating, review
+*@
+
+
+@*Only registered users can make a review
+    Form
+
+    Dropdown 1 --breweries
+    Dropdown 2 --beers
+    Rate beer
+    Review beer
+    Submit Review
+
+    redirect to beer detail page*@
+
+
+@using Capstone.Web.Models.ViewModels
+@model ReviewModel
+
+
+<div class="jumbotron w-75 p-3 mx-auto mt-5">
+
+    <form method="post" action="@Url.Action("ReviewBeer", "Home")" name="addbeer">
+        <div style="width: 60%; height: 80%; margin-left: 20%">
+            <h1 style="text-align: center">Review a Beer</h1>
+
+            Hi, I'm drop down #1 <br />
+            Hey there, I'm drop down #2<br /><br />
+
+
+            <div>
+                Rating:<div>@Html.TextBoxFor(m => m.Rating, new { id = "bType" })</div>
+            </div>
+        </div>
+        <p></p>
+        <div>
+            Review: <div><span name="Description"> @Html.TextBoxFor(m => m.ReviewPost, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.ReviewPost) </span></div>
+        </div>
+        @*<input hidden name="brewId" value="@userId" />*@
+        <input type="submit" value="Submit Review!" name="submitnewbeer" class="btn btn-outline-light" style="background-color: brown" />
+        <br />
+        <br />
+
+    </form>
+</div>
