@@ -712,10 +712,10 @@ namespace Capstone.Web.DAL
         }
 
 
-        bool IBreweryServiceDAL.AddBeerReview()
-        {
-            throw new NotImplementedException();
-        }
+        //bool IBreweryServiceDAL.AddBeerReview()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         
 

@@ -17,6 +17,7 @@ namespace Capstone.Web.Models
         public bool? IsBrewer { get; set; }
         public int? BreweryId { get; set; }
         public bool IsAdmin { get; set; }
+        public bool UserId { get; set; }
 
 
 

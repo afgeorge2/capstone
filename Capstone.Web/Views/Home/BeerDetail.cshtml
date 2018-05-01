@@ -19,7 +19,8 @@
 
 
 
-@*-------------------------HERE BEGINS THE REVIEW CODE-------------------------------*@
+@*-------------------------HERE BEGINS THE BEER REVIEW CODE-------------------------------*@
+@{int userId = (int)Session["UserId"];}
 
 <div style="height: 200px; width:200px; background-color: lightgray; margin-left: 10px">
     <div id="form-messages"></div>
@@ -34,14 +35,11 @@
             <input type="text" id="review" name="review" required>
         </div>
 
-        @*<div class="field">
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
-            </div>*@
-
         <div class="field">
             <button type="submit" style="margin-left: 25%">Submit Review</button>
         </div>
+        
+        <input hidden name="userId" value="@userId" />
     </form>
 
 </div>
@@ -66,15 +64,12 @@
         // TODO
     });
 
-    // Serialize the form data.
-    var formData = $(form).serialize();
-
 
     // Submit the form using AJAX.
     $.ajax({
-        type: 'POST',
-        url: $(form).attr('action'),
-        data: formData
+        url: "/Home/ReviewBeer?email=" + email,
+        method: "POST",
+        data: 'json'
     }).done(function (response) {
         // Make sure that the formMessages div has the 'success' class.
         $(formMessages).removeClass('error');
@@ -96,7 +91,7 @@
         if (data.responseText !== '') {
             $(formMessages).text(data.responseText);
         } else {
-            $(formMessages).text('Oops! An error occured and your message could not be sent.');
+            $(formMessages).text('Oops! An error occured and your review could not be submitted.');
         }
     });
 

@@ -44,7 +44,7 @@ namespace Capstone.Web.DAL
 
         //-------------------------------------------------------Review Methods
 
-        bool AddBeerReview();
+        bool AddBeerReview(ReviewModel m);
 
 
         //-------------------------------------------------------Photo Methods
