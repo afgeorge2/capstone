@@ -19,82 +19,83 @@
 
 
 
+
+
+
 @*-------------------------HERE BEGINS THE BEER REVIEW CODE-------------------------------*@
 @{int userId = (int)Session["UserId"];}
 
 <div style="height: 200px; width:200px; background-color: lightgray; margin-left: 10px">
     <div id="form-messages"></div>
-    <form id="ajax-review" method="post">
-        <div class="field">
-            <label for="rating">Rating:</label>
-            <input type="number" id="rating" name="rating" required>
-        </div>
 
-        <div class="field">
-            <label for="review">Review:</label>
-            <input type="text" id="review" name="review" required>
-        </div>
+    <div class="field">
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" name="rating" required>
+    </div>
 
-        <div class="field">
-            <button type="submit" style="margin-left: 25%">Submit Review</button>
-        </div>
-        
-        <input hidden name="userId" value="@userId" />
-    </form>
+    <div class="field">
+        <label for="review">Review:</label>
+        <input type="text" id="review" name="review" required>
+    </div>
+
+    <input hidden id="userId" name="userId" value="@userId" />
+    <input hidden id="beerId" name="beerId" value="@Model.BeerID" />
+    <input hidden id="date" name="date" value="@DateTime.Now" />
+
+    <div class="field">
+        <button id="submitreview" type="submit" style="margin-left: 25%">Submit Review</button>
+    </div>
+</div>
+
+@*-------------------------THIS IS THE LIST OF REVIEWS-------------------------------*@
+
+<div>
 
 </div>
 
 
+
+
 <script>
+
+
+    //-----------------------------POST A NEW REVIEW--------------------------
     $(function () {
-        // Get the form.
-        var form = $('#ajax-review');
+        $("#submitreview").click(function (event) {
+            var rating = $("#rating").val();
+            var review = $("#review").val();
+            var userId = $("#userId").val();
+            var beerId = $("#beerId").val();
+            var date = $("#date").val();
+            console.log(userId);
+            console.log(beerId);
+            console.log(date);
+            console.log(rating);
+            console.log(review);
 
-        // Get the messages div.
-        var formMessages = $('#form-messages');
+            $.ajax({
+                url: `/Home/ReviewBeer?rating=${rating}&review=${review}&userId=${userId}&beerId=${beerId}&date=${date}`,
+                method: "POST",
+                dataType: "json",
+                success: function (data) {
+                    window.location.href = "/Home/BeerDetail";
 
-        // TODO: The rest of the code will go here...
-    });
+                }
+            })
 
-    // Set up an event listener for the contact form.
-    $(form).submit(function (event) {
-        // Stop the browser from submitting the form.
-        event.preventDefault();
+        })
+    })
 
-        // TODO
-    });
+    //--------------------------GET REVIEWS FROM DB----------------------------
+    //$(function () {
+    //    var beerId= $("#beerId").val()
 
+    //        $.ajax({
+    //            url: "/Home/GetReviewsForBeer?beerId=" + beerId,
+    //            method: "GET",
+    //            dataType: "json"
+    //        }).done(function (reviews) {
+    //            console.log(reviews)
 
-    // Submit the form using AJAX.
-    $.ajax({
-        url: `/Home/ReviewBeer?rating=${rating}&review=${review}&userId=${userId}&beerId=${beerId}`,
-        method: "POST",
-        data: 'json'
-    }).done(function (response) {
-        // Make sure that the formMessages div has the 'success' class.
-        $(formMessages).removeClass('error');
-        $(formMessages).addClass('success');
-
-        // Set the message text.
-        $(formMessages).text(response);
-
-        // Clear the form.
-        $('#rating').val('');
-        $('#review').val('');
-    }).fail(function (data) {
-        // Make sure that the formMessages div has the 'error' class.
-        $(formMessages).removeClass('success');
-        $(formMessages).addClass('error');
-
-        // Set the message text.
-        if (data.responseText !== '') {
-            $(formMessages).text(data.responseText);
-        } else {
-            $(formMessages).text('Oops! An error occured and your review could not be submitted.');
-        }
-    });
 
 </script>
-
-<script src="jquery-2.1.0.min.js"></script>
-<script src="app.js"></script>

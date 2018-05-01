@@ -537,26 +537,7 @@ namespace Capstone.Web.DAL
             return beer;
         }
 
-        //--------------------------BEER REVIEW-------------------------------------------
-        public bool AddBeerReview(ReviewModel m)
-        {
-            string SQL_BeerReview = "Insert into reviews (user_id, beer_id, rating, review) Values(@userId, @beerId, @rating, @review);";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-
-                SqlCommand cmd = new SqlCommand(SQL_BeerReview, conn);
-                cmd.Parameters.Add(new SqlParameter("@userId", m.UserId));
-                cmd.Parameters.Add(new SqlParameter("@beerId", m.BeerId));
-                cmd.Parameters.Add(new SqlParameter("@rating", m.Rating));
-                cmd.Parameters.Add(new SqlParameter("@review", m.ReviewPost));
-                cmd.ExecuteNonQuery();
-
-            }
-
-            return true;
-        }
+       
 
         public void UpdateShowHide(int beerID, int showHide)
         {
@@ -600,6 +581,53 @@ namespace Capstone.Web.DAL
         #endregion
 
 
+        #region --Beer Reviews--
+        //--------------------------BEER REVIEW-------------------------------------------
+        public bool AddBeerReview(ReviewModel m)
+        {
+            string SQL_BeerReview = "Insert into reviews (user_id, beer_id, rating, review, review_date) Values(@userId, @beerId, @rating, @review, @date);";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(SQL_BeerReview, conn);
+                cmd.Parameters.Add(new SqlParameter("@userId", m.UserId));
+                cmd.Parameters.Add(new SqlParameter("@beerId", m.BeerId));
+                cmd.Parameters.Add(new SqlParameter("@rating", m.Rating));
+                cmd.Parameters.Add(new SqlParameter("@review", m.ReviewPost));
+                cmd.Parameters.Add(new SqlParameter("@date", m.Date));
+                cmd.ExecuteNonQuery();
+
+            }
+
+            return true;
+        }
+
+        public List<Review> GetBeerReviewsById(int beerId)
+        {
+            string SQL_GetReviews = "SELECT username, rating, review, review_date FROM reviews JOIN users ON reviews.user_id = users.id WHERE beer_id = @beerId;";
+            List<Review> reviews = new List<Review>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(SQL_GetReviews, conn);
+                cmd.Parameters.AddWithValue("@beerId", beerId);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    reviews.Add(GetReviewsFromReader(reader));
+                }
+
+                return reviews;
+            }
+        }
+
+
+        #endregion
+
         #region --- SQL Readers ---
 
         public User MapUserFromReader(SqlDataReader reader)
@@ -610,7 +638,8 @@ namespace Capstone.Web.DAL
                 UserName = Convert.ToString(reader["username"]),
                 Password = Convert.ToString(reader["password"]),
                 IsBrewer = Convert.ToBoolean(reader["is_brewer"]),
-                IsAdmin = Convert.ToBoolean(reader["is_admin"])
+                IsAdmin = Convert.ToBoolean(reader["is_admin"]),
+                UserId = Convert.ToInt32(reader["id"])
             };
             var nullCheck = (reader["brewery_id"]);
 
@@ -717,7 +746,17 @@ namespace Capstone.Web.DAL
         //    throw new NotImplementedException();
         //}
 
-        
+        private Review GetReviewsFromReader(SqlDataReader reader)
+        {
+            Review r = new Review()
+            {
+                Username = Convert.ToString(reader["username"]),
+                Rating = Convert.ToInt32(reader["rating"]),
+                ReviewPost = Convert.ToString(reader["review"]),
+                Date = Convert.ToDateTime(reader["review_date"]),
+            };
+            return r;
+        }
 
 
         #endregion

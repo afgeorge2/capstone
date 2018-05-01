@@ -45,6 +45,7 @@ namespace Capstone.Web.DAL
         //-------------------------------------------------------Review Methods
 
         bool AddBeerReview(ReviewModel m);
+        List<Review> GetBeerReviewsById(int beerId);
 
 
         //-------------------------------------------------------Photo Methods
