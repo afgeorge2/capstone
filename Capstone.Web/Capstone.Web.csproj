@@ -141,6 +141,7 @@
     <Content Include="Photos\beerback2.jpg" />
     <Content Include="Photos\beerback3.jpg" />
     <Content Include="Photos\beerback4.jpg" />
+    <Content Include="Photos\defaultPhoto.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Photos\pic1" />

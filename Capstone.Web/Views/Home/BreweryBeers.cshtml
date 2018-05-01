@@ -3,10 +3,28 @@
 
 
 <div class="jumbotron center">
+    <h2 style="text-align:center">Current Beer Listings</h2>
+    <div class="center">
+        <table>
+            <tr>
+                <th>Beer</th>
+                <th></th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Alcohol By Volume</th>
+            </tr>
+            @foreach(Beer b in Model)
+            {
+            <tr>
+                <td>@b.Name</td>
+                <td><a href=@Url.Action("BeerDetail", "Home", new { beerID = b.BeerID }, null)><img src="~/Photos/@b.Image" style="width:125px; height:125px; border:1px solid black" /></a></td>
+                <td>@b.Description</td>
+                <td>@b.BeerType</td>
+                <td>@b.AlcoholByVolume</td>
+            </tr>
+            }
+        </table>
+    </div>
 
-    @foreach (var b in Model)
-    {
-        <p>@b.Name @b.Description @b.BeerType @b.AlcoholByVolume</p>
-    }
 
 </div>

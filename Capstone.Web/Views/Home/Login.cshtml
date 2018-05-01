@@ -1,32 +1,83 @@
 ﻿
 @model Capstone.Web.Models.User
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div class="jumbotron  w-75 pt-3 mx-auto mt-5 jumbo" style="opacity:0.85">
-        <h1 class="text-center" style="opacity:0.99">User Login</h1>
-        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
-         {@Html.ValidationMessage("invalid-credentials")
+<style>
+    .field-validation-error {
+        color: red;
+        font-size: 10pt;
         
-        <div id="login-email">
-            @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "email", @class = "validate" })
-            @Html.ValidationMessageFor(m => m.EmailAddress)
-        </div>
-        <div id="login-pw">
-            @Html.PasswordFor(m => m.Password, new { placeholder = "password", @class = "validate" })
-            @Html.ValidationMessageFor(m => m.Password)
-        </div>
-        <button class="btn btn-primary btn-lg btn-block mt-5 button" id="login-button">Login</button>
-         }
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:active,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus
+    input:-webkit-autofill,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+        --border: 1px solid rgb(208, 208, 208);
+        -webkit-text-fill-color: rgb(0, 0, 0);
+        -webkit-box-shadow: 0 0 0px 1000px rgba(0, 255, 245, 0.19) inset !important;
+        transition: background-color 5000s ease-in-out 0s;
+        border-top-left-radius: 5px !important;
+        border-top-right-radius: 5px !important;
+        background-color: none !important;
+    }
 
 
+
+        
+
+    
+</style>
+<div class="jumbotron  w-50 pt-3 mx-auto mt-5">
+    <h2 class="text-center">USER LOGIN</h2>
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {@Html.ValidationMessage("invalid-credentials")
+
+
+
+    <div class="input-field col">
+        @Html.TextBoxFor(m => m.EmailAddress, new { id = "emailAdd", type = "email", @class = "validate" })
+        <label class="ml-2" for="emailAdd">Email</label>
+        @Html.ValidationMessageFor(m => m.EmailAddress,null, new { id="emailValidate"})
     </div>
 
-</body>
-</html>
+
+    <div class="input-field col">
+        @Html.PasswordFor(m => m.Password, new { id = "passWord", type = "password", @class = "validate" })
+        <label class="ml-2" for="passWord">Password</label>
+        @Html.ValidationMessageFor(m => m.Password, null, new { id = "pWordValidate" })
+    </div>
+
+
+
+    <button class="btn btn-primary btn-lg btn-block mt-5 button" id="login-button">Login</button>
+}
+
+
+</div>
+
+
+
+<script>
+
+
+    $("#emailAdd").keydown(function (event) {
+        if ($("#emailAdd").val().length > 0) {
+            $("#emailValidate").hide()
+        }
+    })
+
+    $("#passWord").keydown(function (event) {
+        if ($("#passWord").val().length > 0) {
+            $("#pWordValidate").hide()
+        }
+    })
+
+</script>
