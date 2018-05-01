@@ -20,29 +20,34 @@
 
 
 @*-------------------------HERE BEGINS THE BEER REVIEW CODE-------------------------------*@
-@{int userId = (int)Session["UserId"];}
+@if (Session["UserId"] != null)
+{
+    string userString = Session["UserId"].ToString();
+    int userId = Int32.Parse(userString);
 
-<div style="height: 200px; width:200px; background-color: lightgray; margin-left: 10px">
-    <div id="form-messages"></div>
-    <form id="ajax-review" method="post">
-        <div class="field">
-            <label for="rating">Rating:</label>
-            <input type="number" id="rating" name="rating" required>
-        </div>
+    <div style="height: 200px; width:200px; background-color: lightgray; margin-left: 10px" id="review-box">
+        <div id="form-messages"></div>
+        <form id="ajax-review" method="post">
+            <div class="field">
+                <label for="rating">Rating:</label>
+                <input type="number" id="rating" name="rating" required>
+            </div>
 
-        <div class="field">
-            <label for="review">Review:</label>
-            <input type="text" id="review" name="review" required>
-        </div>
+            <div class="field">
+                <label for="review">Review:</label>
+                <input type="text" id="review" name="review" required>
+            </div>
 
-        <div class="field">
-            <button type="submit" style="margin-left: 25%">Submit Review</button>
-        </div>
-        
-        <input hidden name="userId" value="@userId" />
-    </form>
+            <div class="field">
+                <button type="submit" style="margin-left: 25%">Submit Review</button>
+            </div>
 
-</div>
+            <input hidden name="userId" value="@userId" />
+        </form>
+
+    </div>
+
+}
 
 
 <script>
@@ -67,7 +72,7 @@
 
     // Submit the form using AJAX.
     $.ajax({
-        url: "/Home/ReviewBeer?email=" + email,
+        url: `/Home/ReviewBeer?rating=${rating}&review=${review}&userId=${userId}&beerId=${beerId}`,
         method: "POST",
         data: 'json'
     }).done(function (response) {
@@ -81,7 +86,6 @@
         // Clear the form.
         $('#rating').val('');
         $('#review').val('');
-        $('#message').val('');////////////////////////
     }).fail(function (data) {
         // Make sure that the formMessages div has the 'error' class.
         $(formMessages).removeClass('success');
@@ -92,6 +96,15 @@
             $(formMessages).text(data.responseText);
         } else {
             $(formMessages).text('Oops! An error occured and your review could not be submitted.');
+        }
+        });
+
+    //This function will hide the review field if an unregistered/unlogged user is viewing the beers
+    $(function ShowHideReview() {
+        var user = @Session["UserId"];
+
+        if (user == null) {
+            $("#review-box").hide();
         }
     });
 

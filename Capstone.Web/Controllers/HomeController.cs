@@ -369,8 +369,11 @@ namespace Capstone.Web.Controllers
         //Review a beer
 
         [HttpPost]
-        public ActionResult ReviewBeer(ReviewModel m, int userId, int beerId)
+        public ActionResult ReviewBeer(int rating, string review, int userId, int beerId)
         {
+            ReviewModel m = new ReviewModel();
+            m.Rating = rating;
+            m.ReviewPost = review;
             m.UserId = userId;
             m.BeerId = beerId;
             _brew.AddBeerReview(m);
@@ -404,12 +407,12 @@ namespace Capstone.Web.Controllers
                 }
 
 
-                User userExists = _brew.GetUser(model.EmailAddress); 
+                User userExists = _brew.GetUser(model.EmailAddress,model.UserName); 
 
-                if (userExists.EmailAddress == model.EmailAddress)
+                if (userExists.EmailAddress == model.EmailAddress || userExists.UserName == model.UserName)
                 {
-                    ModelState.AddModelError("username-exists", "That email address is not available");
-                    return View("UserRegistration");
+                    ModelState.AddModelError("username-exists", "That email address and/or username is not available");
+                    return View("UserRegistration",model);
                 }
                 else
                 {
@@ -430,7 +433,7 @@ namespace Capstone.Web.Controllers
             catch(Exception)
             {
                 ModelState.AddModelError("username-exists", "An error occurred");
-                return View("UserRegistration");
+                return View("UserRegistration",model);
             }
         }
   
@@ -464,8 +467,9 @@ namespace Capstone.Web.Controllers
             }
 
             string emailAddress = model.EmailAddress;
+            string usern = model.UserName;
 
-            User thisGuy = _brew.GetUser(emailAddress);
+            User thisGuy = _brew.GetUser(emailAddress,usern);
             if (thisGuy == null || thisGuy.Password != model.Password)
             {
                 ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");

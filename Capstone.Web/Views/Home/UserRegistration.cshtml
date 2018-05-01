@@ -37,35 +37,35 @@
     <h3 class="text-center">Registration</h3>
 
     @using (Html.BeginForm("UserRegistration", "Home", FormMethod.Post))
-    {
+    {@Html.ValidationMessage("username-exists")
 
 
-        <div class="input-field col">
-            @Html.TextBoxFor(m => m.UserName, new { id = "userAdd", @class = "validate" })
-            <label class="ml-2" for="userAdd">Username</label>
-            @Html.ValidationMessageFor(m => m.UserName, null, new { id = "usernameValidate" })
+    <div class="input-field col">
+        @Html.TextBoxFor(m => m.UserName, new { id = "userAdd", @class = "validate" })
+        <label class="ml-2" for="userAdd">Username</label>
+        @Html.ValidationMessageFor(m => m.UserName, null, new { id = "usernameValidate" })
+    </div>
+
+
+    <div class="input-field col">
+        @Html.TextBoxFor(m => m.EmailAddress, new { id = "emailAdd", type = "email", @class = "validate" })
+        <label class="ml-2" for="emailAdd">Email</label>
+        @Html.ValidationMessageFor(m => m.EmailAddress, null, new { id = "emailValidate" })
+    </div>
+
+
+    <div class="input-field col">
+        @Html.PasswordFor(m => m.Password, new { id = "passWord", type = "password", @class = "validate" })
+        <label class="ml-2" for="passWord">Password</label>
+        <div style="max-width:450px">
+            @Html.ValidationMessageFor(m => m.Password, null, new { id = "pWordValidate" })
         </div>
+    </div>
 
 
-        <div class="input-field col">
-            @Html.TextBoxFor(m => m.EmailAddress, new { id = "emailAdd", type = "email", @class = "validate" })
-            <label class="ml-2" for="emailAdd">Email</label>
-            @Html.ValidationMessageFor(m => m.EmailAddress, null, new { id = "emailValidate" })
-        </div>
+    <button type="submit" class="btn btn-primary btn-lg btn-block mt-5 teal accent-1 teal-text z-depth-3">Register</button>
 
-
-        <div class="input-field col">
-            @Html.PasswordFor(m => m.Password, new { id = "passWord", type = "password", @class = "validate" })
-            <label class="ml-2" for="passWord">Password</label>
-            <div style="max-width:450px">
-                @Html.ValidationMessageFor(m => m.Password, null, new { id = "pWordValidate" })
-            </div>
-        </div>
-
-
-        <button type="submit" class="btn btn-primary btn-lg btn-block mt-5 teal accent-1 teal-text z-depth-3">Register</button>
-
-    }
+}
 </div>
 
 
