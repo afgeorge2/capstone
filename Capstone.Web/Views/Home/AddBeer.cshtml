@@ -3,16 +3,33 @@
 
 @{int brewId = (int)Session["BreweryId"];}
 
+<style>
+    #ddlist li span {
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+    #ddlist li{
+        height: 40px !important;
+        min-height: 10px !important;
 
-<div class="jumbotron w-75 p-3 mx-auto mt-5 jumbo" style="background-color: black; opacity: 0.8">
+    }
+</style>
+<div class="jumbotron w-75 p-3 mx-auto mt-5">
 
     <form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
-        <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
+        <div style="width: 60%; height: 80%; margin-left: 20%">
             <h1 style="text-align: center">Add a New Beer</h1>
+<<<<<<< HEAD
+            Name: <div><span name="Name"> @Html.TextBoxFor(m => m.Name) @Html.ValidationMessageFor(m => m.Name)</span></div>
+           
+                <select id="dd" class="browser-default" name="beertypes">
+                    <option value="" disabled selected>Select a Type</option>
+=======
             Name: <div><span name="Name"> @Html.TextBoxFor(m => m.Name, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.Name)</span></div>
             Choose beer type:
             <div>
                 <select id="dd" name="beertypes">
+>>>>>>> 191156180c45bf69c8f49fd007757d6589b04574
                     <option>Ale  </option>
                     <option>Cider </option>
                     <option>IPA   </option>
@@ -23,12 +40,12 @@
                     <option>Rye    </option>
                     <option>Stout  </option>
                     <option>Wheat  </option>
-                    <option id="other">Other   </option>
+                    <option value=null>Other   </option>
                 </select>
-              </div>
-              
-                <div><span id="textforother" name="Other"> @Html.TextBoxFor(m => m.Name, new { style = "color: white" })</span></div>
-            </div>
+
+
+            <div>@Html.TextBoxFor(m => m.BeerType, new { id = "bType" })</div>
+        </div>
             <p></p>
             Alcohol by Volume (example: 4.5%): <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
             Description: <div><span name="Description"> @Html.TextBoxFor(m => m.Description, new { style = "color: white" }) @Html.ValidationMessageFor(m => m.Description) </span></div>
@@ -44,6 +61,30 @@
 
 
 <script>
+
+    $(document).ready(function () {
+        $('select').formSelect();
+    });
+
+
+    $("#bType").hide()
+   
+    $("#dd").change(function () {
+
+        $("#bType").val('')
+
+        if ($("#dd").val() == "null") {
+            console.log($("#dd").val())
+            $("#bType").show()
+        }
+
+        if ($("#dd").val() != "null") {
+            $("#bType").hide()
+        }
+    })
+
+
+
 
 
 </script>

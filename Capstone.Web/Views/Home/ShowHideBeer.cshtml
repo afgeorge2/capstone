@@ -1,4 +1,4 @@
-﻿@using Capstone.Web.Models
+﻿@*@using Capstone.Web.Models
 @model List<Beer>
 
 <style>
@@ -124,28 +124,10 @@
 
 <script>
 
-//        get value of each button, assign to T/ F value
-//for each button in parent element if element is checked value T else value F
-                //
-
-            //    id = beer +
-            //if toggle button is on, the value is 1, else it is 0.
-            //dal method takes a list of beers
-            //for each beer in the list, the breweryid is brewId
-            //when page loads, the toggle buttons reflect the db show/hide state for each beer
-            //event for slider is change
-            //event for save button is submit
-            /*
-            #togglebutton
-            on change
-
-            if state is off, model.showhide == 0
-            else model.showhide == 1
-            @**/
-    var list = [];
     foreach(Beer b in Model)
     {
         list.push({ Name, '#beer @i'.Value  });
     }
-//when save button is clicked, for each Beer b in Model, {a.Add(b.)}*@
-</script>
+//when save button is clicked, for each Beer b in Model, {a.Add(b.)}
+</script>*@
+
