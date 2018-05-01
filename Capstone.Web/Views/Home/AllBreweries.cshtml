@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Capstone.Web.Models
+@model List<Brewery>
+    <div class="jumbotron center">
+        <h1 style="text-align:center">Brewery Listing</h1>
+        <div class="center">
+            <table>
+                <tr>
+                    <th>Brewery</th>
+                    <th>Description</th>
+                    <th>Location</th>
+                    <th></th>
+                </tr>
+                @foreach(Brewery b in Model)
+                {
+                    <tr>
+                        <td>
+                            @b.BreweryName
+                        </td>
+                        <td>
+                            @b.History
+                        </td>
+                        <td>
+                            @b.Address
+                        </td>
+                        <td>
+                            <img src="~/Photos/@b.BreweryPhoto" style="height:100px; width:100px; border:1px solid black"/>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+
