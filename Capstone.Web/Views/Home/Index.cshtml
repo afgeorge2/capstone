@@ -1,18 +1,19 @@
 ﻿@using Capstone.Web.Models
 @model List<Brewery>
-<head>
+@*<head>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-</head>
+</head>*@
 <style>
 
-    .jumbo{
-        --background-color:black;
-        float:right;
+    .jumbo {
+        --background-color: black;
+        float: right;
     }
-    .text{
-        --color:white
+
+    .text {
+        --color: white
     }
 
     .pad {
@@ -60,14 +61,24 @@
     .rightest {
         visibility: visible;
     }
-    .center1 {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-}
 
-</style> 
+    .center1 {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+
+    #brewScroll {
+        max-height: 173px;
+        overflow: auto;
+    }
+
+        #brewScroll a {
+            text-decoration: none;
+            padding: 5px 20px;
+        }
+</style>
 <img class="col-lg-8 center1" src="https://brewsters.ca/wp-content/themes/brewsters/assets/images/logo-full.svg" />
 <div class="container ">
         <div class="col-md-12">
@@ -138,29 +149,11 @@
 
 
 
-<div class="container-fluid col-lg-12 col-md-12 col-sm-12">
-    <div class="jumbotron align-items-md-center ml-2 jumbo" style="width:400px; align-self:auto; opacity:0.8">
-        <h1 class="text">Brewster</h1>
-        <div class="dropdown">
 
-
-    #brewScroll{
-        max-height:173px;
-        overflow:auto;
-
-    }
-    #brewScroll a {
-        text-decoration: none;
-        padding: 5px 20px;
-    }
-</style>
 <div class="container-fluid pt-0">
 
 
 
-    <div style="height:200px;">
-
-    </div>
 
     <div class="jumbotron align-items-md-center ml-2 pt-0 jumbo" style="width:400px; align-self:auto;">
         <h1 class="center">Breweries</h1>
