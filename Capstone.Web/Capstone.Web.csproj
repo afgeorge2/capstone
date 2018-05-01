@@ -204,11 +204,12 @@
     <Content Include="Views\Home\ShowHideBeer.cshtml" />
     <Content Include="Views\Home\BreweryDetail.cshtml" />
     <Content Include="Views\Home\BeerDetail.cshtml" />
+    <Content Include="Views\Home\ManageBeers.cshtml" />
     <Content Include="Views\Home\TestPhoto.cshtml" />
     <Content Include="Views\Home\DeleteBeer.cshtml" />
     <Content Include="Views\Home\GetAllBeers.cshtml" />
     <Content Include="Views\Home\BreweryBeers.cshtml" />
-    <Content Include="Views\Home\ManageBeers.cshtml" />
+    <Content Include="Views\Home\AllBreweries.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
