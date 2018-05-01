@@ -199,6 +199,19 @@ namespace Capstone.Web.DAL
                 }
 
             }
+
+            foreach (var brewery in brews)
+            {
+                brewery.BreweryPhoto = GetBreweryPhoto(brewery.BreweryID);
+
+                if (brewery.BreweryPhoto==null)
+                {
+                    brewery.BreweryPhoto.Filename = "defaultPhoto.jpg";
+                }
+            }
+
+
+
             return brews;
 
         }
