@@ -4,7 +4,7 @@
 @using Capstone.Web.Models
 @model List<Brewery>
     <div class="jumbotron center">
-        <h1 style="text-align:center">Brewery Listing</h1>
+        <h1 style="text-align:center">Brewery Listings</h1>
         <div class="center">
             <table>
                 <tr>
@@ -28,7 +28,10 @@
                             @b.Address
                         </td>
                         <td>
-                            <img src="~/Photos/@b.BreweryPhoto" style="height:100px; width:100px; border:1px solid black"/>
+                            @if(!(b.BreweryPhoto.Filename.IsEmpty()))
+                            {
+                            <img src="~/Photos/@b.BreweryPhoto.Filename" style="height:100px; width:100px; border:1px solid black" />
+                            }
                         </td>
                     </tr>
                 }
