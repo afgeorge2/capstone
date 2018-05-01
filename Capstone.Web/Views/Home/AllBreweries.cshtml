@@ -19,7 +19,7 @@
                         <td>
                             <a href=@Url.Action("BreweryDetail", "Home", new { brewID = b.BreweryID }, null)>
                             @b.BreweryName
-                                </a>
+                            </a>
                         </td>
                         <td>
                             @b.History
@@ -28,13 +28,17 @@
                             @b.Address
                         </td>
                         <td>
-                            @if(!(b.BreweryPhoto.Filename.IsEmpty()))
+                            @if(b.BreweryPhoto.Filename != "empty")
                             {
-                            <img src="~/Photos/@b.BreweryPhoto.Filename" style="height:100px; width:100px; border:1px solid black" />
+                             <img src="~/Photos/@b.BreweryPhoto.Filename" style="height:100px; width:100px; border:1px solid black" />
+                            }
+                            else
+                            {
+                             <img src="~/Photos/defaultPhoto.jpg" style="height:100px; width:100px; border:1px solid black" />
                             }
                         </td>
                     </tr>
-                }
+                 }
             </table>
         </div>
     </div>
