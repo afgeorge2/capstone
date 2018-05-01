@@ -367,9 +367,15 @@ namespace Capstone.Web.Controllers
         }
 
         //Review a beer
-        public ActionResult ReviewBeer()
+
+        [HttpPost]
+        public ActionResult ReviewBeer(ReviewModel m, int userId, int beerId)
         {
-            return View();
+            m.UserId = userId;
+            m.BeerId = beerId;
+            _brew.AddBeerReview(m);
+
+            return Redirect("BeerDetail");
         }
 
 
@@ -392,6 +398,12 @@ namespace Capstone.Web.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View("UserRegistration", model);
+                }
+
+
                 User userExists = _brew.GetUser(model.EmailAddress); 
 
                 if (userExists.EmailAddress == model.EmailAddress)

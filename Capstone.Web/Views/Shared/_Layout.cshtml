@@ -58,7 +58,7 @@
         }
 
         #layoutnav {
-            background-color: #a7a7a7ad;
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
         /*.mroonbtn {
@@ -90,6 +90,12 @@
             font-family: 'Allerta Stencil';
             font-size: 30px;
         }
+        .waves-effect.waves-brown .waves-ripple {
+            /* The alpha value allows the text and background color
+   of the button to still show through. */
+            background-color: rgba(76, 76, 76, 0.65);
+        }
+     
     </style>
 
 </head>
@@ -98,26 +104,26 @@
 <body class="beerback">
     <nav id="layoutnav">
         <div class="nav-wrapper">
-            @Html.ActionLink("Home", "Index", "Home", new { @class = "ml-2 waves-effect waves-light btn mroonbtn" })
+            @Html.ActionLink("Home", "Index", "Home", new { @class = "ml-2 waves-effect waves-brown btn teal accent-1 black-text" })
             <ul class="right hide-on-med-and-down">
-                <li>@Html.ActionLink("All Breweries", "ViewAllBreweries", "Home", new { @class = "ml-2 waves-effect waves-light btn mroonbtn" })</li>
-                <li>@Html.ActionLink("Register", "UserRegistration", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
-                <li>@Html.ActionLink("Login", "Login", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                <li>@Html.ActionLink("All Breweries", "ViewAllBreweries", "Home", new { @class = "ml-2 waves-effect waves-brown btn teal accent-1 black-text" })</li>
+                <li>@Html.ActionLink("Register", "UserRegistration", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
+                <li>@Html.ActionLink("Login", "Login", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
 
                 @if (Session.SessionID != null)
                  {
-                  <li>@Html.ActionLink("Logout", "Logout", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                  <li>@Html.ActionLink("Logout", "Logout", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
                  }
 
                 @if (Session["BreweryId"] != null)
                  {
-                  <li>@Html.ActionLink("Beer Manager", "ManageBeers", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
-                  <li>@Html.ActionLink("Edit Brewery Info", "UpdateBreweryInfo", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                  <li>@Html.ActionLink("Add A Beer", "AddBeer", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
+                  <li>@Html.ActionLink("Edit Brewery Info", "UpdateBreweryInfo", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
                  }
 
                 @if (Session["Admin"] != null)
                  {
-                  <li>@Html.ActionLink("Add A Brewery", "AddBrewery", "Home", new { @class = "waves-effect waves-light btn mroonbtn" })</li>
+                  <li>@Html.ActionLink("Add A Brewery", "AddBrewery", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
                  }
             </ul>
         </div>

@@ -1,59 +1,93 @@
 ﻿
-@model Capstone.Web.Models.User
+@model Capstone.Web.Models.ViewModels.RegisterViewModel
 
 
 
 <style>
-    .insert {
+    /*.insert {
         width: 100%;
-    }
+    }*/
 
-    .jumbotron {
+    /*.jumbotron {
         --background: rgb(200, 54, 54);
         --background-color: rgba(200, 54, 54, 0.5) !important;
         background-color: rgba(0, 0, 0, 0.66) !important;
-    }
+    }*/
 
-    .text, #userName, #passWord, #eMail {
+    /*.text, #userName, #passWord, #eMail {
         color: white;
-    }
+    }*/
 
-    .button {
+    /*.button {
         background-color: black;
-    }
+    }*/
 
-    .text-area {
+    /*.text-area {
         background-color: white;
+    }*/
+
+    .field-validation-error {
+        color: red;
+        font-size: 10pt;
     }
 </style>
 
-<div>
-    <div class="container">
-        @using (Html.BeginForm("UserRegistration", "Home", FormMethod.Post, new { id = "registration" }))
-        {
-            <div class="jumbotron w-75 pt-3 mx-auto mt-5">
-                <h1 class="text-center text ">Registration</h1>
 
-                <div class="input-field col s12">
-                    @Html.TextBoxFor(m => m.UserName, new { id = "userName" })
-                    <small>@Html.ValidationMessageFor(m => m.UserName, null, new { @class = "uname" })</small>
-                    <label id="labUname" for="userName">Username</label>
-                </div>
+<div class="jumbotron col-5 pt-3 mx-auto mt-5">
+    <h3 class="text-center">Registration</h3>
 
-                <div class="input-field col s12">
-                    @Html.TextBoxFor(m => m.EmailAddress, new { id = "eMail", @class = "validate" })
-                    <small>@Html.ValidationMessageFor(m => m.EmailAddress)</small>
-                    <label for="userName">Email</label>
-                </div>
+    @using (Html.BeginForm("UserRegistration", "Home", FormMethod.Post))
+    {
 
-                <div class="input-field col s12">
-                    @Html.PasswordFor(m => m.Password, new { id = "passWord", @class = "validate" })
-                    <small>@Html.ValidationMessageFor(m => m.Password)</small>
-                    <label for="userName">Password</label>
-                </div>
 
-                <button type="submit" class="btn btn-primary btn-lg btn-block mt-5 button">Register</button>
+        <div class="input-field col">
+            @Html.TextBoxFor(m => m.UserName, new { id = "userAdd", @class = "validate" })
+            <label class="ml-2" for="userAdd">Username</label>
+            @Html.ValidationMessageFor(m => m.UserName, null, new { id = "usernameValidate" })
+        </div>
+
+
+        <div class="input-field col">
+            @Html.TextBoxFor(m => m.EmailAddress, new { id = "emailAdd", type = "email", @class = "validate" })
+            <label class="ml-2" for="emailAdd">Email</label>
+            @Html.ValidationMessageFor(m => m.EmailAddress, null, new { id = "emailValidate" })
+        </div>
+
+
+        <div class="input-field col">
+            @Html.PasswordFor(m => m.Password, new { id = "passWord", type = "password", @class = "validate" })
+            <label class="ml-2" for="passWord">Password</label>
+            <div style="max-width:450px">
+                @Html.ValidationMessageFor(m => m.Password, null, new { id = "pWordValidate" })
             </div>
-        }
-    </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block mt-5 teal accent-1 teal-text z-depth-3">Register</button>
+
+    }
 </div>
+
+
+<script>
+    $("#userAdd").keydown(function (event) {
+        if ($("#userAdd").val().length > 0) {
+            $("#usernameValidate").hide()
+        }
+    })
+
+
+    $("#emailAdd").keydown(function (event) {
+        if ($("#emailAdd").val().length > 0) {
+            $("#emailValidate").hide()
+        }
+    })
+
+
+
+    $("#passWord").keydown(function (event) {
+        if ($("#passWord").val().length > 0) {
+            $("#pWordValidate").hide()
+        }
+    })
+</script>
