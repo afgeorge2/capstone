@@ -141,6 +141,7 @@
     <Content Include="Photos\beerback2.jpg" />
     <Content Include="Photos\beerback3.jpg" />
     <Content Include="Photos\beerback4.jpg" />
+    <Content Include="Photos\defaultPhoto.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Photos\pic1" />
@@ -210,6 +211,8 @@
     <Content Include="Views\Home\GetAllBeers.cshtml" />
     <Content Include="Views\Home\BreweryBeers.cshtml" />
     <Content Include="Views\Home\AllBreweries.cshtml" />
+    <Content Include="Views\Home\ManageBeers.cshtml" />
+    <Content Include="Views\Home\BeerReview.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

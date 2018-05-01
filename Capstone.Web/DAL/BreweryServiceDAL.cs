@@ -196,22 +196,18 @@ namespace Capstone.Web.DAL
                 while (reader.Read())
                 {
                     brews.Add(GetBrewery(reader));
-                }
+                } 
 
             }
-
             foreach (var brewery in brews)
             {
                 brewery.BreweryPhoto = GetBreweryPhoto(brewery.BreweryID);
 
-                if (brewery.BreweryPhoto==null)
+                if (brewery.BreweryPhoto.Filename == null)
                 {
                     brewery.BreweryPhoto.Filename = "defaultPhoto.jpg";
                 }
             }
-
-
-
             return brews;
 
         }
@@ -647,6 +643,16 @@ namespace Capstone.Web.DAL
                 BreweryID = Convert.ToInt32(reader["brewery_id"]),
                 ProfilePic = Convert.ToBoolean(reader["profile_pic"])
             };
+            var nullCheck = (reader["FILE_NAME"]);
+
+            if (nullCheck != DBNull.Value)
+            {
+                breweryPhoto.Filename = Convert.ToString(reader["FILE_NAME"]);
+            }
+            else
+            {
+                breweryPhoto.Filename = "empty";
+            }
             return breweryPhoto;
         }
 
