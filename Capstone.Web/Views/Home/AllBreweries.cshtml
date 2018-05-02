@@ -3,44 +3,149 @@
 }
 @using Capstone.Web.Models
 @model List<Brewery>
-    <div class="jumbotron center">
-        <h1 style="text-align:center">Brewery Listings</h1>
-        <div class="center">
-            <table>
-                <tr>
-                    <th>Brewery</th>
-                    <th>Description</th>
-                    <th>Location</th>
-                    <th></th>
-                </tr>
-                @foreach(Brewery b in Model)
-                {
-                    <tr>
-                        <td>
-                            <a href=@Url.Action("BreweryDetail", "Home", new { brewID = b.BreweryID }, null)>
-                            @b.BreweryName
-                            </a>
-                        </td>
-                        <td>
-                            @b.History
-                        </td>
-                        <td>
-                            @b.Address
-                        </td>
-                        <td>
-                            @if(b.BreweryPhoto.Filename != "empty")
-                            {
-                             <img src="~/Photos/@b.BreweryPhoto.Filename" style="height:100px; width:100px; border:1px solid black" />
-                            }
-                            else
-                            {
-                             <img src="~/Photos/defaultPhoto.jpg" style="height:100px; width:100px; border:1px solid black" />
-                            }
-                        </td>
-                    </tr>
-                 }
-            </table>
-        </div>
+
+
+<style>
+    .jumbotron {
+        --background-color: transparent;
+        z-index:-1000;
+    }
+
+    .parallax-container {
+        height: 250px;
+    }
+
+    .parallax img {
+        max-width: 50%;
+    }
+    a{
+        z-index:5000;
+    }
+    .layer {
+        pointer-events: auto;
+    }
+</style>
+
+@*@foreach (var item in b.OtherPhotos)
+        {
+    <img src="/Photos/@item.Filename" style="height=100px; width:auto;" />
+
+        }*@
+
+    <div class="jumbotron col-8 mx-auto mt-4 p-3">
+
+        @foreach (Brewery b in Model)
+        {
+
+            <div class="parallax-container">
+                <div class="parallax">
+                    <img src="/Photos/@b.BreweryPhoto.Filename" />
+                </div>
+            </div>
+            <div class="section white z-depth-3">
+                <div class="container">
+                    <h2 class="header mt-1">@b.BreweryName</h2>
+                    <strong>@b.Address</strong>
+
+                    <p class="grey-text text-darken-3 lighten-3 mt-1">
+                        @b.History
+                    </p>
+                </div>
+            </div>
+        }
     </div>
 
+@*<div class="parallax-container">
+            <div class="parallax">
+                <img src="/Photos/madtree1.jpg" />
+            </div>
+        </div>
+        <div class="section white">
+            <div class="row container">
+                <h2 class="header">Breweries</h2>
+                <p class="grey-text text-darken-3 lighten-3">
+                    Parallax is an effect where the background
+                    content or image in this case, is moved at a different speed than the foreground content while scrolling.
+                </p>
+            </div>
+        </div>
 
+        <div class="parallax-container">
+            <div class="parallax">
+                <img src="/Photos/nineg2.jpg" />
+            </div>
+        </div>
+        <div class="section white">
+            <div class="row container">
+                <h2 class="header">Breweries</h2>
+                <p class="grey-text text-darken-3 lighten-3">
+                    Parallax is an effect where the background
+                    content or image in this case, is moved at a different speed than the foreground content while scrolling.
+                </p>
+            </div>
+        </div>
+
+        <div class="parallax-container">
+            <div class="parallax">
+                <img src="/Photos/woodburn2.jpg" />
+            </div>
+        </div>
+        <div class="section white">
+            <div class="row container">
+                <h2 class="header">Breweries</h2>
+                <p class="grey-text text-darken-3 lighten-3">
+                    Parallax is an effect where the background
+                    content or image in this case, is moved at a different speed than the foreground content while scrolling.
+                </p>
+            </div>
+        </div>
+    </div>*@
+
+@*<h1 style="text-align:center">Brewery Listings</h1>
+            <div class="center">
+                <table>
+                    <tr>
+                        <th>Brewery</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th></th>
+                    </tr>
+                    @foreach(Brewery b in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a href=@Url.Action("BreweryDetail", "Home", new { brewID = b.BreweryID }, null)>
+                                @b.BreweryName
+                                </a>
+                            </td>
+                            <td>
+                                @b.History
+                            </td>
+                            <td>
+                                @b.Address
+                            </td>
+                            <td>
+                                @if(b.BreweryPhoto.Filename != "empty")
+                                {
+                                 <img src="~/Photos/@b.BreweryPhoto.Filename" style="height:100px; width:100px; border:1px solid black" />
+                                }
+                                else
+                                {
+                                 <img src="~/Photos/defaultPhoto.jpg" style="height:100px; width:100px; border:1px solid black" />
+                                }
+                            </td>
+                        </tr>
+                     }
+                </table>
+            </div>
+    </div>*@
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $('.parallax').parallax();
+    });
+
+</script>
