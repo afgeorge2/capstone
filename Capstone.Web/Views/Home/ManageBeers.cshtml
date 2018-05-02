@@ -78,6 +78,12 @@
 
 
 <script>
+
+    $(document).ready(function () {
+        $('.sidenav').sidenav();
+    });
+
+
     $.ajax({
         url: "/Home/GetBeersForManaging?brewID=" + @brewId,
         method: "GET",

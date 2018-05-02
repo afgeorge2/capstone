@@ -338,8 +338,11 @@ namespace Capstone.Web.Controllers
         public ActionResult UpdateBeer(int BeerID)
         {
             Beer model = _brew.GetBeersById(BeerID);
+            
+
             return View("UpdateBeer",model);
         }
+
         [HttpPost]
         public ActionResult SubmitBeerEdit(Beer b)
         {
