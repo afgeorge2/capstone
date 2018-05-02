@@ -498,6 +498,11 @@ namespace Capstone.Web.DAL
             return true;
         }
 
+        public void UpdateBeer(Beer b)
+        {
+            string SQL_UpdateBeer = "UPDATE beers(name, description, abv, beer_type) VALUES (@Name, @Description, @AlcoholByVolume, @BeerType) WHERE beers.id =@BeerId;";
+        }
+
         //get beers from DB for dropdown in showhide
         public List<Beer> GetAllBeersFromBrewery(int breweryId)
         {
