@@ -134,6 +134,7 @@ CREATE TABLE reviews
   beer_id INT NOT NULL,
   rating  INT NOT NULL,
   review  VARCHAR(MAX) NOT NULL,
+  review_date date null,
   CONSTRAINT pk_reviews PRIMARY KEY( id ),
   CONSTRAINT fk_reviews_user_info FOREIGN KEY( USER_ID ) REFERENCES users( id ),
   CONSTRAINT fk_reviews_beers FOREIGN KEY( beer_id ) REFERENCES beers( id ), );

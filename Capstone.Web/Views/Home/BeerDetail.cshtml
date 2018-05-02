@@ -124,12 +124,11 @@
             for (var i = 0; i < list.length; i++) {
 
                 var r = list[i];
-
                 var reviewDate = new Date(parseInt(r.Date.replace("/Date(", "").replace(")/", ""), 10));
-
+                
+                var html = $(`<div class="card-body"><h5 class="card-title">${r.Rating}</h5><p class="card-text">${r.Username}</p><p class="card-text">${r.ReviewPost}</p><p class="card-text">${reviewDate.getMonth()}/${reviewDate.getDay()}/${reviewDate.getFullYear()}</p></div>`)
+                // var html = $(`<div><h5>${r.Rating}</h5><p>${r.Username}</p><p>${r.ReviewPost}</p><p>${reviewDate.getMonth()}/${reviewDate.getDay()}/${reviewDate.getFullYear()}</p></div>`)
                 //var html = $(`<tr><td>${r.Username}</td><td>${r.Rating}</td><td>${r.ReviewPost}</td><td>${reviewDate.getMonth()}/${reviewDate.getDay()}/${reviewDate.getFullYear()}</td >`);
-               var html = $(`<div class="card-body"><h5 class="card-title">${r.Rating}</h5><p class="card-text">${r.Username}</p><p class="card-text">${r.ReviewPost}</p><p class="card-text">${reviewDate.getMonth()}/${reviewDate.getDay()}/${reviewDate.getFullYear()}</p></div>`)
-               // var html = $(`<div><h5>${r.Rating}</h5><p>${r.Username}</p><p>${r.ReviewPost}</p><p>${reviewDate.getMonth()}/${reviewDate.getDay()}/${reviewDate.getFullYear()}</p></div>`)
 
                 $("#cardSpace").append(html);
             }
