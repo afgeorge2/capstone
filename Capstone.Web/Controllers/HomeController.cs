@@ -385,24 +385,38 @@ namespace Capstone.Web.Controllers
 
         //Review a beer
 
+
+
+        #endregion
+
+
+        #region --Reviews--
+
         [HttpPost]
-        public ActionResult ReviewBeer(int rating, string review, int userId, int beerId)
+        public ActionResult ReviewBeer(int rating, string review, int userId, int beerId, DateTime date)
         {
             ReviewModel m = new ReviewModel();
             m.Rating = rating;
             m.ReviewPost = review;
             m.UserId = userId;
             m.BeerId = beerId;
+            m.Date = date;
             _brew.AddBeerReview(m);
 
             return Redirect("BeerDetail");
         }
 
+        [HttpGet]
+        public ActionResult GetReviewsForBeer(int beerId)
+        {
+            var reviews = _brew.GetBeerReviewsById(beerId);
+            return Json(reviews, JsonRequestBehavior.AllowGet);
+        }
+
 
         #endregion
 
-
-        #region --- User Login/Register ---
+         #region --- User Login/Register ---
 
 
 
@@ -424,12 +438,12 @@ namespace Capstone.Web.Controllers
                 }
 
 
-                User userExists = _brew.GetUser(model.EmailAddress); 
+                User userExists = _brew.GetUser(model.EmailAddress,model.UserName); 
 
-                if (userExists.EmailAddress == model.EmailAddress)
+                if (userExists.EmailAddress == model.EmailAddress || userExists.UserName == model.UserName)
                 {
-                    ModelState.AddModelError("username-exists", "That email address is not available");
-                    return View("UserRegistration");
+                    ModelState.AddModelError("username-exists", "That email address and/or username is not available");
+                    return View("UserRegistration",model);
                 }
                 else
                 {
@@ -450,7 +464,7 @@ namespace Capstone.Web.Controllers
             catch(Exception)
             {
                 ModelState.AddModelError("username-exists", "An error occurred");
-                return View("UserRegistration");
+                return View("UserRegistration",model);
             }
         }
   
@@ -485,7 +499,7 @@ namespace Capstone.Web.Controllers
 
             string emailAddress = model.EmailAddress;
 
-            User thisGuy = _brew.GetUser(emailAddress);
+            User thisGuy = _brew.LoginUser(emailAddress);
             if (thisGuy == null || thisGuy.Password != model.Password)
             {
                 ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");
@@ -497,6 +511,8 @@ namespace Capstone.Web.Controllers
                 FormsAuthentication.SetAuthCookie(model.EmailAddress, true);
                 Session[SessionKey.Email] = thisGuy.EmailAddress;
                 Session[SessionKey.UserID] = thisGuy.UserName;
+                Session["UserId"] = thisGuy.UserId;
+
                 if (thisGuy.IsBrewer == true)
                 {
                     Session["BreweryId"] = thisGuy.BreweryId;

@@ -9,7 +9,8 @@ namespace Capstone.Web.Models
     {
         public int Rating { get; set; }
         public string ReviewPost { get; set; }
-
+        public string Username { get; set; }
+        public DateTime Date { get; set; }
 
     }
 }
