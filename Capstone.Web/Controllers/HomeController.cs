@@ -155,10 +155,10 @@ namespace Capstone.Web.Controllers
             return View("BreweryDetail", brewDetail);
         }
 
-        public ActionResult ViewAllBreweries()
+        public ActionResult AllBreweries()
         {
             List<Brewery> brews = _brew.GetAllBrewerys();
-            return View("AllBreweries", brews);
+            return View(brews);
         }
 
         #endregion
@@ -174,10 +174,11 @@ namespace Capstone.Web.Controllers
 
         [HttpPost]
         public ActionResult Process(HttpPostedFileBase photo, int picbrewID, string history, string address, string cname, string email, string phone, int brewID, HoursViewModel m
-            ,string open0, string close0, string open1, string close1, string open2, string close2, string open3, string close3, string open4, string close4, string open5, string close5, string open6, string close6
+            ,string open0, string close0, string open1, string close1, string open2, string close2, string open3, string close3, string open4, string close4, string open5, string close5, string open6, string close6, bool profPIC = false
             )
         {
 
+           
 
             Brewery b = new Brewery
             {
@@ -193,6 +194,7 @@ namespace Capstone.Web.Controllers
             m.BrewID = brewID;
             _brew.UpdateBreweryHours(brewID, open0, close0, open1, close1, open2, close2, open3, close3, open4, close4, open5, close5, open6, close6);
 
+
             if (photo!=null)
             {
                 if (!isValidContentType(photo.ContentType))
@@ -202,20 +204,35 @@ namespace Capstone.Web.Controllers
                 }
                 else
                 {
+                    int idTag = _brew.GetLastAddedBrewPhotoID(brewID);
+
+                    idTag += 1;
+
                     Brewery brew = _brew.GetBreweryByID(picbrewID);
 
-                    var filename = $"{brew.BreweryName}.jpg";
+                    var filename = $"{brew.BreweryName}{idTag}.jpg";
 
                     var path = Path.Combine(Server.MapPath("~/Photos"), filename);
 
-                    _brew.UploadBreweryPhoto(filename, brew.BreweryID,true);
+                    string checkfile = Path.GetFileName(photo.FileName);
+
+                    _brew.UploadBreweryPhoto(filename, brew.BreweryID, profPIC);
+
+
+
+                    //var fInfo = new FileInfo(path);
+
+                    //if (fInfo.Exists)
+                    //{
+                    //    fInfo.Delete();
+                    //}
+
 
                     photo.SaveAs(path);
 
                     return Redirect("Index");
                 }
             }
-
             return RedirectToAction("Index");
 
         }
