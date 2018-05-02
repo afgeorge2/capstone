@@ -597,10 +597,30 @@ namespace Capstone.Web.DAL
 
             return true;
         }
-
+        //This method will update the values of a beer that already exists within the database
         public void UpdateBeer(Beer b)
         {
-            string SQL_UpdateBeer = "UPDATE beers(name, description, abv, beer_type) VALUES (@Name, @Description, @AlcoholByVolume, @BeerType) WHERE beers.id =@BeerId;";
+            string SQL_UpdateBeer = "UPDATE beers SET name = @Name, description = @Description, abv = @AlcoholByVolume, beer_type = @BeerType WHERE beers.id =@BeerId;";
+
+            using(SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(SQL_UpdateBeer + _getLastIdSQL, conn);
+                    cmd.Parameters.AddWithValue("@Name", b.Name);
+                    cmd.Parameters.AddWithValue("@Description", b.Description);
+                    cmd.Parameters.AddWithValue("@AlcoholByVolume", b.AlcoholByVolume);
+                    cmd.Parameters.AddWithValue("@BeerType", b.BeerType);
+                    cmd.Parameters.AddWithValue("@BeerId", b.BeerID);
+                    cmd.ExecuteNonQuery();
+                }
+                catch(SqlException e)
+                {
+                    throw;
+                }
+            }
         }
 
         //get beers from DB for dropdown in showhide
