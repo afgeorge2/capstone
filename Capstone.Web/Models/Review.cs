@@ -17,9 +17,9 @@ namespace Capstone.Web.Models
         //plug in to GetAverageReview method
 
 
-        private int GetAverageReview()
-        {
+        //private int GetAverageReview()
+        //{
 
-        }
+        //}
     }
 }
