@@ -293,7 +293,12 @@ namespace Capstone.Web.Controllers
         {
             List<Beer> beers = _brew.GetAllBeers();
             return View("GetAllBeers", beers);
-  
+        }
+
+        public ActionResult GetAllBeersJson()
+        {
+            List<Beer> beers = _brew.GetAllBeers();
+            return Json(beers, JsonRequestBehavior.AllowGet);
         }
 
 
