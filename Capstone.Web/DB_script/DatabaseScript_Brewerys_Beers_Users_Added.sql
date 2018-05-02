@@ -110,18 +110,22 @@ CREATE TABLE beers
 
 CREATE TABLE breweryPhotos
 (
+  BreweryPhotoID  INT IDENTITY( 1, 1 ),
   FILE_NAME   VARCHAR(100) NULL,
   brewery_id  INT NULL,
   profile_pic BIT NULL
                   DEFAULT 0,
   CONSTRAINT fk_breweryPhotos_breweries FOREIGN KEY( brewery_id ) REFERENCES breweries( id ), );
 
+
 CREATE TABLE beerPhotos
 (
-  FILE_NAME VARCHAR(100) NULL,
-  beer_id   INT NULL,
-
-  CONSTRAINT fk_beerPhotos_breweries FOREIGN KEY( beer_id ) REFERENCES beers( id ) );
+  BeerPhotoID INT IDENTITY( 1, 1 ),
+  FILE_NAME   VARCHAR(100) NULL,
+  beer_id     INT NULL,
+  breweryID   INT NOT NULL
+                  CONSTRAINT fk_beerPhotos_beerid FOREIGN KEY( beer_id ) REFERENCES beers( id ),
+  CONSTRAINT fk_beerPhotos_breweries FOREIGN KEY( breweryID ) REFERENCES breweries( id ));
 
 CREATE TABLE reviews
 (
@@ -261,7 +265,10 @@ VALUES
 (
   'admin@admin.com', 'Administrator', 'password', 1, NULL, 1),
 (
-  'beerlover@user.com', 'Beer Lover #1', 'password', 0, NULL, 0);
+  'beerlover@user.com', 'Beer Lover #1', 'password', 0, NULL, 0),
+  (
+  'mabucar88@gmail.com', 'mataanabucar', 'password', 1, 1, 0);
+
 
         COMMIT;
 END TRY
@@ -275,7 +282,9 @@ select * from breweries
 select * from users
 select * from beers
 
+--SET LOCK_TIMEOUT 100;  
 
+--SELECT @@LOCK_TIMEOUT AS [Lock Timeout];
 
 
 

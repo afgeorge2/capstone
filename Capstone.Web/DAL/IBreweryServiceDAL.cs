@@ -52,7 +52,7 @@ namespace Capstone.Web.DAL
         void UploadBreweryPhoto(string filename, int brewID, bool profilePic);
         void UploadBeerPhoto(string filename, int beerID);
         //BreweryPhoto GetBreweryPhoto(int brewID);
-
+        int GetLastAddedBrewPhotoID(int brewID);
 
 
 
