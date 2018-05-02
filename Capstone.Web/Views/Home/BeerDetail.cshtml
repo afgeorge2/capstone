@@ -22,7 +22,7 @@
 
 
 
-@*-------------------------HERE BEGINS THE BEER REVIEW CODE-------------------------------*@
+@*-------------------------THIS IS POSTING A REVIEW-------------------------------*@
 @{int userId = (int)Session["UserId"];}
 
 <div style="height: 200px; width:200px; background-color: lightgray; margin-left: 10px">
@@ -59,7 +59,7 @@
 <script>
 
 
-    //-----------------------------POST A NEW REVIEW--------------------------
+    //-------------------------POST A NEW REVIEW TO DB--------------------------
     $(function () {
         $("#submitreview").click(function (event) {
             var rating = $("#rating").val();
