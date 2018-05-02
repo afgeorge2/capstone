@@ -7,8 +7,8 @@
 --GO
 --CREATE DATABASE [Brewery]
 --GO
---USE [Brewery]
---GO
+USE [Brewery]
+GO
 
 ----========================================
 ----==== END OF CREATE DATABASE SECTION ====
@@ -281,7 +281,7 @@ END CATCH;
 
 select * from breweries
 select * from users
-select * from beers
+select * from reviews
 
 --SET LOCK_TIMEOUT 100;  
 

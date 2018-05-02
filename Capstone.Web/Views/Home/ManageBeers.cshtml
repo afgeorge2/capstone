@@ -1,7 +1,7 @@
 ﻿
 @{
-    //int brewId = (int)Session["BreweryId"];
-    int brewId = 1;
+    int brewId = (int)Session["BreweryId"];
+   // int brewId = 1;
 }
 
 
@@ -78,6 +78,12 @@
 
 
 <script>
+
+    $(document).ready(function () {
+        $('.sidenav').sidenav();
+    });
+
+
     $.ajax({
         url: "/Home/GetBeersForManaging?brewID=" + @brewId,
         method: "GET",
