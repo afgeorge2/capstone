@@ -293,7 +293,12 @@ namespace Capstone.Web.Controllers
         {
             List<Beer> beers = _brew.GetAllBeers();
             return View("GetAllBeers", beers);
-  
+        }
+
+        public ActionResult GetAllBeersJson()
+        {
+            List<Beer> beers = _brew.GetAllBeers();
+            return Json(beers, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -327,6 +332,19 @@ namespace Capstone.Web.Controllers
             b.BreweryId = brewId;
             _brew.AddNewBeer(b);
             return Redirect("Index");
+        }
+
+        [HttpPost]
+        public ActionResult UpdateBeer(int BeerID)
+        {
+            Beer model = _brew.GetBeersById(BeerID);
+            return View("UpdateBeer",model);
+        }
+        [HttpPost]
+        public ActionResult SubmitBeerEdit(Beer b)
+        {
+            _brew.UpdateBeer(b);
+           return RedirectToAction("ManageBeers");
         }
 
         //---------DELETE BEERS------------

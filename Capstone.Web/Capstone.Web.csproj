@@ -214,6 +214,7 @@
     <Content Include="Views\Home\AllBreweries.cshtml" />
     <Content Include="Views\Home\ManageBeers.cshtml" />
     <Content Include="Views\Home\ReviewBeer.cshtml" />
+    <Content Include="Views\Home\UpdateBeer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

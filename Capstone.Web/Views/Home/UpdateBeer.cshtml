@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Capstone.Web.Models
+@model Beer
+
+<div class="jumbotron center">
+    <h1 style="text-align:center">Update @Model.Name</h1>
+    <div class="center jumbotron">
+        <div class="center">
+            <img src="~/Photos/@Model.Image" style="width:300px; height:300px; border:1px solid black" />
+        </div>
+        <div class="center jumbotron">
+            @using (Html.BeginForm("SubmitBeerEdit", "Home", FormMethod.Post))
+        {
+            <div class="input-field col">
+                @Html.TextBoxFor(m => m.Name, new { id = "BeerName", type = "string" })
+                <label class="ml-2" for="emailAdd">Beer Name</label>
+            </div>
+
+            <div class="input-field col">
+                @Html.TextBoxFor(m => m.Description, new { id = "Description", type = "string" })
+                <label class="ml-2" for="emailAdd">Beer Description</label>
+            </div>
+            <div class="input-field col">
+                @Html.TextBoxFor(m => m.AlcoholByVolume, new { id = "AlcoholByVolume", type = "double" })
+                <label class="ml-2" for="emailAdd">Alchol By Volume</label>
+            </div>
+            <div class="input-field col">
+                @Html.TextBoxFor(m => m.BeerType, new { id = "BeerName", type = "string", @class = "validate" })
+                <label class="ml-2" for="emailAdd">Beer Type</label>
+            </div>
+            <div class="input-field col">
+                @Html.TextBoxFor(m => m.BeerID, new { id = "BeerID", type = "int", @class = "validate" })
+                <label class="ml-2" for="emailAdd">Beer ID</label>
+            </div>
+
+            <button class="btn btn-primary btn-md btn-block mt-5 teal accent-1 teal-text z-depth-3" id="update-button">Submit Changes</button>
+    }
+        </div>
+    </div>
+</div>
+
+

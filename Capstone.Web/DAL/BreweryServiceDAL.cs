@@ -597,6 +597,31 @@ namespace Capstone.Web.DAL
 
             return true;
         }
+        //This method will update the values of a beer that already exists within the database
+        public void UpdateBeer(Beer b)
+        {
+            string SQL_UpdateBeer = "UPDATE beers SET name = @Name, description = @Description, abv = @AlcoholByVolume, beer_type = @BeerType WHERE beers.id =@BeerId;";
+
+            using(SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(SQL_UpdateBeer + _getLastIdSQL, conn);
+                    cmd.Parameters.AddWithValue("@Name", b.Name);
+                    cmd.Parameters.AddWithValue("@Description", b.Description);
+                    cmd.Parameters.AddWithValue("@AlcoholByVolume", b.AlcoholByVolume);
+                    cmd.Parameters.AddWithValue("@BeerType", b.BeerType);
+                    cmd.Parameters.AddWithValue("@BeerId", b.BeerID);
+                    cmd.ExecuteNonQuery();
+                }
+                catch(SqlException e)
+                {
+                    throw;
+                }
+            }
+        }
 
         //get beers from DB for dropdown in showhide
         public List<Beer> GetAllBeersFromBrewery(int breweryId)
@@ -627,10 +652,8 @@ namespace Capstone.Web.DAL
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(SQL_Beers, conn);
-
 
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -638,8 +661,11 @@ namespace Capstone.Web.DAL
                     beer.Add(GetBeerFromReader(reader));
                 }
 
-                return beer;
             }
+
+
+            return beer;
+
         }
 
         public Beer GetBeersById(int beerId)
@@ -812,11 +838,10 @@ namespace Capstone.Web.DAL
         {
             BreweryPhoto breweryPhoto = new BreweryPhoto();
 
-            //if (!Convert.IsDBNull(reader["BreweryPhotoID"]))
-            //{
-                breweryPhoto.BreweryPhotoID = Convert.ToInt32(reader["BreweryPhotoID"]);
 
-            //}
+            breweryPhoto.BreweryPhotoID = Convert.ToInt32(reader["BreweryPhotoID"]);
+
+            
             breweryPhoto.Filename = Convert.ToString(reader["FILE_NAME"]);
             breweryPhoto.BreweryID = Convert.ToInt32(reader["brewery_id"]);
             breweryPhoto.ProfilePic = Convert.ToBoolean(reader["profile_pic"]);
@@ -834,16 +859,7 @@ namespace Capstone.Web.DAL
             }
             return breweryPhoto;
         }
-        //private int MakeBreweryPhoto(SqlDataReader reader)
-        //{
-        //    BreweryPhoto breweryPhoto = new BreweryPhoto()
-        //    {
-        //        BreweryPhotoID = Convert.ToInt32(reader["BreweryPhotoID"])
-        //    };
 
-
-        //    return breweryPhoto;
-        //}
 
 
         private Brewery GetBrewery(SqlDataReader reader)
