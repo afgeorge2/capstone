@@ -7,8 +7,8 @@
 
 <style>
     .jumbotron {
-        --background-color: transparent;
-        z-index:-1000;
+        background-color: transparent;
+    
     }
 
     .parallax-container {
@@ -18,21 +18,19 @@
     .parallax img {
         max-width: 50%;
     }
-    a{
-        z-index:5000;
+    a {
+        text-decoration: none;
     }
     .layer {
         pointer-events: auto;
     }
+
+
+
 </style>
 
-@*@foreach (var item in b.OtherPhotos)
-        {
-    <img src="/Photos/@item.Filename" style="height=100px; width:auto;" />
 
-        }*@
-
-    <div class="jumbotron col-8 mx-auto mt-4 p-3">
+    <div id="testbeers" class="jumbotron col-8 mx-auto mt-4 p-3">
 
         @foreach (Brewery b in Model)
         {
@@ -42,110 +40,93 @@
                     <img src="/Photos/@b.BreweryPhoto.Filename" />
                 </div>
             </div>
-            <div class="section white z-depth-3">
-                <div class="container">
-                    <h2 class="header mt-1">@b.BreweryName</h2>
+            <div class="section white z-depth-5">
+                <div  class="container">
+                    <div class="row align-items-center justify-content-between">
+                        <h2 class="header mt-1">@b.BreweryName</h2>
+                        <a href=@Url.Action("BreweryDetail", "Home", new { brewID = b.BreweryID }) class="waves-effect text-gray-dark blue-grey lighten-5 btn">Check Out Brewery</a>
+                    </div>
                     <strong>@b.Address</strong>
-
                     <p class="grey-text text-darken-3 lighten-3 mt-1">
                         @b.History
                     </p>
+                    <div id="@b.BreweryID" class="row justify-content-between">
+                     
+                    </div>
                 </div>
             </div>
         }
     </div>
 
-@*<div class="parallax-container">
-            <div class="parallax">
-                <img src="/Photos/madtree1.jpg" />
-            </div>
-        </div>
-        <div class="section white">
-            <div class="row container">
-                <h2 class="header">Breweries</h2>
-                <p class="grey-text text-darken-3 lighten-3">
-                    Parallax is an effect where the background
-                    content or image in this case, is moved at a different speed than the foreground content while scrolling.
-                </p>
-            </div>
-        </div>
 
-        <div class="parallax-container">
-            <div class="parallax">
-                <img src="/Photos/nineg2.jpg" />
-            </div>
-        </div>
-        <div class="section white">
-            <div class="row container">
-                <h2 class="header">Breweries</h2>
-                <p class="grey-text text-darken-3 lighten-3">
-                    Parallax is an effect where the background
-                    content or image in this case, is moved at a different speed than the foreground content while scrolling.
-                </p>
-            </div>
-        </div>
+                    @*<button class="btn btn-info" onclick="onClick(this)"></button>*@
+                    @*<a href=@Url.Action("BreweryDetail", "Home", new { brewID = b.BreweryID }, null)>
+                        @b.BreweryName
+                    </a>*@
 
-        <div class="parallax-container">
-            <div class="parallax">
-                <img src="/Photos/woodburn2.jpg" />
-            </div>
-        </div>
-        <div class="section white">
-            <div class="row container">
-                <h2 class="header">Breweries</h2>
-                <p class="grey-text text-darken-3 lighten-3">
-                    Parallax is an effect where the background
-                    content or image in this case, is moved at a different speed than the foreground content while scrolling.
-                </p>
-            </div>
-        </div>
-    </div>*@
-
-@*<h1 style="text-align:center">Brewery Listings</h1>
-            <div class="center">
-                <table>
-                    <tr>
-                        <th>Brewery</th>
-                        <th>Description</th>
-                        <th>Location</th>
-                        <th></th>
-                    </tr>
-                    @foreach(Brewery b in Model)
-                    {
-                        <tr>
-                            <td>
-                                <a href=@Url.Action("BreweryDetail", "Home", new { brewID = b.BreweryID }, null)>
-                                @b.BreweryName
-                                </a>
-                            </td>
-                            <td>
-                                @b.History
-                            </td>
-                            <td>
-                                @b.Address
-                            </td>
-                            <td>
-                                @if(b.BreweryPhoto.Filename != "empty")
-                                {
-                                 <img src="~/Photos/@b.BreweryPhoto.Filename" style="height:100px; width:100px; border:1px solid black" />
-                                }
-                                else
-                                {
-                                 <img src="~/Photos/defaultPhoto.jpg" style="height:100px; width:100px; border:1px solid black" />
-                                }
-                            </td>
-                        </tr>
-                     }
-                </table>
-            </div>
-    </div>*@
-
-
-
+<style>
+    .beerpic {
+        width: auto;
+        height: 150px;
+        border-radius: 5px;
+    }
+</style>
 <script>
 
     $(document).ready(function () {
         $('.parallax').parallax();
     });
+
+    var madtree1 = {};
+    var woodburn2 = {};
+    var ninegiant3 = {};
+    var rhien4 = {};
+
+
+
+    $(function () {
+        $.ajax({
+            url: "/Home/GetAllBeersJson",
+            method: "GET",
+            dataType: "json"
+        }).done(function (beers) {
+            //console.log(beers)
+
+            for (var i = 0; i < beers.length; i++) {
+
+                
+
+                if (beers[i].BreweryId == 1) {
+                    $("#1").append(`<img style="width:auto; height:150px" class="z-depth-3 beerpic" src="/Photos/Beers/${beers[i].Name}.jpg" />`)
+                    madtree1[i]=beers[i]
+
+                }
+                if (beers[i].BreweryId == 2) {
+                    $("#2").append(`<img style="width:auto; height:150px" class="z-depth-3 beerpic" src="/Photos/Beers/${beers[i].Name}.jpg" />`)
+                    woodburn2[i] = beers[i]
+                }
+                if (beers[i].BreweryId == 3) {
+                    $("#3").append(`<img style="width:auto; height:150px" class="z-depth-3 beerpic" src="/Photos/Beers/${beers[i].Name}.jpg" />`)
+                    ninegiant3[i] = beers[i]
+                }
+                if (beers[i].BreweryId == 4) {
+                    $("#4").append(`<img style="width:auto; height:150px" class="z-depth-3 beerpic" src="/Photos/Beers/${beers[i].Name}.jpg" />`)
+                    rhien4[i] = beers[i]
+                }
+
+            }
+
+            console.log(madtree1)
+            console.log(woodburn2)
+            console.log(ninegiant3)
+            console.log(rhien4)
+
+            })
+
+
+    })
+
+
+
 
 </script>
