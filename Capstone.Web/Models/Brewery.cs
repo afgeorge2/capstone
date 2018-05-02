@@ -23,6 +23,9 @@ namespace Capstone.Web.Models
 
         public BreweryPhoto BreweryPhoto { get; set; }
 
+        public List<BreweryPhoto> OtherPhotos { get; set; }
+
+
 
 
 

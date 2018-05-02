@@ -7,6 +7,7 @@ namespace Capstone.Web.Models
 {
     public class BreweryPhoto
     {
+        public int BreweryPhotoID { get; set; }
         public string Filename { get; set; }
         public int BreweryID { get; set; }
         public bool ProfilePic { get; set; }

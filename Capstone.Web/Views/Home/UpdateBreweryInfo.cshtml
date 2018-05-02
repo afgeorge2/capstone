@@ -1,8 +1,8 @@
 ﻿@using Capstone.Web.Models.ViewModels
 @model HoursViewModel
 @{
-    int brewID = (int)Session["BreweryId"];
-    //int brewID = 1;
+    //int brewID = (int)Session["BreweryId"];
+    int brewID = 1;
 }
 
 
@@ -80,21 +80,31 @@
 
 <div class="jumbotron w-75 pt-4 mx-auto mt-5">
 
-    <h4 class="center-align mb-1 mt-0 text-uppercase">Update Brewery Info</h4>
+    <h4 id="breweryName" class="center-align mb-1 mt-0 ">Update Brewery Info</h4>
 
 
     @using (Html.BeginForm("Process", "Home", FormMethod.Post, new { id = "photoSubmit", enctype = "multipart/form-data" }))
     {
-        <div class="pr-4">
-            <div class="file-field input-field">
-                <div class="btn">
-                    <span>File</span>
-                    <input type="file" name="photo">
-                </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" placeholder="Upload Brewery Image Here" type="text">
+
+        <div class="row justify-content-center">
+
+            <div class="pr-4">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>File</span>
+                        <input type="file" name="photo">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" style="width: 306px;" placeholder="Upload Brewery Image Here" type="text">
+                    </div>
                 </div>
             </div>
+                <div class="pt-4">
+                    <label class="z-depth-3" id="checkpop">
+                        <input id="profilePic" type="checkbox" value="true" name="profPIC" />
+                        <span>Main Display Picture?</span>
+                    </label>
+                </div>
         </div>
 
         <input hidden name="picbrewID" value="@brewID" />
@@ -139,142 +149,142 @@
             </div>
         </div>
 
-            <h5 class="mb-4 mt-0 center-align">Hours Of Operation</h5>
-            <div class="row justify-content-lg-between justify-content-center">
+        <h5 class="mb-4 mt-0 center-align">Hours Of Operation</h5>
+        <div class="row justify-content-lg-between justify-content-center">
 
-                <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
-                    <div class="input-field col">
-                        <input name="open0" type="text" id="o0"/>
-                        <label id="lo0" for="o0">Mon Open</label>
-                    </div>
-                    <div class="input-field col">
-                        <input name="close0" type="text" id="c0" />
-                        <label id="lc0" for="c0">Mon Close</label>
-                        <div class="switch">
-                            <label>
-                                <small>Closed</small>
-                                <input id="check0" type="checkbox">
-                                <span class="lever mx-0"></span>
-                                <small>Open</small>
-                            </label>
-                        </div>
-                    </div>
+            <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
+                <div class="input-field col">
+                    <input name="open0" type="text" id="o0" />
+                    <label id="lo0" for="o0">Mon Open</label>
                 </div>
-
-                <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
-                    <div class="input-field col">
-                        <input name="open1" type="text" id="o1" />
-                        <label id="lo1" for="o1">Tues Open</label>
-                    </div>
-                    <div class="input-field col">
-                        <input name="close1" type="text" id="c1" />
-                        <label id="lc1" for="c1">Tues Close</label>
-                        <div class="switch">
-                            <label>
-                                <small>Closed</small>
-                                <input id="check1" type="checkbox">
-                                <span class="lever mx-0"></span>
-                                <small>Open</small>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
-                    <div class="input-field col">
-                        <input name="open2" type="text" id="o2" />
-                        <label id="lo2" for="o2">Wed Open</label>
-                    </div>
-                    <div class="input-field col">
-                        <input name="close2" type="text" id="c2" />
-                        <label id="lc2" for="c2">Wed Close</label>
-                        <div class="switch">
-                            <label>
-                                <small>Closed</small>
-                                <input id="check2" type="checkbox">
-                                <span class="lever mx-0"></span>
-                                <small>Open</small>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
-                    <div class="input-field col">
-                        <input name="open3" type="text" id="o3" />
-                        <label id="lo3" for="o3">Thur Open</label>
-                    </div>
-                    <div class="input-field col">
-                        <input name="close3" type="text" id="c3" />
-                        <label id="lc3" for="c3">Thur Close</label>
-                        <div class="switch">
-                            <label>
-                                <small>Closed</small>
-                                <input id="check3" type="checkbox">
-                                <span class="lever mx-0"></span>
-                                <small>Open</small>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
-                    <div class="input-field col">
-                        <input name="open4" type="text" id="o4" />
-                        <label id="lo4" for="o4">Fri Open</label>
-                    </div>
-                    <div class="input-field col">
-                        <input name="close4" type="text" id="c4" />
-                        <label id="lc4" for="c4">Fri Close</label>
-                        <div class="switch">
-                            <label>
-                                <small>Closed</small>
-                                <input id="check4" type="checkbox">
-                                <span class="lever mx-0"></span>
-                                <small>Open</small>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
-                    <div class="input-field col">
-                        <input name="open5" type="text" id="o5" />
-                        <label id="lo5" for="o5">Sat Open</label>
-                    </div>
-                    <div class="input-field col">
-                        <input name="close5" type="text" id="c5" />
-                        <label id="lc5" for="c5">Sat Close</label>
-                        <div class="switch">
-                            <label>
-                                <small>Closed</small>
-                                <input id="check5" type="checkbox">
-                                <span class="lever mx-0"></span>
-                                <small>Open</small>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
-                    <div class="input-field col">
-                        <input name="open6" type="text" id="o6" />
-                        <label id="lo6" for="o6">Sun Open</label>
-                    </div>
-                    <div class="input-field col">
-                        <input name="close6" type="text" id="c6" />
-                        <label id="lc6" for="c6">Sun Close</label>
-                        <div class="switch">
-                            <label>
-                                <small>Closed</small>
-                                <input id="check6" type="checkbox">
-                                <span class="lever mx-0"></span>
-                                <small>Open</small>
-                            </label>
-                        </div>
+                <div class="input-field col">
+                    <input name="close0" type="text" id="c0" />
+                    <label id="lc0" for="c0">Mon Close</label>
+                    <div class="switch">
+                        <label>
+                            <small>Closed</small>
+                            <input id="check0" type="checkbox">
+                            <span class="lever mx-0"></span>
+                            <small>Open</small>
+                        </label>
                     </div>
                 </div>
             </div>
+
+            <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
+                <div class="input-field col">
+                    <input name="open1" type="text" id="o1" />
+                    <label id="lo1" for="o1">Tues Open</label>
+                </div>
+                <div class="input-field col">
+                    <input name="close1" type="text" id="c1" />
+                    <label id="lc1" for="c1">Tues Close</label>
+                    <div class="switch">
+                        <label>
+                            <small>Closed</small>
+                            <input id="check1" type="checkbox">
+                            <span class="lever mx-0"></span>
+                            <small>Open</small>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
+                <div class="input-field col">
+                    <input name="open2" type="text" id="o2" />
+                    <label id="lo2" for="o2">Wed Open</label>
+                </div>
+                <div class="input-field col">
+                    <input name="close2" type="text" id="c2" />
+                    <label id="lc2" for="c2">Wed Close</label>
+                    <div class="switch">
+                        <label>
+                            <small>Closed</small>
+                            <input id="check2" type="checkbox">
+                            <span class="lever mx-0"></span>
+                            <small>Open</small>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
+                <div class="input-field col">
+                    <input name="open3" type="text" id="o3" />
+                    <label id="lo3" for="o3">Thur Open</label>
+                </div>
+                <div class="input-field col">
+                    <input name="close3" type="text" id="c3" />
+                    <label id="lc3" for="c3">Thur Close</label>
+                    <div class="switch">
+                        <label>
+                            <small>Closed</small>
+                            <input id="check3" type="checkbox">
+                            <span class="lever mx-0"></span>
+                            <small>Open</small>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
+                <div class="input-field col">
+                    <input name="open4" type="text" id="o4" />
+                    <label id="lo4" for="o4">Fri Open</label>
+                </div>
+                <div class="input-field col">
+                    <input name="close4" type="text" id="c4" />
+                    <label id="lc4" for="c4">Fri Close</label>
+                    <div class="switch">
+                        <label>
+                            <small>Closed</small>
+                            <input id="check4" type="checkbox">
+                            <span class="lever mx-0"></span>
+                            <small>Open</small>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
+                <div class="input-field col">
+                    <input name="open5" type="text" id="o5" />
+                    <label id="lo5" for="o5">Sat Open</label>
+                </div>
+                <div class="input-field col">
+                    <input name="close5" type="text" id="c5" />
+                    <label id="lc5" for="c5">Sat Close</label>
+                    <div class="switch">
+                        <label>
+                            <small>Closed</small>
+                            <input id="check5" type="checkbox">
+                            <span class="lever mx-0"></span>
+                            <small>Open</small>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hours z-depth-3 mb-4 mb-lg-4 mb-lx-1">
+                <div class="input-field col">
+                    <input name="open6" type="text" id="o6" />
+                    <label id="lo6" for="o6">Sun Open</label>
+                </div>
+                <div class="input-field col">
+                    <input name="close6" type="text" id="c6" />
+                    <label id="lc6" for="c6">Sun Close</label>
+                    <div class="switch">
+                        <label>
+                            <small>Closed</small>
+                            <input id="check6" type="checkbox">
+                            <span class="lever mx-0"></span>
+                            <small>Open</small>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
         <button id="newbrewsubmit" type="submit" class="btn btn-block btn-outline-success mroonbtn btn-lg">Update</button>
     }
 
@@ -290,11 +300,37 @@
     .greenopen{
         color:rgb(0, 219, 1);
     }
+    #checkpop {
+        border-radius: 21px;
+        padding: 6px 16px;
+    }
 </style>
 
 
 
 <script>
+
+
+    $("#profilePic").prop("checked",true)
+
+
+    //$(function () {
+    //    $("#profilePic").change(function (event) {
+            
+    //        if ($("#profilePic").is(":checked")) {
+    //            $("#ppic").val(1)
+    //            console.log("1")
+    //        }
+    //        if (!$("#profilePic").is(":checked")) {
+    //            $("#ppic").val(0)
+    //            console.log("0")
+    //        }
+
+    //    })
+
+    //})
+
+
 
 
     $(function () {
@@ -309,6 +345,7 @@
             $("#contName").val(results.ContactName); $("label#labName").addClass("active")
             $("#tely").val(results.ContactPhone); $("label#labTely").addClass("active")
             $("#cEmail").val(results.ContactEmail); $("label#labEmail").addClass("active")
+            $("#breweryName").text(`Update ${results.BreweryName} Info`)
 
         })
 
