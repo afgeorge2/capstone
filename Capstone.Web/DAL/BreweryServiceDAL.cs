@@ -627,10 +627,8 @@ namespace Capstone.Web.DAL
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(SQL_Beers, conn);
-
 
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -638,8 +636,11 @@ namespace Capstone.Web.DAL
                     beer.Add(GetBeerFromReader(reader));
                 }
 
-                return beer;
             }
+
+
+            return beer;
+
         }
 
         public Beer GetBeersById(int beerId)
@@ -812,11 +813,10 @@ namespace Capstone.Web.DAL
         {
             BreweryPhoto breweryPhoto = new BreweryPhoto();
 
-            //if (!Convert.IsDBNull(reader["BreweryPhotoID"]))
-            //{
-                breweryPhoto.BreweryPhotoID = Convert.ToInt32(reader["BreweryPhotoID"]);
 
-            //}
+            breweryPhoto.BreweryPhotoID = Convert.ToInt32(reader["BreweryPhotoID"]);
+
+            
             breweryPhoto.Filename = Convert.ToString(reader["FILE_NAME"]);
             breweryPhoto.BreweryID = Convert.ToInt32(reader["brewery_id"]);
             breweryPhoto.ProfilePic = Convert.ToBoolean(reader["profile_pic"]);
@@ -834,16 +834,7 @@ namespace Capstone.Web.DAL
             }
             return breweryPhoto;
         }
-        //private int MakeBreweryPhoto(SqlDataReader reader)
-        //{
-        //    BreweryPhoto breweryPhoto = new BreweryPhoto()
-        //    {
-        //        BreweryPhotoID = Convert.ToInt32(reader["BreweryPhotoID"])
-        //    };
 
-
-        //    return breweryPhoto;
-        //}
 
 
         private Brewery GetBrewery(SqlDataReader reader)

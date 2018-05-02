@@ -17,6 +17,7 @@ namespace Capstone.Web.Models
         public string BreweryName { get; set; }
         public int BreweryId { get; set; }
         public int ShowHide { get; set; }
+        public BeerPhoto Photo { get; set; }
     }
 
  
