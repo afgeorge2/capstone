@@ -23,29 +23,33 @@
 
 
 @*-------------------------HERE BEGINS THE BEER REVIEW CODE-------------------------------*@
-@{int userId = (int)Session["UserId"];}
+@if (Session["UserId"] != null)
+{
+    int userId = (int)Session["UserId"];
 
-<div style="height: 200px; width:200px; background-color: lightgray; margin-left: 10px">
-    <div id="form-messages"></div>
+    <div style="height: 200px; width:200px; background-color: lightgray; margin-left: 10px">
+        <div id="form-messages"></div>
 
-    <div class="field">
-        <label for="rating">Rating:</label>
-        <input type="number" id="rating" name="rating" required>
+        <div class="field">
+            <label for="rating">Rating:</label>
+            <input type="number" id="rating" name="rating" required>
+        </div>
+
+        <div class="field">
+            <label for="review">Review:</label>
+            <input type="text" id="review" name="review" required>
+        </div>
+
+        <input hidden id="userId" name="userId" value="@userId" />
+        <input hidden id="beerId" name="beerId" value="@Model.BeerID" />
+        <input hidden id="date" name="date" value="@DateTime.Now" />
+
+        <div class="field">
+            <button id="submitreview" type="submit" style="margin-left: 25%">Submit Review</button>
+        </div>
     </div>
 
-    <div class="field">
-        <label for="review">Review:</label>
-        <input type="text" id="review" name="review" required>
-    </div>
-
-    <input hidden id="userId" name="userId" value="@userId" />
-    <input hidden id="beerId" name="beerId" value="@Model.BeerID" />
-    <input hidden id="date" name="date" value="@DateTime.Now" />
-
-    <div class="field">
-        <button id="submitreview" type="submit" style="margin-left: 25%">Submit Review</button>
-    </div>
-</div>
+}
 
 @*-------------------------THIS IS THE LIST OF REVIEWS-------------------------------*@
 
