@@ -14,41 +14,42 @@
 
     }
 </style>
-<div class="jumbotron w-75 p-3 mx-auto mt-5">
+<div class="jumbotron w-50 p-3 mx-auto mt-5 jumbo" style="background-color: #eceeef">
 
-    <form  method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
-        <div style="width: 60%; height: 80%; margin-left: 20%">
-            <h1 style="text-align: center">Add a New Beer</h1>
+    <form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
+        <div style="width: 400px; height: auto; margin-left: 90px">
+            <h3 style="text-align: center">Add a New Beer</h3>
 
             Name: <div><span name="Name"> @Html.TextBoxFor(m => m.Name) @Html.ValidationMessageFor(m => m.Name)</span></div>
-                <select id="dd" class="browser-default" name="beertypes">
-                    <option value="" disabled selected>Select a Type</option>
-                    <option>Ale  </option>
-                    <option>Cider </option>
-                    <option>IPA   </option>
-                    <option>Lager  </option>
-                    <option>Malt  </option>
-                    <option>Pilsner</option>
-                    <option>Porter </option>
-                    <option>Rye    </option>
-                    <option>Stout  </option>
-                    <option>Wheat  </option>
-                    <option value=null>Other   </option>
-                </select>
+            <p>Type of beer:</p>
+            <select id="dd" class="browser-default" name="beertypes">
+                <option value="" disabled selected>Select a Type</option>
+                <option>Ale  </option>
+                <option>Cider </option>
+                <option>IPA   </option>
+                <option>Lager  </option>
+                <option>Malt  </option>
+                <option>Pilsner</option>
+                <option>Porter </option>
+                <option>Rye    </option>
+                <option>Stout  </option>
+                <option>Wheat  </option>
+                <option value=null>Other   </option>
+            </select>
 
 
-            <div>@Html.TextBoxFor(m => m.BeerType, new { id = "bType" })</div>
+            <div>@Html.TextBoxFor(m => m.BeerType, new { id = "bType"})</div>
         </div>
-            <p></p>
-            Alcohol by Volume (example: 4.5%): <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume, new { style = "color: black" }) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
-            Description: <div><span name="Description"> @Html.TextBoxFor(m => m.Description, new { style = "color: black" }) @Html.ValidationMessageFor(m => m.Description) </span></div>
-            <input hidden name="brewId" value="@brewId" />
-            <input type="submit" value="Submit new beer!" name="submitnewbeer" class="btn btn-outline-light" style="background-color: brown" />
-            <br />
-            <br />
+        <p></p>
+        <p style="margin-left: 90px">Alcohol by Volume (example: 4.5%):</p> <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume, new { style = "color: black; width: 400px; height: auto; margin-left: 90px" }) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
+        <p style="margin-left: 90px">Description:</p> <div><span name="Description"> @Html.TextBoxFor(m => m.Description, new { style = "color: black; width: 400px; height: auto; margin-left: 90px" }) @Html.ValidationMessageFor(m => m.Description) </span></div>
+        <input hidden name="brewId" value="@brewId" />
+        <input type="submit" value="Submit new beer!" name="submitnewbeer" class="btn btn-outline-light" style="background-color: brown; margin-left: 90px" />
+        <br />
+        <br />
 
     </form>
-    </div>
+</div>
 
 
 

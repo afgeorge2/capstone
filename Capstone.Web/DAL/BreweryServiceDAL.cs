@@ -708,16 +708,17 @@ namespace Capstone.Web.DAL
 
         public bool DeleteBeer(DeleteBeer beer)
         {
-            string SQL_DeleteBeer = "Delete from beers where brewery_id = @brewId and name = @Name;";
+            string SQL_DeleteBeer = "Delete from beerPhotos WHERE beer_id = @BeerId; Delete from reviews WHERE beer_id = @BeerId; Delete from beers where id = @BeerId;";
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(SQL_DeleteBeer, conn);
-                    cmd.Parameters.Add(new SqlParameter("@Name", beer.Name));
-                    cmd.Parameters.Add(new SqlParameter("@brewId", beer.BreweryId));
-                    cmd.ExecuteNonQuery();
+                    //cmd.Parameters.Add(new SqlParameter("@Name", beer.Name));
+                    //cmd.Parameters.Add(new SqlParameter("@brewId", beer.BreweryId));
+                    cmd.Parameters.Add(new SqlParameter("@BeerId", beer.BeerId));
+                cmd.ExecuteNonQuery();
 
                 }
 
