@@ -3,41 +3,35 @@
 }
 @using Capstone.Web.Models
 @model Brewery
-<div class="jumbotron align-content-center w-75 mx-auto">
-    <h1 style="text-align:center">@Model.BreweryName</h1>
-        <div class="jumbotron align-content-center">
-            <div class="center"  style="margin-bottom:25px;">
-                <img src="~/Photos/@Model.BreweryPhoto.Filename" style="width:50%;  height: auto; min-width:211px; border: 1px solid black" />
+<div class="jumbotron align-content-center w-75 mx-auto pt-4">
+    <h1 class="mt-0" style="text-align:center">@Model.BreweryName</h1>
+            <div class="row justify-content-between">
+                    <img class=".img-thumbnail w-50 h-50" src="~/Photos/@Model.BreweryPhoto.Filename" style="border: 1px solid black" />
+                <div style="margin-bottom:25px;">
+                    <h3 class="my-1" style="text-align:center">Contact Info</h3> <br />
+                    <strong>Brewery Address: </strong> @Model.Address <br />
+                    <strong>Phone Number: </strong> @Model.ContactPhone <br />
+                    <strong>Contact Person: </strong> @Model.ContactName  <br />
+                    <strong>Contact Email: </strong> @Model.ContactEmail <br />
+                    <div>
+                        <h5>Hours</h5>
+                        @foreach (var hour in Model.Hours)
+                        {
+
+                <div class="row my-0">
+                    <b> @hour.DayOfWeek</b>
+                    <span>: @hour.Opens - @hour.Closes</span>
+                </div>
+
+
+                        }
+                    </div>
+                </div>
             </div>
             <div class="align-content-center">
                 @Model.History
             </div>
-            <div class="center" style="margin-bottom:25px;">
-                <h3 style="text-align:center">Contact Info</h3> <br />
-                <strong>Brewery Address: </strong> @Model.Address <br />
-                 
-               <strong>Phone Number: </strong> @Model.ContactPhone <br />
-                <strong>Contact Person: </strong> @Model.ContactName  <br />
-                <strong>Contact Email: </strong> @Model.ContactEmail <br />
-            </div>
-            <div class="center">
-                <h2 style="text-align:center"> Hours of Operation</h2>
-                <table class="center" style="align-content:center">
-                    <tr>
-                        <th>Day</th>
-                        <th>Open</th>
-                        <th>Close</th>
-                    </tr>
-                    @foreach (var hour in Model.Hours)
-                     {
-                       <tr>
-                          <td>@hour.DayOfWeek</td>
-                          <td>@hour.Opens</td>
-                          <td>@hour.Closes</td>
-                       </tr>
-                     }
-                </table>
-            </div>
+
             <br />
             <div class="center">
                 <form method="get" action="@Url.Action("BreweryBeerDetail", "Home", null)">
@@ -45,5 +39,4 @@
                     <button type="submit" class="waves-effect waves-light btn mroonbtn">View Beers</button>
                 </form>
             </div>
-        </div>
 </div>
