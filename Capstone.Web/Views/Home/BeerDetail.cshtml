@@ -11,12 +11,12 @@
 
         @*--------------------BEER DETAILS SECTION-------------------------*@
         <div class=".col-8">
-            <div class="jumbotron pt-1" style="width: 500px; height: auto">
+            <div class="jumbotron pt-1" style="width: 500px; height: 95%">
                 <h4 style="text-align:center">@Model.BreweryName</h4>
                 <div class="center" style="text-align:center">
                     <h4 style="text-align:center">@Model.Name</h4>
                     <br />
-                    <img src="~/Photos/Beers/@pic" class="z-depth-1-half" style="width:300px; border:1px solid black" />
+                    <img src="~/Photos/Beers/@pic" class="z-depth-1-half" style="width:300px; border:1px, solid black" />
                     <br />
                     <div style="text-align:left">
                         <h5 style="text-align:center">@Model.BeerType </h5>
@@ -37,7 +37,7 @@
                         <div id="form-messages"></div>
                         <br />
 
-                        <div class="z-depth-2 mx-auto w-100 p-2" style="border-radius: 16px"><h6 @*class="z-depth-2 mx-auto w-50 p-1"*@ style="text-align: center; "> Write a Review Here!</h6></div>
+                        <div class="z-depth-2 mx-auto w-75 p-0" style="border-radius: 16px; background-color: #c9e8e1"><h6 @*class="z-depth-2 mx-auto w-50 p-1"*@ style="text-align: center; "> Write a Review Here!</h6></div>
                         <div class="field">
                             <label for="rating">Rating (1-5):</label>
                             <input type="number" id="rating" name="rating" required>
