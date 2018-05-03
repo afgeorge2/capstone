@@ -5,98 +5,99 @@
     string pic = $"{Model.Name}.jpg";
 }
 
-@*-------------------GRID SYSTEM *CONTAINER/ROW*------------------*@
-<div class="container">
-    <div class="row">
+<div class="jumbotron-fluid mx-auto w-75">
+    @*-------------------GRID SYSTEM *CONTAINER/ROW*------------------*@
+    <div class="container">
+        <div class="row">
 
-        @*--------------------BEER DETAILS SECTION-------------------------*@
-        <div class=".col-8">
-            <div class="jumbotron pt-1" style="width: 500px; height: 95%">
-                <h4 style="text-align:center">@Model.BreweryName</h4>
-                <div class="center" style="text-align:center">
-                    <h4 style="text-align:center">@Model.Name</h4>
-                    <br />
-                    <img src="~/Photos/Beers/@pic" class="z-depth-1-half" style="width:300px; border:1px, solid black" />
-                    <br />
-                    <div style="text-align:left">
-                        <h5 style="text-align:center">@Model.BeerType </h5>
-                        @Model.Description <strong>ABV: @Model.AlcoholByVolume</strong>
+            @*--------------------BEER DETAILS SECTION-------------------------*@
+            <div class=".col-8">
+                <div class="jumbotron pt-1" style="width: 500px; height: 95%">
+                    <h4 style="text-align:center">@Model.BreweryName</h4>
+                    <div class="center" style="text-align:center">
+                        <h4 style="text-align:center">@Model.Name</h4>
+                        <br />
+                        <img src="~/Photos/Beers/@pic" class="z-depth-1-half" style="width:300px; border:1px, solid black" />
+                        <br />
+                        <div style="text-align:left">
+                            <h5 style="text-align:center">@Model.BeerType </h5>
+                            @Model.Description <strong>ABV: @Model.AlcoholByVolume</strong>
+                        </div>
                     </div>
+                    @*-----------------------------THE BEER REVIEW FORM-------------------------------*@
+
+                    @*Users cannot view this review box unless they are registered*@
+
+                    <input hidden id="viewBeerId" value="@Model.BeerID" />
+
+                    @if (Session["UserId"] != null)
+                    {
+                        int userId = (int)Session["UserId"];
+
+                        <div style="width:400px; background-color: #eceeef; margin-left: 10px">
+                            <div id="form-messages"></div>
+                            <br />
+
+                            <div class="z-depth-2 mx-auto w-75 p-0" style="border-radius: 16px; background-color: #c9e8e1"><h6 @*class="z-depth-2 mx-auto w-50 p-1"*@ style="text-align: center; "> Write a Review Here!</h6></div>
+                            <div class="field">
+                                <label for="rating">Rating (1-5):</label>
+                                <input type="number" id="rating" name="rating" required>
+                            </div>
+
+                            <div class="field">
+                                <label for="review">Review:</label>
+                                <input type="text" id="review" name="review" required>
+                            </div>
+
+                            <input hidden id="userId" name="userId" value="@userId" />
+                            <input hidden id="beerId" name="beerId" value="@Model.BeerID" />
+                            <input hidden id="date" name="date" value="@DateTime.Now" />
+                            <br />
+                            <div class="field">
+                                <button class="btn" id="submitreview" type="submit">Submit Review</button>
+                            </div>
+
+
+                        </div>
+                    }
+
+
+
+
                 </div>
-                @*-----------------------------THE BEER REVIEW FORM-------------------------------*@
-
-                @*Users cannot view this review box unless they are registered*@
-
-                <input hidden id="viewBeerId" value="@Model.BeerID" />
-
-                @if (Session["UserId"] != null)
-                {
-                    int userId = (int)Session["UserId"];
-
-                    <div style="width:400px; background-color: #eceeef; margin-left: 10px">
-                        <div id="form-messages"></div>
-                        <br />
-
-                        <div class="z-depth-2 mx-auto w-75 p-0" style="border-radius: 16px; background-color: #c9e8e1"><h6 @*class="z-depth-2 mx-auto w-50 p-1"*@ style="text-align: center; "> Write a Review Here!</h6></div>
-                        <div class="field">
-                            <label for="rating">Rating (1-5):</label>
-                            <input type="number" id="rating" name="rating" required>
-                        </div>
-
-                        <div class="field">
-                            <label for="review">Review:</label>
-                            <input type="text" id="review" name="review" required>
-                        </div>
-
-                        <input hidden id="userId" name="userId" value="@userId" />
-                        <input hidden id="beerId" name="beerId" value="@Model.BeerID" />
-                        <input hidden id="date" name="date" value="@DateTime.Now" />
-                        <br />
-                        <div class="field">
-                            <button class="btn" id="submitreview" type="submit">Submit Review</button>
-                        </div>
+            </div>
 
 
-                    </div>
-                }
+
+            @*-------------------------THIS IS THE LIST OF REVIEWS-------------------------------*@
+
+            @*<div>
+                    <table class="table table-striped" id="resultsTable" style="display: none; color: white">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Rating</th>
+                                <th>Review</th>
+                                <th>Date Posted</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results"></tbody>
+                    </table>
+                </div>*@
 
 
+            @*-------------------------------LET'S TRY SOME CARDS----------------------------------*@
+            <div class=".col-md-4">
+
+                <div style="width: 18rem; display: none" id="cardSpace"></div>
 
 
             </div>
         </div>
-
-
-
-        @*-------------------------THIS IS THE LIST OF REVIEWS-------------------------------*@
-
-        @*<div>
-                <table class="table table-striped" id="resultsTable" style="display: none; color: white">
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Rating</th>
-                            <th>Review</th>
-                            <th>Date Posted</th>
-                        </tr>
-                    </thead>
-                    <tbody id="results"></tbody>
-                </table>
-            </div>*@
-
-
-        @*-------------------------------LET'S TRY SOME CARDS----------------------------------*@
-        <div class=".col-md-4">
-
-            <div style="width: 18rem; display: none" id="cardSpace"></div>
-
-
-        </div>
     </div>
+
+
 </div>
-
-
-
 
 
 <script>
