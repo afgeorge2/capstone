@@ -77,7 +77,7 @@ namespace Capstone.Web.Controllers
 
             _brew.AddNewBrewer(uname1, p_word1, true, breweryID, e_mail1);
 
-            return RedirectToAction("Index");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
 
@@ -86,7 +86,7 @@ namespace Capstone.Web.Controllers
 
             _brew.AddNewBrewer(uname2, p_word2, true, brewID1, e_mail2);
 
-            return RedirectToAction("Index");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
 
@@ -96,6 +96,7 @@ namespace Capstone.Web.Controllers
 
             _brew.UpdateUserBrewer(breweryID, email3);
 
+
             return Json(new { data = true });
         }
 
@@ -103,6 +104,9 @@ namespace Capstone.Web.Controllers
         public ActionResult CurrentUserCurrentBrewery(int brewID2, string email4)
         {
             _brew.UpdateUserBrewer(brewID2, email4);
+
+
+            //return Redirect(Request.UrlReferrer.ToString());
 
             return Json(new { data = true });
         }
@@ -479,6 +483,7 @@ namespace Capstone.Web.Controllers
                     FormsAuthentication.SetAuthCookie(users.EmailAddress, true);
                     _brew.UserRegistration(users);
                     SessionKey.Email = users.EmailAddress;
+                    Session["LoggedIn"] = "true";
                     return RedirectToAction("Index");
                 }
 
@@ -508,6 +513,7 @@ namespace Capstone.Web.Controllers
             Session.Remove(SessionKey.Email);
             Session.Remove(SessionKey.UserID);
             Session.RemoveAll();
+            ViewBag.Message = null;
             return RedirectToAction("Index", "Home");
         }
 
@@ -547,11 +553,12 @@ namespace Capstone.Web.Controllers
                 {
                     Session["Admin"] = null;
                 }
+                Session["LoggedIn"] = "true";
 
                 return RedirectToAction("Index", "Home");
             }
             else
-            {
+            { 
                 return View("Login", model);
             }
 
