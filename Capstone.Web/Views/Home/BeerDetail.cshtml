@@ -1,24 +1,66 @@
 ﻿@using Capstone.Web.Models
 @model Beer
 
-<div class="center jumbotron">
-    <h2 style="text-align:center">@Model.BreweryName</h2>
-    <div class="center" style="text-align:center">
-        <h3 style="text-align:center">@Model.Name</h3>
-        <br />
-        <img src="~/Photos/Beers/@(Model.Name).jpg" style="width:300px; border:1px solid black" />
-        <br />
-        <div style="text-align:center">
-            <h4 style="text-align:center">@Model.BeerType</h4>
-            @Model.Description
+@{
+    string pic = $"{Model.Name}.jpg";
+}
+
+@*-------------------GRID SYSTEM *CONTAINER/ROW*------------------*@
+<div class="container">
+    <div class="row">
+
+        @*--------------------BEER DETAILS SECTION-------------------------*@
+        <div class=".col-md-8">
+            <div class="jumbotron" style="width: 500px">
+                <h2 style="text-align:center">@Model.BreweryName</h2>
+                <div class="center" style="text-align:center">
+                    <h3 style="text-align:center">@Model.Name</h3>
+                    <br />
+                    <img src="~/Photos/Beers/@pic" style="width:300px; border:1px solid black" />
+                    <br />
+                    <div style="text-align:center">
+                        <h4 style="text-align:center">@Model.BeerType</h4>
+                        @Model.Description
+                    </div>
+                    <div style="text-align:center">
+                        <strong>ABV: @Model.AlcoholByVolume</strong>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div style="text-align:center">
-            <strong>ABV: @Model.AlcoholByVolume</strong>
+
+
+
+
+
+
+
+        @*-------------------------THIS IS THE LIST OF REVIEWS-------------------------------*@
+
+        @*<div>
+                <table class="table table-striped" id="resultsTable" style="display: none; color: white">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Rating</th>
+                            <th>Review</th>
+                            <th>Date Posted</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results"></tbody>
+                </table>
+            </div>*@
+
+
+        @*-------------------------------LET'S TRY SOME CARDS----------------------------------*@
+        <div class=".col-md-4">
+
+            <div style="width: 18rem; display: none" id="cardSpace"></div>
+
+
         </div>
     </div>
 </div>
-
-
 
 
 @*-----------------------------THE BEER REVIEW FORM-------------------------------*@
@@ -51,31 +93,10 @@
         <div class="field">
             <button id="submitreview" type="submit" style="margin-left: 25%">Submit Review</button>
         </div>
+
+
     </div>
 }
-
-
-@*-------------------------THIS IS THE LIST OF REVIEWS-------------------------------*@
-
-@*<div>
-    <table class="table table-striped" id="resultsTable" style="display: none; color: white">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Rating</th>
-                <th>Review</th>
-                <th>Date Posted</th>
-            </tr>
-        </thead>
-        <tbody id="results"></tbody>
-    </table>
-</div>*@
-
-
-@*-------------------------------LET'S TRY SOME CARDS----------------------------------*@
-
-<div id="cardSpace" style="display: none; color: white"></div>
-
 
 
 
@@ -119,24 +140,26 @@
         }).done(function (result) {
             console.log(result);
 
-            var list = result;
+
 
             //Display the returned reviews
-            for (var i = 0; i < list.length; i++) {
+            for (var i = 0; i < result.length; i++) {
 
-                var r = list[i];
-                var reviewDate = new Date(parseInt(r.Date.replace("/Date(", "").replace(")/", ""), 10));
-                
-                var html = $(`<div class="card-body"><h5 class="card-title">${r.Rating}</h5><p class="card-text">${r.Username}</p><p class="card-text">${r.ReviewPost}</p><p class="card-text">${reviewDate.getMonth()}/${reviewDate.getDay()}/${reviewDate.getFullYear()}</p></div>`)
-                // var html = $(`<div><h5>${r.Rating}</h5><p>${r.Username}</p><p>${r.ReviewPost}</p><p>${reviewDate.getMonth()}/${reviewDate.getDay()}/${reviewDate.getFullYear()}</p></div>`)
-                //var html = $(`<tr><td>${r.Username}</td><td>${r.Rating}</td><td>${r.ReviewPost}</td><td>${reviewDate.getMonth()}/${reviewDate.getDay()}/${reviewDate.getFullYear()}</td >`);
 
+                var reviewDate = new Date(parseInt(result[i].Date.replace("/Date(", "").replace(")/", ""), 10));
+
+                var stars = `<img src="/Photos/${result[i].Rating}-star.png" style="width: 100px; height: auto" />`;
+                var html = `<div class="card rounded" style="margin-left: 30px"><div class="card-body" style="margin-left: 10px; margin-bottom: 10px">${stars}<p class="card-text"><b>${result[i].Username}</b> on ${reviewDate.getMonth()}/${reviewDate.getDay()}/${reviewDate.getFullYear()} </p><p class="card-text">"${result[i].ReviewPost}"</p></div></div>`;
+
+
+                @*<img src="~/Content/images/@(Math.Round(product.AverageRating) + "-star.png")" style="width: 100px; height: auto;" />
+                    <img src= "~/Photos/@(Math.Round(${}) + "-star.png")" style= "width: 100px; height: auto;" />*@
                 $("#cardSpace").append(html);
-            }
+        }
             $("#cardSpace").show();
-        })
+    })
 
     })
 
-    
+
 </script>
