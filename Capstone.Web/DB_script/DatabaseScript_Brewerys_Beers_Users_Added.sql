@@ -7,8 +7,8 @@
 --GO
 --CREATE DATABASE [Brewery]
 --GO
---USE [Brewery]
---GO
+USE [Brewery]
+GO
 
 ----========================================
 ----==== END OF CREATE DATABASE SECTION ====
@@ -134,6 +134,7 @@ CREATE TABLE reviews
   beer_id INT NOT NULL,
   rating  INT NOT NULL,
   review  VARCHAR(MAX) NOT NULL,
+  review_date date null,
   CONSTRAINT pk_reviews PRIMARY KEY( id ),
   CONSTRAINT fk_reviews_user_info FOREIGN KEY( USER_ID ) REFERENCES users( id ),
   CONSTRAINT fk_reviews_beers FOREIGN KEY( beer_id ) REFERENCES beers( id ), );
@@ -280,7 +281,7 @@ END CATCH;
 
 select * from breweries
 select * from users
-select * from beers
+select * from reviews
 
 --SET LOCK_TIMEOUT 100;  
 

@@ -14,10 +14,10 @@
                 <th>Alcohol By Volume</th>
             </tr>
             @foreach(Beer b in Model)
-            {
+            { 
             <tr>
                 <td>@b.Name</td>
-                <td><a href=@Url.Action("BeerDetail", "Home", new { beerID = b.BeerID }, null)><img src="~/Photos/@b.Image" style="width:125px; height:125px; border:1px solid black" /></a></td>
+                <td><a href=@Url.Action("BeerDetail", "Home", new { beerID = b.BeerID }, null)><img src="~/Photos/Beers/@(b.Name).jpg" style="width:125px; height:125px; border:1px solid black" /></a></td>
                 <td>@b.Description</td>
                 <td>@b.BeerType</td>
                 <td>@b.AlcoholByVolume</td> 

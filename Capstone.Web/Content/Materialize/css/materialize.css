@@ -8336,7 +8336,7 @@ input[type=range].focused:focus:not(.active)::-ms-thumb {
   background-color: #4CAF50;
 }
 
-.carousel {
+/*.carousel {
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -8427,7 +8427,7 @@ input[type=range].focused:focus:not(.active)::-ms-thumb {
 .carousel.scrolling .carousel-item .materialboxed,
 .carousel .carousel-item:not(.active) .materialboxed {
   pointer-events: none;
-}
+}*/
 
 .tap-target-wrapper {
   width: 800px;

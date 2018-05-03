@@ -115,6 +115,9 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\flickity.css" />
+    <Content Include="Content\flickity.pkgd.js" />
+    <Content Include="Content\flickyCustoms.css" />
     <Content Include="Content\Materialize\css\materialize.css" />
     <Content Include="Content\Materialize\css\materialize.min.css" />
     <Content Include="Content\Materialize\js\materialize.js" />
@@ -136,11 +139,32 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="DB_script\DatabaseScript_Brewerys_Beers_Users_Added.sql" />
+    <Content Include="Photos\1-star.png" />
+    <Content Include="Photos\2-star.png" />
+    <Content Include="Photos\3-star.png" />
+    <Content Include="Photos\4-star.png" />
+    <Content Include="Photos\5-star.png" />
     <Content Include="Photos\8a658fbe99870dc34473986bd5981f22.jpg" />
     <Content Include="Photos\beerback1.jpg" />
     <Content Include="Photos\beerback2.jpg" />
     <Content Include="Photos\beerback3.jpg" />
     <Content Include="Photos\beerback4.jpg" />
+    <Content Include="Photos\Beers\BERLINER WEISSE.jpg" />
+    <Content Include="Photos\Beers\BREAKFAST PORTER.jpg" />
+    <Content Include="Photos\Beers\BUBBLES.jpg" />
+    <Content Include="Photos\Beers\CEDAR IPA.jpg" />
+    <Content Include="Photos\Beers\Codex.jpg" />
+    <Content Include="Photos\Beers\COUGAR.jpg" />
+    <Content Include="Photos\Beers\CREAM.jpg" />
+    <Content Include="Photos\Beers\Electrify.jpg" />
+    <Content Include="Photos\Beers\HAMMER SESSION IPA.jpg" />
+    <Content Include="Photos\Beers\HAPPY AMBER.jpg" />
+    <Content Include="Photos\Beers\HUSTLE.jpg" />
+    <Content Include="Photos\Beers\Infinite Spark.jpg" />
+    <Content Include="Photos\Beers\LIFT.jpg" />
+    <Content Include="Photos\Beers\PSA.jpg" />
+    <Content Include="Photos\Beers\PSYCHOPATHY.jpg" />
+    <Content Include="Photos\Beers\TRUTH.jpg" />
     <Content Include="Photos\defaultPhoto.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -214,6 +238,7 @@
     <Content Include="Views\Home\AllBreweries.cshtml" />
     <Content Include="Views\Home\ManageBeers.cshtml" />
     <Content Include="Views\Home\ReviewBeer.cshtml" />
+    <Content Include="Views\Home\UpdateBeer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

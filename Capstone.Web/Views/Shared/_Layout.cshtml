@@ -20,9 +20,9 @@
     <script src="~/Scripts/Validation/RegValidation.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Allerta+Stencil' rel='stylesheet'>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
+    <link href="~/Content/flickity.css" rel="stylesheet" media="screen" />
+    <script src="~/Content/flickity.pkgd.js"></script>
     <style>
         ::-webkit-scrollbar {
             width: 12px;
@@ -58,7 +58,8 @@
         }
 
         #layoutnav {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(255, 255, 255, 0.80);
+            z-index: 100;
         }
 
         /*.mroonbtn {
@@ -94,43 +95,86 @@
         .waves-effect.waves-brown .waves-ripple {
             /* The alpha value allows the text and background color
         of the button to still show through. */
-            background-color: rgba(76, 76, 76, 0.65);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+
+        #layoutnav {
+            position: fixed; /* Set the navbar to fixed position */
+            top: 0; /* Position the navbar at the top of the page */
+            width: 100%; /* Full width */
+        }
+
+        .main {
+            margin-top: 100px;
         }
     </style>
 
 </head>
 
  
-<body class="beerback">
+<body class="beerback main">
     <nav id="layoutnav">
         <div class="nav-wrapper">
             @Html.ActionLink("Home", "Index", "Home", new { @class = "ml-2 waves-effect waves-brown btn teal accent-1 black-text" })
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger black-text"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li>@Html.ActionLink("All Breweries", "AllBreweries", "Home", new { @class = "ml-2 waves-effect waves-brown btn teal accent-1 black-text" })</li>
                 <li>@Html.ActionLink("Register", "UserRegistration", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
                 <li>@Html.ActionLink("Login", "Login", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
 
                 @if (Session.SessionID != null)
-                 {
-                  <li>@Html.ActionLink("Logout", "Logout", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
-                 }
+                {
+                    <li>@Html.ActionLink("Logout", "Logout", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
+                }
 
                 @if (Session["BreweryId"] != null)
-                 {
-                  <li>@Html.ActionLink("Beer Manager", "ManageBeers", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
-                  <li>@Html.ActionLink("Edit Brewery Info", "UpdateBreweryInfo", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
-                 }
+                {
+                    <li>@Html.ActionLink("Beer Manager", "ManageBeers", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
+                    <li>@Html.ActionLink("Edit Brewery Info", "UpdateBreweryInfo", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
+                }
 
                 @if (Session["Admin"] != null)
-                 {
-                  <li>@Html.ActionLink("Add A Brewery", "AddBrewery", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
-                 }
+                {
+                    <li>@Html.ActionLink("Add A Brewery", "AddBrewery", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
+                }
             </ul>
         </div>
     </nav>
+    <ul class="sidenav" id="mobile-demo">
+      
+<li>@Html.ActionLink("All Breweries", "AllBreweries", "Home")</li>
+        <li>@Html.ActionLink("Register", "UserRegistration", "Home")</li>
+        <li>@Html.ActionLink("Login", "Login", "Home")</li>
+        @if (Session.SessionID != null)
+    {
+        <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
+}
+
+        @if (Session["BreweryId"] != null)
+    {
+        <li>@Html.ActionLink("Beer Manager", "ManageBeers", "Home")</li>
+        <li>@Html.ActionLink("Edit Brewery Info", "UpdateBreweryInfo", "Home")</li>
+}
+
+        @if (Session["Admin"] != null)
+    {
+        <li>@Html.ActionLink("Add A Brewery", "AddBrewery", "Home")</li>
+}
+    </ul>
+
+
 
     @RenderBody()
 
     <script src="~/Content/Materialize/js/materialize.js"></script>
 </body>
 </html>
+
+
+<script>
+    $(document).ready(function () {
+        $('.sidenav').sidenav();
+    });
+
+</script>
