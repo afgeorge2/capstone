@@ -46,23 +46,23 @@
     }
     #hd1, #hd2, #hd3, #hd4 {
         border: 1px solid #4a4a4a6b;
-        text-shadow: 6px 5px 20px #00000085;
+        --text-shadow: 6px 5px 20px #00000085;
     }
 
     
 </style>
 
-<div class="container mt-5">
+<div class="container mt-5 jumbotron py-3">
 
 
 
 
 
-    <ul class="collapsible">
+    <ul class="collapsible z-depth-4">
 
         <li>
             <div id="hd1" class="collapsible-header">
-                <i class="fas fa-angle-right"></i>Click Here To Add a New Brewery & a New User
+                <i class="fas fa-angle-right"></i>Click Here To Add a New Brewery and a New User
             </div>
             <div class="collapsible-body">
 
@@ -91,7 +91,7 @@
 
                     <div class="row">
                         <div class="input-field col s12 my-0">
-                            <input name="p_word1" id="password1" type="password" class="validate">
+                            <input name="p_word1" id="password1" type="text" class="validate">
                             <label for="password1">Password</label>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
         </li>
 
         <li>
-            <div id="hd2" class="collapsible-header"><i class="fas fa-angle-right"></i>Click Here To Add a New User to a Exisiting Brewery</div>
+            <div id="hd2" class="collapsible-header"><i class="fas fa-angle-right"></i>Click Here To Add a New User to an Exisiting Brewery</div>
             <div class="collapsible-body">
                 @using (Html.BeginForm("NewUserCurrentBrewery", "Home", FormMethod.Post))
                  {
@@ -127,7 +127,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12 my-0">
-                            <input name="p_word2" id="password2" type="password" class="validate">
+                            <input name="p_word2" id="password2" type="text" class="validate">
                             <label for="password2">Password</label>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
 
 
         <li>
-            <div id="hd3" class="collapsible-header"><i class="fas fa-angle-right"></i>Click Here To Add a Current User To a New Brewery</div>
+            <div id="hd3" class="collapsible-header"><i class="fas fa-angle-right"></i>Click Here To Add an Exisiting User To a New Brewery</div>
             <div id="srch1" class="collapsible-body">
             <div class="row mb-1">
                 <div class="input-field col s6">
@@ -164,7 +164,7 @@
         </li>
 
         <li>
-            <div id="hd4" class="collapsible-header"><i class="fas fa-angle-right"></i>Click Here To Add a Current User to a Exisiting Brewery</div>
+            <div id="hd4" class="collapsible-header"><i class="fas fa-angle-right"></i>Click Here To Add an Exisiting User to an Exisiting Brewery</div>
             <div id="srch2" class="collapsible-body">
 
                     <div>
@@ -369,7 +369,7 @@
                 method: "POST",
                 dataType: "json",
                 success: function (data) {
-                    window.location.href = "/Home/index";
+                    window.location.href = "/Home/AddBrewery";
                     
                 }
             })
@@ -389,7 +389,7 @@
                 method: "POST",
                 dataType: "json",
                 success: function (data) {
-                    window.location.href = "/Home/index";
+                    window.location.href = "/Home/AddBrewery";
 
                 }
             })

@@ -151,7 +151,7 @@ namespace Capstone.Web.DAL
 
                 
             }
-            string picsetup = "insert into breweryPhotos values('defaultPhoto.jpg','@brewid',1)";
+            string picsetup = "insert into breweryPhotos values('defaultPhoto.jpg',@brewid,1)";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
