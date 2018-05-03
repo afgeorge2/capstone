@@ -4,9 +4,9 @@
     @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>*@
-   
+
 @*</head>*@*
-<script>var $carousel = $('.carousel').flickity({
+@*<script>var $carousel = $('.carousel').flickity({
         cellSelector: 'img',
         imagesLoaded: true,
         percentPosition: false
@@ -18,7 +18,8 @@
     $carousel.on('select.flickity', function () {
         // set image caption using img's alt
         $caption.text(flkty.selectedElement.alt)
-    });</script>
+    });</script>*@
+
 <style>
 
     .jumbo {
@@ -38,54 +39,54 @@
         width: 343px;
     }
 
-    input[type=text] {
-        width: 130px;
-        -webkit-transition: width 0.4s ease-in-out;
-        transition: width 0.4s ease-in-out;
-    }
- 
-    .carousel1 {
-        background-color: black;
-    }
+    /*input[type=text] {
+            width: 130px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
 
-    .carousel-inner .active.left {
-        left: -33%;
-    }
+        .carousel1 {
+            background-color: black;
+        }
 
-    .carousel-inner .next {
-        left: 33%;
-    }
+        .carousel-inner .active.left {
+            left: -33%;
+        }
 
-    .carousel-inner .prev {
-        left: -33%;
-    }
+        .carousel-inner .next {
+            left: 33%;
+        }
 
-    .carousel-control.left, .carousel-control.right {
-        background-image: none;
-    }
+        .carousel-inner .prev {
+            left: -33%;
+        }
 
-    .item:not(.prev) {
-        visibility: visible;
-    }
+        .carousel-control.left, .carousel-control.right {
+            background-image: none;
+        }
 
-    .item.right:not(.prev) {
-        visibility: hidden;
-    }
+        .item:not(.prev) {
+            visibility: visible;
+        }
 
-    .rightest {
-        visibility: visible;
-    }
+        .item.right:not(.prev) {
+            visibility: hidden;
+        }
 
-    .center1 {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-}
-    img.center {
+        .rightest {
+            visibility: visible;
+        }
+
+        .center1 {
         display: block;
-        margin: 0 auto;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
     }
+        img.center {
+            display: block;
+            margin: 0 auto;
+        }*/
 
     #brewScroll {
         max-height: 173px;
@@ -96,148 +97,262 @@
             text-decoration: none;
             padding: 5px 20px;
         }
-    /* external css: flickity.css */
+    /*external css: flickity.css
 
-    * {
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: sans-serif;
-    }
-
-    .gallery {
-        background: #EEE;
-    }
-
-    .gallery-cell {
-        width: 28%;
-        height: 240px;
-        margin-right: 10px;
-        background: purple;
-        counter-increment: gallery-cell;
-    }
-
-        .gallery-cell.is-selected {
-            background: #ED2;
+         {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
         }
 
-        /* cell number */
-        .gallery-cell:before {
-            display: block;
+        body {
+            font-family: sans-serif;
+        }
+
+        .gallery {
+            background: #EEE;
+        }
+
+        .gallery-cell {
+            width: 28%;
+            height: 240px;
+            margin-right: 10px;
+            background: purple;
+            counter-increment: gallery-cell;
+        }
+
+            .gallery-cell.is-selected {
+                background: #ED2;
+            }
+
+             cell number
+            .gallery-cell:before {
+                display: block;
+                text-align: center;
+                content: counter(gallery-cell);
+                line-height: 200px;
+                font-size: 80px;
+                color: white;
+            }
+        .logo {
+            position:relative;
+            margin-left: 660px;
+            margin-top: 340px;
+            width: 200px;
+        }
+        #overlay {
+            position: fixed;
+        }
+        .grow {
+            padding: 50px;
+            transition: transform .2s;
+            height: 200px;
+
+        }
+
+        .zoom:hover {
+            transform: scale(1.5);
+        }
+        .map{
+            height:80%;
+            opacity:0.6;
+
+        }
+        .caption {
+            background: #FAFAFA;
+            margin: 0;
+            padding: 10px;
             text-align: center;
-            content: counter(gallery-cell);
-            line-height: 200px;
-            font-size: 80px;
-            color: white;
         }
-    .logo {
-        position:relative;
-        margin-left: 660px;
-        margin-top: 340px;
-        width: 200px;
-    }
-    #overlay {
-        position: fixed; /* Sit on top of the page content */
-    }
-    .grow {
-        padding: 50px;
-        transition: transform .2s; /* Animation */
-        width: 200px;
-        height: 200px;
-        
+        .carousel-cell.is-selected {
+            background: #ED2;
+        }*/
+    .carousel {
+        --background: trans;
+        height: auto;
+        border-radius: 5px;
+        pointer-events: visible;
     }
 
-    .zoom:hover {
-        transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    .carousel-cell {
+        margin-right: 20px;
+        overflow: hidden;
+        border-radius: 5px;
     }
-    .map{
-        height:80%;
-        opacity:0.6;
-        
-    }
-    .caption {
-        background: #FAFAFA;
-        margin: 0;
+
+        .carousel-cell img {
+            display: block;
+            height: 200px;
+        }
+
+    .flickity-viewport {
         padding: 10px;
-        text-align: center;
+        height: 240px !important;
     }
-    .carousel-cell.is-selected {
-        background: #ED2;
+    .color {
+        background-color: #9edfff;
     }
-    
 </style>
 
-    <img class="col-lg-4 center1" style="padding-bottom:20px;" src="https://brewsters.ca/wp-content/themes/brewsters/assets/images/logo-full.svg" />
-    <h3 class="text center">Cincy's Top 10 Beers</h3>
-<div class="container-fluid col-lg-11" style="padding-bottom:30px">
-        <div class="gallery js-flickity" data-flickity='{ "autoPlay": true}'>
-            <img class="gallery-cell" src="~/Photos/beerback1.jpg" />
-            <img class="gallery-cell" src="~/Photos/beerback2.jpg" />
-            <img class="gallery-cell" src="~/Photos/beerback3.jpg" />
-            <img class="gallery-cell" src="~/Photos/beerback4.jpg" />
-            <img class="gallery-cell" src="~/Photos/beerback1.jpg" />
-            <img class="gallery-cell" src="~/Photos/beerback2.jpg" />
-            <img class="gallery-cell" src="~/Photos/beerback3.jpg" />
-            <img class="gallery-cell" src="~/Photos/beerback4.jpg" />
-            <img class="gallery-cell" src="~/Photos/beerback1.jpg" />
-            <img class="gallery-cell" src="~/Photos/beerback2.jpg" />
+<div class="row">
+    @*<img class="col-lg-4 center1" style="top: -88px; padding-bottom:20px;" src="https://brewsters.ca/wp-content/themes/brewsters/assets/images/logo-full.svg" />*@
+    <img class="ml-5" style="top: -88px; width:350px; height:auto;" src="https://brewsters.ca/wp-content/themes/brewsters/assets/images/logo-full.svg" />
+    <div class="color jumbotron w-50 pt-2 pb-5 ml-5">
+<h3 class="text center py-0 my-0">Cincys Favorites</h3>
+        <div id="cCell" class="carousel mx-auto">
         </div>
     </div>
-    <div class="container-fluid pt-0">
-        <div class="jumbotron align-items-md-center ml-2 pt-0 jumbo" style="width:400px; align-self:auto;">
-            <h1 class="center">Breweries</h1>
-            <div id="brewScroll" class="collection">
-                @foreach (Brewery brewery in Model)
-                {
-                    <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null) class="collection-item">@brewery.BreweryName</a>
-                }
-            </div>
-         
-            <div class="jumbotron align-content-center" id="about-us">
-                <h3 class="" style="">
-                    About Us:
-                </h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
 
-                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa.
+</div>
 
-                    Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet.
-                </p>
-            </div>
-        </div>
+
+
+
+
+
+
+<div class="row justify-content-between px-5">
+    <div class="jumbotron col-5 h-100">
+        <h5>afgeorge2 says....</h5>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.
+        </p>
     </div>
-    <div class="container-fluid">
-        <div class="jumbotron col-lg-8" style="flood-opacity:0.8">
-            <h5>afgeorge2 says....</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.
-            </p>
-        </div>
-        <div class="jumbotron col-lg-8">
-            <h5>rj42 says....</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.
-            </p>
-        </div>
-    </div>
-    @*<div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                View Top 5 Breweries
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                @foreach (Brewery brewery in Model)
+    <div class="jumbotron align-items-md-center ml-2 pt-0 jumbo" style="width:400px; align-self:auto;">
+        <h1 class="center">Breweries</h1>
+
+        <div id="brewScroll" class="collection">
+            @foreach (Brewery brewery in Model)
             {
-                <div>
-                    <div class="align-content-center">
-                        <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
-                            @brewery.BreweryName
-                        </a>
-                    </div>
-                </div>
-        }
-            </div>
-        </div>*@
+                <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null) class="collection-item">@brewery.BreweryName</a>
+            }
+        </div>
 
+        <div class="align-content-center mb-1" id="about-us">
+            <h3>
+                About Us:
+            </h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
+
+                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa.
+
+                Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+
+
+    $(function () {
+        $.ajax({
+            url: "/Home/GetAllBeersJson",
+            method: "GET",
+            dataType: "json"
+        }).done(function (beers) {
+            console.log(beers)
+
+            for (var i = 0; i < beers.length; i++) {
+
+
+                $("#cCell").append(`<div class="carousel-cell z-depth-3"><img src="/Photos/Beers/${beers[i].Name}.jpg" alt="flight formation" /></div>`)
+
+                // $("#cCell").append(`<div class="carousel-cell z-depth-3"> <img class="p-2" src="/Photos/Beers/${beers[i].Name}.jpg" /> </div>`)
+
+
+
+                //if (beers[i].BreweryId == 1) {
+                //    $("#1").append(`<img style="width:auto; height:150px" class="z-depth-3 beerpic" src="/Photos/Beers/${beers[i].Name}.jpg" />`)
+                //    madtree1[i] = beers[i]
+
+                //}
+                //if (beers[i].BreweryId == 2) {
+                //    $("#2").append(`<img style="width:auto; height:150px" class="z-depth-3 beerpic" src="/Photos/Beers/${beers[i].Name}.jpg" />`)
+                //    woodburn2[i] = beers[i]
+                //}
+                //if (beers[i].BreweryId == 3) {
+                //    $("#3").append(`<img style="width:auto; height:150px" class="z-depth-3 beerpic" src="/Photos/Beers/${beers[i].Name}.jpg" />`)
+                //    ninegiant3[i] = beers[i]
+                //}
+                //if (beers[i].BreweryId == 4) {
+                //    $("#4").append(`<img style="width:auto; height:150px" class="z-depth-3 beerpic" src="/Photos/Beers/${beers[i].Name}.jpg" />`)
+                //    rhien4[i] = beers[i]
+                //}
+
+            }
+
+            //console.log(madtree1)
+            //console.log(woodburn2)
+            //console.log(ninegiant3)
+            //console.log(rhien4)
+
+        })
+
+
+    })
+
+
+    //$('.main-carousel').flickity({
+    //    // options
+    //    cellAlign: 'left',
+    //    contain: true
+    //});
+    //carousel.addEventListener('mouseleave', function (e) { flick.playPlayer() });
+
+
+
+    setTimeout(function () {
+
+
+        var $carousel = $('.carousel').flickity({
+            imagesLoaded: true,
+            percentPosition: false,
+            wrapAround: true,
+            initialIndex: 2,
+            autoPlay: 1500,
+            pauseAutoPlayOnHover: true,
+        });
+
+
+        var $imgs = $carousel.find('.carousel-cell img');
+        // get transform property
+        var docStyle = document.documentElement.style;
+        var transformProp = typeof docStyle.transform == 'string' ?
+            'transform' : 'WebkitTransform';
+        // get Flickity instance
+        var flkty = $carousel.data('flickity');
+
+        //$carousel.on('scroll.flickity', function () {
+        //    flkty.slides.forEach(function (slide, i) {
+        //        var img = $imgs[i];
+        //        var x = (slide.target + flkty.x) * -1 / 3;
+        //        img.style[transformProp] = 'translateX(' + x + 'px)';
+        //    });
+        //});
+
+    }, 300)
+    //var $carousel = $('.carousel').flickity({
+    //    imagesLoaded: true,
+    //    percentPosition: false,
+    //    contain: true
+
+    //});
+
+    //var flkty = $carousel.data('flickity');
+    //var $imgs = $('.carousel-cell img');
+
+    //$carousel.on('scroll.flickity', function (event, progress) {
+    //    flkty.slides.forEach(function (slide, i) {
+    //        var img = $imgs[i];
+    //        var x = (slide.target + flkty.x) * -1 / 3;
+    //        img.style.transform = 'translateX( ' + x + 'px)';
+    //    });
+    //});
+    $('#your-flickity-select').on('select.flickity', function () { $('#your-flickity-select').flickity('playPlayer') })
+</script>
