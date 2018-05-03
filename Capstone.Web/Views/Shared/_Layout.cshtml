@@ -120,10 +120,13 @@
             <a href="#" data-target="mobile-demo" class="sidenav-trigger black-text"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li>@Html.ActionLink("All Breweries", "AllBreweries", "Home", new { @class = "ml-2 waves-effect waves-brown btn teal accent-1 black-text" })</li>
-                <li>@Html.ActionLink("Register", "UserRegistration", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
-                <li>@Html.ActionLink("Login", "Login", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
+                @if(Session["LoggedIn"] != "true")
+                {
+                    <li>@Html.ActionLink("Register", "UserRegistration", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
+                    <li>@Html.ActionLink("Login", "Login", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
+                }
 
-                @if (Session.SessionID != null)
+                @if (Session["LoggedIn"] == "true")
                 {
                     <li>@Html.ActionLink("Logout", "Logout", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
                 }
@@ -144,12 +147,12 @@
     <ul class="sidenav" id="mobile-demo">
 
         <li>@Html.ActionLink("All Breweries", "AllBreweries", "Home")</li>
-        @if ((Session["UserId"]) == null)
+        @if (Session["LoggedIn"] != "true")
         {
            <li>@Html.ActionLink("Register", "UserRegistration", "Home")</li>
            <li>@Html.ActionLink("Login", "Login", "Home")</li>
         }
-        @if (Session["UserId"] != Session[SessionKey.UserID])
+        @if (Session["LoggedIn"] == "true")
         {
             <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
         }

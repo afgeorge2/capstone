@@ -479,6 +479,7 @@ namespace Capstone.Web.Controllers
                     FormsAuthentication.SetAuthCookie(users.EmailAddress, true);
                     _brew.UserRegistration(users);
                     SessionKey.Email = users.EmailAddress;
+                    Session["LoggedIn"] = "true";
                     return RedirectToAction("Index");
                 }
 
@@ -508,6 +509,7 @@ namespace Capstone.Web.Controllers
             Session.Remove(SessionKey.Email);
             Session.Remove(SessionKey.UserID);
             Session.RemoveAll();
+            ViewBag.Message = null;
             return RedirectToAction("Index", "Home");
         }
 
@@ -547,6 +549,7 @@ namespace Capstone.Web.Controllers
                 {
                     Session["Admin"] = null;
                 }
+                Session["LoggedIn"] = "true";
 
                 return RedirectToAction("Index", "Home");
             }
