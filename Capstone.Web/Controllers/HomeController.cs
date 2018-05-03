@@ -550,7 +550,7 @@ namespace Capstone.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
             else
-            {
+            { 
                 return View("Login", model);
             }
 

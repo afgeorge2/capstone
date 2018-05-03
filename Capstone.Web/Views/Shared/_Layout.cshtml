@@ -142,25 +142,28 @@
         </div>
     </nav>
     <ul class="sidenav" id="mobile-demo">
-      
-<li>@Html.ActionLink("All Breweries", "AllBreweries", "Home")</li>
-        <li>@Html.ActionLink("Register", "UserRegistration", "Home")</li>
-        <li>@Html.ActionLink("Login", "Login", "Home")</li>
-        @if (Session.SessionID != null)
-    {
-        <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
-}
+
+        <li>@Html.ActionLink("All Breweries", "AllBreweries", "Home")</li>
+        @if ((Session["UserId"]) == null)
+        {
+           <li>@Html.ActionLink("Register", "UserRegistration", "Home")</li>
+           <li>@Html.ActionLink("Login", "Login", "Home")</li>
+        }
+        @if (Session["UserId"] != Session[SessionKey.UserID])
+        {
+            <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
+        }
 
         @if (Session["BreweryId"] != null)
-    {
-        <li>@Html.ActionLink("Beer Manager", "ManageBeers", "Home")</li>
-        <li>@Html.ActionLink("Edit Brewery Info", "UpdateBreweryInfo", "Home")</li>
-}
+        {
+            <li>@Html.ActionLink("Beer Manager", "ManageBeers", "Home")</li>
+            <li>@Html.ActionLink("Edit Brewery Info", "UpdateBreweryInfo", "Home")</li>
+        }
 
         @if (Session["Admin"] != null)
-    {
-        <li>@Html.ActionLink("Add A Brewery", "AddBrewery", "Home")</li>
-}
+        {
+            <li>@Html.ActionLink("Add A Brewery", "AddBrewery", "Home")</li>
+        }
     </ul>
 
 
