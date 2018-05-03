@@ -425,7 +425,7 @@ namespace Capstone.Web.Controllers
             m.Date = date;
             _brew.AddBeerReview(m);
 
-            return Redirect("BeerDetail");
+            return Json(new { data = true });
         }
 
         [HttpGet]
