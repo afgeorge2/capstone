@@ -336,7 +336,7 @@ namespace Capstone.Web.Controllers
 
             b.BreweryId = brewId;
             _brew.AddNewBeer(b);
-            return Redirect("AllBreweries");
+            return Redirect("ManageBeers");
         }
 
         [HttpPost]

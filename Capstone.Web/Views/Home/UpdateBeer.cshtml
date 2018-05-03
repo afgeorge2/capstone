@@ -5,13 +5,14 @@
 @using Capstone.Web.Models
 @model Beer
 
-<div class="jumbotron center w-75 mx-auto mt-5">
-    <h1 style="text-align:center">Update @Model.Name</h1>
+<div class="jumbotron center w-50 mx-auto mt-5">
+    <h3 style="text-align:center">Update @Model.Name</h3>
     <div class="center jumbotron">
         <div class="center">
             <img src="~/Photos/Beers/@pic" style="width:300px; height:300px; border:1px solid black" />
         </div>
-        <div class="center jumbotron">
+        <br />
+        <div class="card p-4" style="width: 75%; background-color: #fbfbfb; margin-left: 15%">
             @using (Html.BeginForm("SubmitBeerEdit", "Home", FormMethod.Post))
         {
             <div class="input-field col">
@@ -36,7 +37,7 @@
                 <label class="ml-auto" for="BeerID">Beer ID</label>
             </div>
 
-            <button class="btn btn-primary btn-md btn-block mt-5 teal accent-1 teal-text z-depth-3" id="update-button">Submit Changes</button>
+            <button class="btn mt-5 teal accent-1 teal-text z-depth-1" id="update-button">Submit Changes</button>
     }
         </div>
     </div>
