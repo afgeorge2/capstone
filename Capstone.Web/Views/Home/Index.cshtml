@@ -1,24 +1,6 @@
 ﻿@using Capstone.Web.Models
 @model List<Brewery>
-@*<head>
-    @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>*@
-   
-@*</head>*@*
-<script>var $carousel = $('.carousel').flickity({
-        cellSelector: 'img',
-        imagesLoaded: true,
-        percentPosition: false
-    });
-    var $caption = $('.caption');
-    // Flickity instance
-    var flkty = $carousel.data('flickity');
 
-    $carousel.on('select.flickity', function () {
-        // set image caption using img's alt
-        $caption.text(flkty.selectedElement.alt)
-    });</script>
 <style>
 
     .jumbo {
@@ -138,44 +120,15 @@
         margin-top: 340px;
         width: 200px;
     }
-    #overlay {
-        position: fixed; /* Sit on top of the page content */
-    }
-    .grow {
-        padding: 50px;
-        transition: transform .2s; /* Animation */
-        width: 200px;
-        height: 200px;
-        
-    }
-
-    .zoom:hover {
-        transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-    }
-    .map{
-        height:80%;
-        opacity:0.6;
-        
-    }
-    .caption {
-        background: #FAFAFA;
-        margin: 0;
-        padding: 10px;
-        text-align: center;
-    }
-    .carousel-cell.is-selected {
-        background: #ED2;
-    }
-    
 </style>
 
     <img class="col-lg-4 center1" style="padding-bottom:20px;" src="https://brewsters.ca/wp-content/themes/brewsters/assets/images/logo-full.svg" />
-    <h3 class="text center">Cincy's Top 10 Beers</h3>
+    <h3 class="text center">Cincy's Top 10 Beers</h3> 
 <div class="container-fluid col-lg-11" style="padding-bottom:30px">
         <div class="gallery js-flickity" data-flickity='{ "autoPlay": true}'>
-            <img class="gallery-cell" src="~/Photos/beerback1.jpg" />
             <img class="gallery-cell" src="~/Photos/beerback2.jpg" />
-            <img class="gallery-cell" src="~/Photos/beerback3.jpg" />
+            <img class="gallery-cell" src="~/Photos/beerback1.jpg" />
+            <img class="gallery-cell" src="~/Photos/beerback1.jpg" />
             <img class="gallery-cell" src="~/Photos/beerback4.jpg" />
             <img class="gallery-cell" src="~/Photos/beerback1.jpg" />
             <img class="gallery-cell" src="~/Photos/beerback2.jpg" />
@@ -185,16 +138,16 @@
             <img class="gallery-cell" src="~/Photos/beerback2.jpg" />
         </div>
     </div>
+
     <div class="container-fluid pt-0">
         <div class="jumbotron align-items-md-center ml-2 pt-0 jumbo" style="width:400px; align-self:auto;">
             <h1 class="center">Breweries</h1>
             <div id="brewScroll" class="collection">
                 @foreach (Brewery brewery in Model)
-                {
+                 {
                     <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null) class="collection-item">@brewery.BreweryName</a>
-                }
+                 }
             </div>
-         
             <div class="jumbotron align-content-center" id="about-us">
                 <h3 class="" style="">
                     About Us:
@@ -210,34 +163,24 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="jumbotron col-lg-8" style="flood-opacity:0.8">
+        <div class="jumbotron col-lg-8">
             <h5>afgeorge2 says....</h5>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc."
             </p>
         </div>
         <div class="jumbotron col-lg-8">
             <h5>rj42 says....</h5>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.""
+            </p>
+        </div>
+        <div class="jumbotron col-lg-8">
+            <h5>bob04 says....</h5>
+            <p>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc."
             </p>
         </div>
     </div>
-    @*<div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                View Top 5 Breweries
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                @foreach (Brewery brewery in Model)
-            {
-                <div>
-                    <div class="align-content-center">
-                        <a href=@Url.Action("BreweryDetail", "Home", new { brewID = brewery.BreweryID }, null)>
-                            @brewery.BreweryName
-                        </a>
-                    </div>
-                </div>
-        }
-            </div>
-        </div>*@
+
 
