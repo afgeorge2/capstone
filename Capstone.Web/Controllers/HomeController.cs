@@ -324,14 +324,14 @@ namespace Capstone.Web.Controllers
                 RedirectToAction("Index");
             }
 
-            if (!ModelState.IsValid)
-            {
-                return View("AddBeer", b);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("AddBeer", b);
+            //}
 
             b.BreweryId = brewId;
             _brew.AddNewBeer(b);
-            return Redirect("Index");
+            return Redirect("AllBreweries");
         }
 
         [HttpPost]
@@ -355,7 +355,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["BreweryId"] == null)
             {
-                RedirectToAction("Index");
+                RedirectToAction("Index ");
             }
 
             int brewId = (int)Session["BreweryId"];
@@ -374,10 +374,11 @@ namespace Capstone.Web.Controllers
         }
         //delete beer post
         [HttpPost]
-        public ActionResult DeleteBeer(DeleteBeer b, int brewId, string beername)
+        public ActionResult DeleteBeer(DeleteBeer b, int brewId, string beername, int beerId)
         {
             b.BreweryId = brewId;
             b.Name = beername;
+            b.BeerId = beerId;
             _brew.DeleteBeer(b);
             return Redirect("DeleteBeer");
         }
