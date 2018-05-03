@@ -324,15 +324,15 @@ namespace Capstone.Web.Controllers
                 RedirectToAction("Index");
             }
 
-            if (!ModelState.IsValid)
-            {
-                return View("AddBeer", b);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("AddBeer", b);
+            //}
 
             b.BreweryId = brewId;
             _brew.AddNewBeer(b);
-            return Redirect("Index");
-        } 
+            return Redirect("AllBreweries");
+        }
 
         [HttpPost]
         public ActionResult UpdateBeer(int BeerID)
