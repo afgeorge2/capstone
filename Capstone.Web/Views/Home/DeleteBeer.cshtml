@@ -6,32 +6,34 @@
 
 <select name="dropdown1" id="dropdown1"></select>
 
-<div class="jumbotron w-50 p-3 mx-auto mt-5 jumbo" style="background-color: black; opacity: 0.8">
+<div class="jumbotron w-50 p-3 mx-auto mt-5 jumbo" style="background-color: #eceeef">
 
     <form method="post" action="@Url.Action("DeleteBeer", "Home")" name="deletebeer">
-        <div style="color: white; width: 60%; height: 80%; margin-left: 20%">
+        <div style="width: 60%; height: 80%; margin-left: 20%">
             <h3 style="text-align: center">Delete a Beer</h3>
             <div style="margin-left:15%">
                 <ul>
                     @foreach (Beer b in Model.DropDownBeers)
-            {
-                <li>
-                    <div class="radio">
-                        <label>
-                            <input name="beername" value="@b.Name" type="radio" />
-                            <span>@b.Name</span>
-                        </label>
-                    </div>
-                </li>
-    }
+                    {
+                        <li>
+                            <div class="radio">
+                                <label>
+                                    <input name="beername" value="@b.Name" type="radio" />
+                                    <span>@b.Name</span>
+                                </label>
+                                <input hidden name="beerId" value="@b.BeerID" />
+                            </div>
+                        </li>
+                    }
                 </ul>
             </div>
 
             <input hidden name="brewId" value="@brewId" />
+
             <div id="hiddenstuff" style="text-align: center; color: gray; font-size: 20px">
             </div>
-                <input type="submit" id="deletebutton" value="Delete Beer" name="deletebeer" class="btn btn-outline-light" onclick="confirmDelete()" style="background-color: red; margin-left: 15%" />
-            
+            <input type="submit" id="deletebutton" value="Delete Beer" name="deletebeer" class="btn btn-outline-light" onclick="confirmDelete()" style="background-color: red; margin-left: 15%" />
+
             <br />
             <br />
 
@@ -49,11 +51,11 @@
     @*var list = @Model.DropDownBeers.ToList();
     console.log(list);*@
 
-    function confirmDelete() {
+    @*function confirmDelete() {
         if (!confirm("Are you sure you want to delete @Model.Name?")) {
             event.preventDefault();
         }
-    }
+    }*@
 
     $(function () {
         $.ajax({

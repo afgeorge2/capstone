@@ -2,7 +2,7 @@
 @model List<Beer>
 
 
-<div class="jumbotron center">
+<div class="jumbotron center w-75 mx-auto">
     <h2 style="text-align:center">Current Beer Listings</h2>
     <div class="center">
         <table>
@@ -20,7 +20,7 @@
                 <td><a href=@Url.Action("BeerDetail", "Home", new { beerID = b.BeerID }, null)><img src="~/Photos/Beers/@(b.Name).jpg" style="width:125px; height:125px; border:1px solid black" /></a></td>
                 <td>@b.Description</td>
                 <td>@b.BeerType</td>
-                <td>@b.AlcoholByVolume</td>
+                <td>@b.AlcoholByVolume</td> 
             </tr>
             }
         </table>
