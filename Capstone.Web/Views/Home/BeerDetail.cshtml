@@ -31,10 +31,6 @@
 
 
 
-
-
-
-
         @*-------------------------THIS IS THE LIST OF REVIEWS-------------------------------*@
 
         @*<div>
@@ -149,7 +145,7 @@
                 var reviewDate = new Date(parseInt(result[i].Date.replace("/Date(", "").replace(")/", ""), 10));
 
                 var stars = `<img src="/Photos/${result[i].Rating}-star.png" style="width: 100px; height: auto" />`;
-                var html = `<div class="card rounded" style="margin-left: 30px"><div class="card-body" style="margin-left: 10px; margin-bottom: 10px">${stars}<p class="card-text"><b>${result[i].Username}</b> on ${reviewDate.getMonth()}/${reviewDate.getDay()}/${reviewDate.getFullYear()} </p><p class="card-text">"${result[i].ReviewPost}"</p></div></div>`;
+                var html = `<div class="card rounded" style="margin-left: 30px; background-color: #eceeef"><div class="card-body" style="margin-left: 10px; margin-bottom: 10px">${stars}<p class="card-text"><b>${result[i].Username}</b> on ${reviewDate.getMonth()}/${reviewDate.getDay()}/${reviewDate.getFullYear()} </p><p class="card-text">"${result[i].ReviewPost}"</p></div></div>`;
 
 
                 @*<img src="~/Content/images/@(Math.Round(product.AverageRating) + "-star.png")" style="width: 100px; height: auto;" />

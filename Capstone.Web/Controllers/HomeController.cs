@@ -374,10 +374,11 @@ namespace Capstone.Web.Controllers
         }
         //delete beer post
         [HttpPost]
-        public ActionResult DeleteBeer(DeleteBeer b, int brewId, string beername)
+        public ActionResult DeleteBeer(DeleteBeer b, int brewId, string beername, int beerId)
         {
             b.BreweryId = brewId;
             b.Name = beername;
+            b.BeerId = beerId;
             _brew.DeleteBeer(b);
             return Redirect("DeleteBeer");
         }
