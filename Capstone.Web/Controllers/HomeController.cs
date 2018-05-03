@@ -355,7 +355,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["BreweryId"] == null)
             {
-                RedirectToAction("Index");
+                RedirectToAction("Index ");
             }
 
             int brewId = (int)Session["BreweryId"];
