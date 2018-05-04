@@ -310,28 +310,7 @@ int brewID = (int)Session["BreweryId"];
 
 <script>
 
-
     $("#profilePic").prop("checked",true)
-
-
-    //$(function () {
-    //    $("#profilePic").change(function (event) {
-            
-    //        if ($("#profilePic").is(":checked")) {
-    //            $("#ppic").val(1)
-    //            console.log("1")
-    //        }
-    //        if (!$("#profilePic").is(":checked")) {
-    //            $("#ppic").val(0)
-    //            console.log("0")
-    //        }
-
-    //    })
-
-    //})
-
-
-
 
     $(function () {
         $.ajax({
@@ -378,22 +357,6 @@ int brewID = (int)Session["BreweryId"];
             $("#c6").val(results[6].Closes); $("label#lc6").addClass("active")
 
             })
-
-
-        //setTimeout(function () {
-        //    if ($("#o0").val() != "CLOSED") {
-        //        $("#check0").prop("checked", true);
-        //        $("#lo0").text("Mon Open"); $("#o0").val(""); $("#lo0").removeClass("active"); $("#lo0").removeClass("redclosed"); $("#o0").prop("disabled", false);
-        //        $("#lc0").text("Mon Close"); $("#c0").val(""); $("#lc0").removeClass("active"); $("#lc0").removeClass("redclosed"); $("#c0").prop("disabled", false);
-        //    }
-        //    else if ($("#o0").val() == "CLOSED") {
-        //        $("#check0").prop("checked", false);
-        //        $("#lo0").removeClass("active"); $("#lo0").addClass("redclosed"); $("#lo0").text("CLOSED"); $("#o0").val(""); $("#o0").prop("disabled", true);
-        //        $("#lc0").removeClass("active"); $("#lc0").addClass("redclosed"); $("#lc0").text("CLOSED"); $("#c0").val(""); $("#c0").prop("disabled", true);
-        //    }
-
-        //}, 1000)
-
 
 
     })

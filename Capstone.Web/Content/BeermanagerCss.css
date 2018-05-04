@@ -1,0 +1,26 @@
+﻿
+
+
+@media (min-width: 1000px) {
+    #beerPhotoSubmit {
+        margin-left: 25%;
+        width: 50% !important;
+    }
+}
+@media (max-width: 999px) {
+    #beerPhotoSubmit {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80% !important;
+    }
+}
+
+
+
+@media (max-width: 999px) {
+    .mobile {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 90% !important;
+    }
+}

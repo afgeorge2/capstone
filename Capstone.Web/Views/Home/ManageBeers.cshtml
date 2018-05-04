@@ -1,10 +1,12 @@
-﻿
-@{
+﻿@{
     int brewId = (int)Session["BreweryId"];
-   // int brewId = 1;
+    // int brewId = 1;
 }
 
 
+<head>
+    <link href="~/Content/BeermanagerCss.css" rel="stylesheet" />
+</head>
 <style>
     .bord {
         border-radius: 3px;
@@ -30,40 +32,23 @@
     .switch label input[type=checkbox]:checked + .lever:after {
         background-color: #7DE688;
     }
-
 </style>
 
-<div class="jumbotron w-75 p-3 mx-auto mt-5 jumbo" style="background-color: #eceeef">
-    <h1 style="color: black; text-align: center">Beer Manager</h1>
-    <div style="margin-left: 100px; margin-right: 100px">
-        @*<p style="color: white; font-size: 18px">
-                Howdy-Ho, brewer! You can use this page to manage the beers on your brewery page.
-                <br />
-                To add a new beer, click the <i class="fas fa-beer fa-sm" style="color: lawngreen"></i> icon.
-                <br />
-                To delete a beer, click the <i class="fas fa-beer fa-sm" style="color: red"></i> icon.
-                <br />
-                To hide or show a beer on your page depending on its current availability, click the <i class="far fa-eye-slash fa-sm" style="color: darkgray"></i> icon.
-            </p>*@
-    </div>
+<div class="jumbotron w-50 p-3 mx-auto mt-5 jumbo mobile" style="background-color: #eceeef">
+    <h1 class="mt-1" style="color: black; text-align: center">Beer Manager</h1>
 
-    <br />
-    <br />
+
+
     <div style="text-align: center">
-        @*<a href="AddBeer"><i class="fas fa-beer fa-5x" style="color: lawngreen; margin-right: 10%"></i></a>
-            <a href="DeleteBeer"><i class="fas fa-beer fa-5x" style="color: red; margin-right: 10%"></i></a>*@
-        <a href="AddBeer" class="waves-effect waves-light btn" @*style="background-color: black; border-style:solid; border-color: white"*@><i class="material-icons left fas fa-beer" style="color: lawngreen"></i>Add Beer</a>
-        <a href="DeleteBeer" class="waves-effect waves-light btn" @*style="background-color: black; border-style:solid; border-color: white"*@><i class="material-icons left fas fa-beer" style="color: red"></i>Delete Beer</a>
-
+        <a href="AddBeer" class="waves-effect waves-light my-1 btn" style="width:150px"><i class="material-icons left fas fa-beer" style="color: lawngreen;"></i>Add Beer</a>
+        <a href="DeleteBeer" class="waves-effect waves-light my-1 btn" style="width:150px"><i class="material-icons left fas fa-beer" style="color: red;"></i>Delete Beer</a>
 
     </div>
 
-    <div id="beerSH" class="row col justify-content-center  jumbotron w-75 p-3 mx-auto mt-5 jumbo">
+        <div id="beerSH" class="row justify-content-center p-3 mt-3">
 
-
+        </div>
     </div>
-</div>
-    @*<a href="ShowHideBeer"><i class="fas fa-beer fa-5x" style="color: cornflowerblue"></i></a>*@
 
 
 
@@ -90,7 +75,7 @@
     }).done(function (beers) {
         console.log(beers)
         for (var i = 0; i < beers.length; i++) {
-            var beer = `<div id="beer${i}" class="center p-2 z-depth-3 bord"><strong>${beers[i].Name}</strong>` +
+            var beer = `<div id="beer${i}" class="center my-2 p-2 z-depth-3 bord"><strong>${beers[i].Name}</strong>` +
                 `<div id="bswitch" class="switch"><label><span id="hide">Hide</span><input id="beercheck${i}" ` +
                 `type="checkbox"><span class="lever"></span><span id="show">Show</span></label></div>` +
                 `<div> <form method="post" action="/Home/UpdateBeer"><button class="btn" type="submit" value=${beers[i].BeerID} name="BeerID">Edit Beer</button></form></div> </div>`

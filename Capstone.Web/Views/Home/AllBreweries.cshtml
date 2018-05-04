@@ -8,7 +8,6 @@
 <style>
     .jumbotron {
         background-color: transparent;
-    
     }
 
     .parallax-container {
@@ -18,51 +17,118 @@
     .parallax img {
         max-width: 50%;
     }
+
     a {
         text-decoration: none;
     }
+
     .layer {
         pointer-events: auto;
     }
 
+    .pulse::before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: #00d1ffc4;
+        border-radius: 8px;
+        -webkit-transition: opacity .3s, -webkit-transform .3s;
+        transition: opacity .3s, -webkit-transform .3s;
+        transition: opacity .3s, transform .3s;
+        transition: opacity .3s, transform .3s, -webkit-transform .3s;
+        -webkit-animation: pulse-animation 1s cubic-bezier(0.01, 1.11, 0.61, 0.81) infinite;
+        animation: pulse-animation 2s cubic-bezier(0.01, 1.11, 0.61, 0.81) infinite;
+        z-index: -1;
+        box-shadow: 0px 0px 20px 0px #00ffd0;
+    }
 
-
+    .blue-grey.lighten-5 {
+        background-color: #b8e2ff !important;
+    }
+    .fixed-bottom {
+        position: fixed;
+        right: 17px;
+        bottom: inherit;
+        left: inherit;
+        z-index: 1030;
+    }
+    .scrollcolor {
+        background-color: rgb(255, 255, 255) !important;
+    }
+    #sSpy li a {
+        color: black !important;
+        text-decoration: none !important;
+    }
+    .table-of-contents a.active {
+        border-left: 2px solid #4AF4CD;
+    }
+    .table-of-contents a:hover {
+        border-left: 1px solid #4AF4CD;
+    }
 </style>
 
 
-    <div id="testbeers" class="jumbotron col-8 mx-auto mt-4 p-3">
+<div class="row">
+    <div id="testbeers" class="jumbotron col-10 mx-auto mt-4 p-3">
 
         @foreach (Brewery b in Model)
         {
 
-            <div class="parallax-container">
-                <div class="parallax">
-                    <img src="/Photos/@b.BreweryPhoto.Filename" />
-                </div>
-            </div>
-            <div class="section white z-depth-5">
-                <div  class="container">
-                    <div class="row align-items-center justify-content-between">
-                        <h2 class="header mt-1">@b.BreweryName</h2>
-                        <a href=@Url.Action("BreweryDetail", "Home", new { brewID = b.BreweryID }) class="waves-effect text-gray-dark blue-grey lighten-5 btn">Check Out Brewery</a>
-                    </div>
-                    <strong>@b.Address</strong>
-                    <p class="grey-text text-darken-3 lighten-3 mt-1">
-                        @b.History
-                    </p>
-                    <div id="@b.BreweryID" class="row justify-content-between">
-                     
+            <div class="col s12 m9 l10">
+                <div class="parallax-container">
+                    <div class="parallax">
+                        <img src="/Photos/@b.BreweryPhoto.Filename" />
                     </div>
                 </div>
+                <div id="r_@b.BreweryID" class="section white z-depth-5 section scrollspy">
+                    <div class="container">
+                        <div>
+                            <h2 class="header mt-1 mb-3">@b.BreweryName</h2>
+                        </div>
+
+                        <div class="mb-3">
+                            <a href=@Url.Action("BreweryDetail", "Home", new { brewID = b.BreweryID }) class=" pulse waves-effect text-gray-dark blue-grey lighten-5 btn">Check Out Brewery</a>
+                        </div>                    <strong>@b.Address</strong>
+                        <p class="grey-text text-darken-3 lighten-3 mt-1">
+                            @b.History
+                        </p>
+                        <div id="@b.BreweryID" class="row justify-content-between">
+
+                        </div>
+                    </div>
+                </div>
             </div>
+
         }
+
     </div>
 
+ 
 
-                    @*<button class="btn btn-info" onclick="onClick(this)"></button>*@
-                    @*<a href=@Url.Action("BreweryDetail", "Home", new { brewID = b.BreweryID }, null)>
-                        @b.BreweryName
-                    </a>*@
+    <div class="fixed-bottom hide-on-small-only">
+
+        <div class="jumbotron scrollcolor pl-2 pr-0 py-0">
+            <ul id="sSpy" class="section table-of-contents" style="width: 200px;">
+                @foreach (Brewery b in Model)
+        {
+
+            <li><a href="#r_@b.BreweryID">@b.BreweryName</a></li>
+
+}
+            </ul>
+        </div>
+</div>
+</div>
+
+
+@*<button class="btn btn-info" onclick="onClick(this)"></button>*@
+@*<a href=@Url.Action("BreweryDetail", "Home", new { brewID = b.BreweryID }, null)>
+        @b.BreweryName
+    </a>*@
 
 <style>
     .beerpic {
@@ -72,6 +138,11 @@
     }
 </style>
 <script>
+
+    $(document).ready(function () {
+        $('.scrollspy').scrollSpy();
+    });
+
 
     $(document).ready(function () {
         $('.parallax').parallax();
@@ -94,11 +165,11 @@
 
             for (var i = 0; i < beers.length; i++) {
 
-                
+
 
                 if (beers[i].BreweryId == 1) {
                     $("#1").append(`<img style="width:auto; height:150px" class="z-depth-3 beerpic" src="/Photos/Beers/${beers[i].Name}.jpg" />`)
-                    madtree1[i]=beers[i]
+                    madtree1[i] = beers[i]
 
                 }
                 if (beers[i].BreweryId == 2) {
@@ -121,7 +192,7 @@
             console.log(ninegiant3)
             console.log(rhien4)
 
-            })
+        })
 
 
     })

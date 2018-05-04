@@ -171,6 +171,9 @@ namespace Capstone.Web.Controllers
 
         #region --- UplaodFile ---
 
+
+
+
         private bool isValidContentType(string contentType)
         {
             return contentType.Equals("image/png") || contentType.Equals("image/gif") ||
@@ -182,9 +185,6 @@ namespace Capstone.Web.Controllers
             ,string open0, string close0, string open1, string close1, string open2, string close2, string open3, string close3, string open4, string close4, string open5, string close5, string open6, string close6, bool profPIC = false
             )
         {
-
-           
-
             Brewery b = new Brewery
             {
                 History = history,
@@ -199,7 +199,6 @@ namespace Capstone.Web.Controllers
             m.BrewID = brewID;
             _brew.UpdateBreweryHours(brewID, open0, close0, open1, close1, open2, close2, open3, close3, open4, close4, open5, close5, open6, close6);
 
-
             if (photo!=null)
             {
                 if (!isValidContentType(photo.ContentType))
@@ -210,28 +209,12 @@ namespace Capstone.Web.Controllers
                 else
                 {
                     int idTag = _brew.GetLastAddedBrewPhotoID(brewID);
-
                     idTag += 1;
-
                     Brewery brew = _brew.GetBreweryByID(picbrewID);
-
                     var filename = $"{brew.BreweryName}{idTag}.jpg";
-
                     var path = Path.Combine(Server.MapPath("~/Photos"), filename);
-
                     string checkfile = Path.GetFileName(photo.FileName);
-
                     _brew.UploadBreweryPhoto(filename, brew.BreweryID, profPIC);
-
-
-
-                    //var fInfo = new FileInfo(path);
-
-                    //if (fInfo.Exists)
-                    //{
-                    //    fInfo.Delete();
-                    //}
-
 
                     photo.SaveAs(path);
 
@@ -239,7 +222,6 @@ namespace Capstone.Web.Controllers
                 }
             }
             return RedirectToAction("Index");
-
         }
 
 
@@ -349,10 +331,32 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SubmitBeerEdit(Beer b)
+        public ActionResult SubmitBeerEdit(Beer b, HttpPostedFileBase photo, int beerID)
         {
+            b.BeerID = beerID;
+
             _brew.UpdateBeer(b);
-           return RedirectToAction("ManageBeers");
+
+
+            if (photo != null)
+            {
+                if (!isValidContentType(photo.ContentType))
+                {
+                    ViewBag.Error = "wrong format";
+                    return View("FileUpload");
+                }
+                else
+                {
+                    var filename = $"{b.Name}.jpg";
+                    var path = Path.Combine(Server.MapPath("~/Photos/Beers"), filename);
+
+                    photo.SaveAs(path);
+
+                    return RedirectToAction("ManageBeers");
+                }
+            }
+
+            return RedirectToAction("ManageBeers");
         }
 
         //---------DELETE BEERS------------

@@ -159,8 +159,6 @@ namespace Capstone.Web.DAL
                 SqlCommand cmd = new SqlCommand(picsetup, conn);
                 cmd.Parameters.AddWithValue("@brewid", brewID);
                 cmd.ExecuteNonQuery();
-
-               
             }
             return brewID;
 
@@ -447,13 +445,9 @@ namespace Capstone.Web.DAL
 
         public void UploadBreweryPhoto(string filename, int brewID, bool profilePic)
         {
-            
 
             string sql = @"INSERT INTO breweryPhotos VALUES( @FILE_NAME, @brewery_id, @profile_pic)";
-
-
             int id = 0;
-
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -463,13 +457,7 @@ namespace Capstone.Web.DAL
                 cmd.Parameters.AddWithValue("@profile_pic", profilePic);
                 id = (int)cmd.ExecuteScalar();
             }
-
-            //string updateSQL = @"UPDATE breweryPhotos SET profile_pic = 0 WHERE BreweryPhotoID NOT IN(SELECT CAST(SCOPE_IDENTITY() AS INT ) AS BreweryPhotoID) and brewery_id = @brewID";
-
             string updateSQL = @"UPDATE breweryPhotos SET profile_pic = 0 WHERE BreweryPhotoID <> @id and brewery_id = @brewID";
-
-
-            //_getLastIdSQL
             if (profilePic==true)
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -480,9 +468,7 @@ namespace Capstone.Web.DAL
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
                 }
-
             }
-
         }
 
         public void UploadBeerPhoto(string filename, int beerID)
@@ -496,12 +482,8 @@ namespace Capstone.Web.DAL
                 cmd.Parameters.AddWithValue("@FILE_NAME", filename);
                 cmd.Parameters.AddWithValue("@beer_id", beerID);
                 cmd.ExecuteReader();
-
             }
-
         }
-
-
 
         private BreweryPhoto GetBreweryProfilePhoto(int brewID)
         {
@@ -515,9 +497,6 @@ namespace Capstone.Web.DAL
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
                     cmd.Parameters.AddWithValue("@brewID", brewID);
-                    //cmd.ExecuteReader();
-                    //cmd.ExecuteNonQuery();
-
                     var reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -528,13 +507,10 @@ namespace Capstone.Web.DAL
             }
             catch (Exception)
             {
-
                 return brewphoto;
             }
             return brewphoto;
         }
-
-
 
         private List<BreweryPhoto> GetBreweryOtherPhotos(int brewID)
         {
@@ -561,7 +537,6 @@ namespace Capstone.Web.DAL
             }
             catch (Exception)
             {
-
                 return brewphotos;
             }
             return brewphotos;
@@ -579,20 +554,29 @@ namespace Capstone.Web.DAL
         {
             //add image later
             string SQL_AddBeer = "Insert into beers (name, description, abv, beer_type, brewery_id) Values(@Name, @Description, @AlcoholByVolume, @BeerType, @brewId);";
-
+            int beerID = -1;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(SQL_AddBeer, conn);
+                SqlCommand cmd = new SqlCommand(SQL_AddBeer + _getLastIdSQL, conn);
                 cmd.Parameters.Add(new SqlParameter("@Name", newBeer.Name));
                 cmd.Parameters.Add(new SqlParameter("@Description", newBeer.Description));
                 //cmd.Parameters.Add(new SqlParameter("@image", newBeer.Image));
                 cmd.Parameters.Add(new SqlParameter("@AlcoholByVolume", newBeer.AlcoholByVolume));
                 cmd.Parameters.Add(new SqlParameter("@BeerType", newBeer.BeerType));
                 cmd.Parameters.Add(new SqlParameter("@brewId", newBeer.BreweryId));
-                cmd.ExecuteNonQuery();
+                beerID = (int)cmd.ExecuteScalar();
 
+            }
+            string picsetup = "insert into beerPhotos values('defaultPhoto.jpg',@beerid)";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(picsetup, conn);
+                cmd.Parameters.AddWithValue("@beerid", beerID);
+                cmd.ExecuteNonQuery();
             }
 
             return true;
