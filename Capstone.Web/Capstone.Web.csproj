@@ -122,6 +122,7 @@
     <Content Include="Content\Materialize\css\materialize.min.css" />
     <Content Include="Content\Materialize\js\materialize.js" />
     <Content Include="Content\Materialize\js\materialize.min.js" />
+    <Content Include="Content\MobileCss.css" />
     <Content Include="Content\tether\tether-theme-arrows-dark.css" />
     <Content Include="Content\tether\tether-theme-arrows-dark.min.css" />
     <Content Include="Content\tether\tether-theme-arrows.css" />

@@ -126,10 +126,6 @@
                     <li>@Html.ActionLink("Login", "Login", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
                 }
 
-                @if (Session["LoggedIn"] == "true")
-                {
-                    <li>@Html.ActionLink("Logout", "Logout", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
-                }
 
                 @if (Session["BreweryId"] != null)
                 {
@@ -140,6 +136,10 @@
                 @if (Session["Admin"] != null)
                 {
                     <li>@Html.ActionLink("Add A Brewery", "AddBrewery", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
+                }
+                @if (Session["LoggedIn"] == "true")
+                {
+                    <li>@Html.ActionLink("Logout", "Logout", "Home", new { @class = "waves-effect waves-brown btn teal accent-1 black-text" })</li>
                 }
             </ul>
         </div>

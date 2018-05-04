@@ -1,0 +1,34 @@
+﻿@media (max-width: 1000px) {
+    .picsmall {
+        margin: 0px auto !important;
+        margin-bottom: 25px;
+        width: 75% !important;
+        height: 75% !important;
+    }
+    h1{
+        font-size:20pt;
+    }
+}
+
+@media (min-width: 1001px) {
+    .picsmall {
+        width: 50% !important;
+        height: 50% !important;
+    }
+}
+@media (max-width: 1000px) {
+    .zz {
+    }
+}
+@media (max-width: 1000px) {
+    .zz {
+    }
+}
+@media (max-width: 1000px) {
+    .zz {
+    }
+}
+@media (max-width: 1000px) {
+    .zz {
+    }
+}

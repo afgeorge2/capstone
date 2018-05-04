@@ -153,10 +153,10 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
-        public ActionResult BreweryDetail(/*int brewID*/)
+        public ActionResult BreweryDetail(int brewID = 1)
         {
-            //Brewery brewDetail = _brew.GetBreweryByID(brewID);
-            Brewery brewDetail = _brew.GetBreweryByID(1);
+            Brewery brewDetail = _brew.GetBreweryByID(brewID);
+            //Brewery brewDetail = _brew.GetBreweryByID(1);
             return View("BreweryDetail", brewDetail);
         }
 
@@ -401,9 +401,9 @@ namespace Capstone.Web.Controllers
 
 
 
-        public ActionResult BreweryBeers()
+        public ActionResult BreweryBeers(int brewID)
         {
-            int brewID = 1;
+            //int brewID = 1;
 
             List<Beer> beerlist = _brew.GetAllBeersFromBrewery(brewID);
 
