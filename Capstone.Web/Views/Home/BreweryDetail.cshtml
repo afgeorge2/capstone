@@ -11,46 +11,59 @@
     .pic {
         border-radius: 3px;
     }
+
     .fine {
-        font-weight:100;
+        font-weight: 100;
     }
 </style>
 <div class="jumbotron align-content-center w-75 mx-auto pt-4">
     <h1 class="mt-0" style="text-align:center">@Model.BreweryName</h1>
-            <div class="row justify-content-between">
-                <div class="picdiv mb-3">
-                    <img class="z-depth-3" src="~/Photos/@Model.BreweryPhoto.Filename" />
-                    @*<img class="w-50 h-50 z-depth-3 mt-3 picsmall" src="~/Photos/@Model.BreweryPhoto.Filename" />*@
-                </div>
-                    <div style="margin-bottom:25px;">
-                        <strong>Brewery Address: </strong> <span class="fine">@Model.Address</span><br />
-                        <strong>Phone Number: </strong> <span class="fine">@Model.ContactPhone</span><br />
-                        <strong>Contact Person: </strong> <span class="fine">@Model.ContactName</span><br />
-                        <strong>Contact Email: </strong> <span class="fine">@Model.ContactEmail</span><br />
-                        <div>
-                            <h5>Hours</h5>
-                            @foreach (var hour in Model.Hours)
-        {
+    <div class="row justify-content-between">
+        <div class="picdiv mb-3">
+            <img class="z-depth-3" src="~/Photos/@Model.BreweryPhoto.Filename" />
+            @*<img class="w-50 h-50 z-depth-3 mt-3 picsmall" src="~/Photos/@Model.BreweryPhoto.Filename" />*@
+        </div>
+        <div style="margin-bottom:25px;">
+            <div>
+                <strong>Brewery Address: </strong> <span class="fine">@Model.Address</span><br />
+                <strong>Phone Number: </strong> <span class="fine">@Model.ContactPhone</span><br />
+                <strong>Contact Person: </strong> <span class="fine">@Model.ContactName</span><br />
+                <strong>Contact Email: </strong> <span class="fine">@Model.ContactEmail</span><br />
+            </div>
 
-                    <div class="row my-0">
+            <div>
+                <h5 class="pl-0">Hours</h5>
+                @foreach (var hour in Model.Hours)
+                {
+                <div class="m-0 row">
+                    <div class="pl-0 col-3 my-0 justify-content-between" style="width: 70%;">
                         <strong> @hour.DayOfWeek</strong>
+                    </div>
+                    <div class="ml-2">
                         <span class="fine">: @hour.Opens - @hour.Closes</span>
                     </div>
+                </div>
+
+                }
+            </div>
+        </div>
+    </div>
 
 
-}
-                        </div>
-                    </div>
-            </div>
-            <div class="align-content-center">
-                @Model.History
-            </div>
+    <div class="align-content-center">
+        @Model.History
+    </div>
 
-            <br />
-            <div class="center">
-                <form method="get" action="@Url.Action("BreweryBeerDetail", "Home", null)">
-                    <input hidden value="@Model.BreweryID" name="brewID" />
-                    <button type="submit" class="waves-effect waves-light btn mroonbtn">View Beers</button>
-                </form>
-            </div>
+    <br />
+    <div class="center">
+        <form method="get" action="@Url.Action("BreweryBeerDetail", "Home", null)">
+            <input hidden value="@Model.BreweryID" name="brewID" />
+            <button type="submit" class="waves-effect waves-light btn mroonbtn">View Beers</button>
+        </form>
+    </div>
 </div>
+
+
+@*<div class="row my-0 justify-content-between" style="width: 70%;">
+    <div><strong> @hour.DayOfWeek</strong></div><div><span class="fine">: @hour.Opens - @hour.Closes</span></div>
+</div>*@

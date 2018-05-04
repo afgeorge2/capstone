@@ -19,5 +19,8 @@ namespace Capstone.Web.Models.ViewModels
         [Required(ErrorMessage = "REQUIRED")]
         [EmailAddress(ErrorMessage ="Not a valid Email")]
         public string EmailAddress { get; set; }
+
+        public int UserId { get; set; }
+
     }
 } 

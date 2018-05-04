@@ -264,12 +264,123 @@ INSERT INTO users
  is_admin)
 VALUES
 (
-  'admin@admin.com', 'Administrator', 'password', 1, NULL, 1),
+  'admin@admin.com', 'Administrator', 'password', 0, NULL, 1),
 (
   'beerlover@user.com', 'Beer Lover #1', 'password', 0, NULL, 0),
   (
   'mabucar88@gmail.com', 'mataanabucar', 'password', 1, 1, 0);
 
+
+  INSERT INTO beerPhotos
+VALUES
+(
+  'PSYCHOPATHY.jpg		', 1, 1),
+(
+  'LIFT.jpg				', 2, 1),
+(
+  'PSA.jpg				', 3, 1),
+(
+  'HAPPY AMBER.jpg		', 4, 1),
+(
+  'BERLINER WEISSE.jpg	', 5, 2),
+(
+  'BREAKFAST PORTER.jpg	', 6, 2),
+(
+  'CEDAR IPA.jpg		 	', 7, 2),
+(
+  'HAMMER SESSION IPA.jpg	', 8, 2),
+(
+  'CREAM.jpg			', 9, 3),
+(
+  'Electrify.jpg			', 10, 3),
+(
+  'Infinite Spark.jpg	 	', 11, 3),
+(
+  'Codex.jpg			', 12, 3),
+(
+  'TRUTH.jpg			', 13, 4),
+(
+  'COUGAR.jpg			', 14, 4),
+(
+  'BUBBLES.jpg			', 15, 4),
+(
+  'HUSTLE.jpg			', 16, 4);		 
+
+
+INSERT INTO breweryPhotos
+VALUES
+(
+  'defaultPhoto.jpg', 1, 0),
+(
+  'defaultPhoto.jpg', 2, 0),
+(
+  'defaultPhoto.jpg', 3, 0),
+(
+  'defaultPhoto.jpg', 4, 0),
+(
+  'MadTree Brewing1.jpg', 1, 0),
+(
+  'MadTree Brewing1.jpg', 1, 0),
+(
+  'MadTree Brewing1.jpg', 1, 0),
+(
+  'The Woodburn Brewery35.jpg', 2, 0),
+(
+  'The Woodburn Brewery46.jpg', 2, 0),
+(
+  'The Woodburn Brewery49.jpg', 2, 0),
+(
+  'The Woodburn Brewery50.jpg', 2, 1),
+(
+  'MadTree Brewing45.jpg', 1, 1),
+(
+  'MadTree Brewing40.jpg', 1, 0),
+(
+  'MadTree Brewing41.jpg', 1, 0),
+(
+  'MadTree Brewing42.jpg', 1, 0),
+(
+  'MadTree Brewing43.jpg', 1, 0),
+(
+  'MadTree Brewing44.jpg', 1, 0),
+(
+  'Nine Giant36.jpg', 3, 1),
+(
+  'Rhinegeist Brewery37.jpg', 4, 1);
+
+
+  INSERT INTO operation VALUES
+(1,'Monday','1:00pm','2:30am'),
+(1,'Tuesday','1:00pm','2:30am'),
+(1,'Wednesday','1:00pm','2:30am'),
+(1,'Thursday','1:00pm','2:30am'),
+(1,'Friday','1:00pm','2:30am'),
+(1,'Saturday','1:00pm','2:30am'),
+(1,'Sunday','1:00pm','2:30am'),
+
+(2,'Monday','1:00pm','2:30am'),
+(2,'Tuesday','1:00pm','2:30am'),
+(2,'Wednesday','1:00pm','2:30am'),
+(2,'Thursday','1:00pm','2:30am'),
+(2,'Friday','1:00pm','2:30am'),
+(2,'Saturday','1:00pm','2:30am'),
+(2,'Sunday','1:00pm','2:30am'),
+
+(3,'Monday','1:00pm','2:30am'),
+(3,'Tuesday','1:00pm','2:30am'),
+(3,'Wednesday','1:00pm','2:30am'),
+(3,'Thursday','1:00pm','2:30am'),
+(3,'Friday','1:00pm','2:30am'),
+(3,'Saturday','1:00pm','2:30am'),
+(3,'Sunday','1:00pm','2:30am'),
+
+(4,'Monday','1:00pm','2:30am'),
+(4,'Tuesday','1:00pm','2:30am'),
+(4,'Wednesday','1:00pm','2:30am'),
+(4,'Thursday','1:00pm','2:30am'),
+(4,'Friday','1:00pm','2:30am'),
+(4,'Saturday','1:00pm','2:30am'),
+(4,'Sunday','1:00pm','2:30am')
 
         COMMIT;
 END TRY
@@ -281,6 +392,10 @@ END CATCH;
 
 select * from breweries
 select * from users
+select * from beers
+select * from operation
+select * from beerPhotos
+select * from breweryPhotos
 select * from reviews
 
 --SET LOCK_TIMEOUT 100;  

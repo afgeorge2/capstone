@@ -16,7 +16,21 @@
 </style>
 <div class="jumbotron w-50 p-3 mx-auto mt-5 jumbo" style="background-color: #eceeef">
 
-    <form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">
+    @*<form method="post" action="@Url.Action("AddBeer", "Home")" name="addbeer">*@
+        @using (Html.BeginForm("AddBeer", "Home", FormMethod.Post, new { id = "beerPhotoSubmit", enctype = "multipart/form-data" }))
+        {
+
+        <div class="pr-4">
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>File</span>
+                    <input type="file" name="photo">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" placeholder="Upload Beer Image Here" type="text">
+                </div>
+            </div>
+        </div>
         <div style="width: 400px; height: auto; margin-left: 90px">
             <h3 style="text-align: center">Add a New Beer</h3>
 
@@ -38,7 +52,7 @@
             </select>
 
 
-            <div>@Html.TextBoxFor(m => m.BeerType, new { id = "bType"})</div>
+            <div>@Html.TextBoxFor(m => m.BeerType, new { id = "bType" })</div>
         </div>
         <p></p>
         <p style="margin-left: 90px">Alcohol by Volume (example: 4.5%):</p> <div><span name="AlcoholByVolume"> @Html.TextBoxFor(m => m.AlcoholByVolume, new { style = "color: black; width: 400px; height: auto; margin-left: 90px" }) @Html.ValidationMessageFor(m => m.AlcoholByVolume)</span></div>
@@ -47,8 +61,8 @@
         <input type="submit" value="Submit new beer!" name="submitnewbeer" class="btn btn-outline-light" style="background-color: brown; margin-left: 90px" />
         <br />
         <br />
-
-    </form>
+        }
+    @*</form>*@
 </div>
 
 

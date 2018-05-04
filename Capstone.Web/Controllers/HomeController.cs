@@ -299,7 +299,7 @@ namespace Capstone.Web.Controllers
 
         //add beer post
         [HttpPost]
-        public ActionResult AddBeer(AddBeerModel b, int brewId, string beertypes)
+        public ActionResult AddBeer(AddBeerModel b, int brewId, string beertypes, HttpPostedFileBase photo)
         {
             if (beertypes!="null")
             {
@@ -311,13 +311,29 @@ namespace Capstone.Web.Controllers
                 RedirectToAction("Index");
             }
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return View("AddBeer", b);
-            //}
 
             b.BreweryId = brewId;
-            _brew.AddNewBeer(b);
+
+            var filename = "";
+            if (photo != null)
+            {
+                if (!isValidContentType(photo.ContentType))
+                {
+                    ViewBag.Error = "wrong format";
+                    return View("FileUpload");
+                }
+                else
+                {
+                    filename = $"{b.Name}.jpg";
+                    var path = Path.Combine(Server.MapPath("~/Photos/Beers"), filename);
+
+                    photo.SaveAs(path);
+
+                    //return RedirectToAction("ManageBeers");
+                }
+            }
+            _brew.AddNewBeer(b, filename);
+
             return Redirect("ManageBeers");
         }
 
@@ -482,12 +498,17 @@ namespace Capstone.Web.Controllers
                     {
                         EmailAddress = model.EmailAddress,
                         UserName = model.UserName,
-                        Password = model.Password
+                        Password = model.Password,
+                        UserId = model.UserId
                     };
 
                     FormsAuthentication.SetAuthCookie(users.EmailAddress, true);
                     _brew.UserRegistration(users);
-                    SessionKey.Email = users.EmailAddress;
+                    User ucuser = _brew.GetUser(model.EmailAddress, model.UserName);
+                    Session[SessionKey.Email] = users.EmailAddress;
+                    Session[SessionKey.UserID] = users.UserName;
+
+                    Session["UserId"] = ucuser.UserId;
                     Session["LoggedIn"] = "true";
                     return RedirectToAction("Index");
                 }

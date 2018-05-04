@@ -22,14 +22,14 @@
 @media (min-width: 1000px) {
     .picdiv {
         --height: 50% !important;
-        --width: 60% !important;
+        --width: 55% !important;
         height: 50% !important;
-        width: 60% !important;
+        width: 55% !important;
         
     }
     .picdiv img {
         height: 75% !important;
-        width: 75% !important;
+        width: 90% !important;
         
     }
 }

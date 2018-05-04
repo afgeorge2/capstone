@@ -550,11 +550,11 @@ namespace Capstone.Web.DAL
         #region --- Beer Methods ---
 
 
-        public bool AddNewBeer(AddBeerModel newBeer)
+        public bool AddNewBeer(AddBeerModel newBeer, string photoname)
         {
             //add image later
             string SQL_AddBeer = "Insert into beers (name, description, abv, beer_type, brewery_id) Values(@Name, @Description, @AlcoholByVolume, @BeerType, @brewId);";
-            int beerID = -1;
+            int beerID = 0;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -569,13 +569,21 @@ namespace Capstone.Web.DAL
                 beerID = (int)cmd.ExecuteScalar();
 
             }
-            string picsetup = "insert into beerPhotos values('defaultPhoto.jpg',@beerid)";
+            string picsetup = "insert into beerPhotos values(@photoname, @beerid,@breweryid)";
+
+            if (photoname==null)
+            {
+                photoname = "defaultPhoto.jpg";
+            }
+
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(picsetup, conn);
+                cmd.Parameters.AddWithValue("@photoname", photoname);
                 cmd.Parameters.AddWithValue("@beerid", beerID);
+                cmd.Parameters.AddWithValue("@breweryid", newBeer.BreweryId);
                 cmd.ExecuteNonQuery();
             }
 

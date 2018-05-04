@@ -80,11 +80,11 @@
 
             <div class="col s12 m9 l10">
                 <div class="parallax-container">
-                    <div class="parallax">
+                    <div  class="parallax ">
                         <img src="/Photos/@b.BreweryPhoto.Filename" />
                     </div>
                 </div>
-                <div id="r_@b.BreweryID" class="section white z-depth-5 section scrollspy">
+                <div  class="section white z-depth-5 ">
                     <div class="container">
                         <div>
                             <h2 class="header mt-1 mb-3">@b.BreweryName</h2>
@@ -93,7 +93,7 @@
                         <div class="mb-3">
                             <a href=@Url.Action("BreweryDetail", "Home", new { brewID = b.BreweryID }) class=" pulse waves-effect text-gray-dark blue-grey lighten-5 btn">Check Out Brewery</a>
                         </div>                    <strong>@b.Address</strong>
-                        <p class="grey-text text-darken-3 lighten-3 mt-1">
+                        <p id="r_@b.BreweryID" class="grey-text text-darken-3 lighten-3 mt-1 section scrollspy">
                             @b.History
                         </p>
                         <div id="@b.BreweryID" class="row justify-content-between">
