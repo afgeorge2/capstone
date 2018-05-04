@@ -514,7 +514,6 @@ namespace Capstone.Web.Controllers
             Session.Remove(SessionKey.Email);
             Session.Remove(SessionKey.UserID);
             Session.RemoveAll();
-            ViewBag.Message = null;
             return RedirectToAction("Index", "Home");
         }
 
@@ -545,6 +544,10 @@ namespace Capstone.Web.Controllers
                 if (thisGuy.IsBrewer == true)
                 {
                     Session["BreweryId"] = thisGuy.BreweryId;
+                }
+                else
+                {
+                    Session["BreweryId"] = null;
                 }
                 if (thisGuy.IsAdmin)
                 {
